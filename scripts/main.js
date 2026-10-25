@@ -12,6 +12,7 @@ console.log(ctx);
 var CursorMode;
 (function (CursorMode) {
     CursorMode[CursorMode["None"] = 0] = "None";
+    CursorMode[CursorMode["ClickDots"] = 1] = "ClickDots";
 })(CursorMode || (CursorMode = {}));
 var BackgroundMode;
 (function (BackgroundMode) {
@@ -21,9 +22,12 @@ var BackgroundMode;
     BackgroundMode[BackgroundMode["RandomDots"] = 3] = "RandomDots";
 })(BackgroundMode || (BackgroundMode = {}));
 let currentCursorMode = CursorMode.None;
-let currentBackgroundMode = BackgroundMode.RandomDots;
+let currentBackgroundMode = BackgroundMode.Black;
 function draw() {
     if (currentCursorMode === CursorMode.None) {
+        // Nothing
+    }
+    else if (currentCursorMode = CursorMode.ClickDots) {
     }
     if (currentBackgroundMode === BackgroundMode.Black) {
         canvas.style.background = "black";
@@ -62,7 +66,7 @@ function draw() {
             const x = Math.floor(Math.random() * width);
             const y = Math.floor(Math.random() * height);
             let radDev = Math.floor(Math.random() * (maxDeviation + minDeviation + 1)) + minDeviation;
-            ctx.fillStyle = getRandomDarkHex(100);
+            ctx.fillStyle = getRandomDarkHex();
             // ctx.strokeStyle = "white";
             // ctx.lineWidth = 10;
             ctx.beginPath();
@@ -96,4 +100,4 @@ function getRandomBlackAndWhiteHex(start = 0, end = 255) {
     return "#" + rand.toString(16).padStart(2, "0").repeat(3);
 }
 export {};
-//# sourceMappingURL=script.js.map
+//# sourceMappingURL=main.js.map

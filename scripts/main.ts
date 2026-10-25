@@ -13,22 +13,26 @@ console.log(canvas);
 console.log(ctx);
 
 enum CursorMode {
-    None
+    None,
+    ClickDots,
 }
 
 enum BackgroundMode {
     Black,
     White,
     Checkerboard,
-    RandomDots
+    RandomDots,
+    
 }
 
 let currentCursorMode: CursorMode = CursorMode.None as CursorMode;
-let currentBackgroundMode: BackgroundMode = BackgroundMode.RandomDots as BackgroundMode;
+let currentBackgroundMode: BackgroundMode = BackgroundMode.Black as BackgroundMode;
 
 function draw() {
     if (currentCursorMode === CursorMode.None) {
-        
+        // Nothing
+    } else if (currentCursorMode = CursorMode.ClickDots) {
+
     }
 
     if (currentBackgroundMode === BackgroundMode.Black) {
