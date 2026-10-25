@@ -10,6 +10,7 @@ window.addEventListener("resize", () => {
 
 
 console.log(canvas); 
+console.log(ctx);
 
 enum CursorMode {
     None
@@ -18,11 +19,12 @@ enum CursorMode {
 enum BackgroundMode {
     Black,
     White,
-    Checkerboard
+    Checkerboard,
+    RandomDots
 }
 
 let currentCursorMode: CursorMode = CursorMode.None as CursorMode;
-let currentBackgroundMode: BackgroundMode = BackgroundMode.Checkerboard as BackgroundMode;
+let currentBackgroundMode: BackgroundMode = BackgroundMode.RandomDots as BackgroundMode;
 
 function draw() {
     if (currentCursorMode === CursorMode.None) {
@@ -48,7 +50,55 @@ function draw() {
             }
             outerToggle = !outerToggle;
         }
+    } else if (currentBackgroundMode == BackgroundMode.RandomDots) {
+        canvas.style.backgroundColor = "black";
+        const numDots = 50;
+        const maxDeviation = 2;
+        const minDeviation = 5;
+        const rad = 10
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+
+        //let dotColor = "white";
+
+        for (let i: number = 0; i < numDots; i++) {
+            const x = Math.floor(Math.random()*width);
+            const y = Math.floor(Math.random()*height);
+
+            let radDev = Math.floor(Math.random()*(maxDeviation + minDeviation + 1)) + minDeviation;
+
+            ctx.fillStyle = getRandomDarkHex();
+            // ctx.strokeStyle = "white";
+            // ctx.lineWidth = 10;
+            ctx.beginPath();
+            ctx.arc(x, y, rad+radDev, 0, Math.PI*2);
+            // ctx.stroke();
+            ctx.fill();
+        }
     }
 }
 
 draw();
+
+function getRandomHex() {
+    const randR: number = Math.floor(Math.random() * 256);
+    const randG: number = Math.floor(Math.random() * 256);
+    const randB: number = Math.floor(Math.random() * 256);
+    return "#" + randR.toString(16).padStart(2, "0") + randG.toString(16).padStart(2, "0") + randB.toString(16).padStart(2, "0");
+}
+function getRandomLightHex() {
+    const randR: number = Math.floor(Math.random() * 100) + 156;
+    const randG: number = Math.floor(Math.random() * 100) + 156;
+    const randB: number = Math.floor(Math.random() * 100) + 156;
+    return "#" + randR.toString(16).padStart(2, "0") + randG.toString(16).padStart(2, "0") + randB.toString(16).padStart(2, "0");
+}
+function getRandomDarkHex() {
+    const randR: number = Math.floor(Math.random() * 100);
+    const randG: number = Math.floor(Math.random() * 100);
+    const randB: number = Math.floor(Math.random() * 100);
+    return "#" + randR.toString(16).padStart(2, "0") + randG.toString(16).padStart(2, "0") + randB.toString(16).padStart(2, "0");
+}
+function getRandomBlackAndWhiteHex(start: number = 0, end: number = 255) {
+    const rand: number = Math.floor(Math.random() * (end-start+1)) + start;
+    return "#" + rand.toString(16).padStart(2, "0").repeat(3);
+}
