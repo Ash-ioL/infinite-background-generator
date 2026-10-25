@@ -70,8 +70,15 @@ export class MouseUtil {
     };
     static #speed = 0; // pixels per second
     static #prevTime = Date.now() / 1000;
+    static #idleTimeout = undefined;
     static initMouseListener() {
         window.addEventListener("mousemove", (event) => {
+            if (MouseUtil.#idleTimeout !== undefined) {
+                clearTimeout(MouseUtil.#idleTimeout);
+            }
+            MouseUtil.#idleTimeout = window.setTimeout(() => {
+                MouseUtil.#speed = 0;
+            }, 100);
             const newPosX = event.x;
             const newPosY = event.y;
             const curTime = Date.now() / 1000;

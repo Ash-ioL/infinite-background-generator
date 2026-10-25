@@ -18,6 +18,7 @@ var CursorMode;
     CursorMode[CursorMode["ClickDots"] = 1] = "ClickDots";
     CursorMode[CursorMode["HoldDots"] = 2] = "HoldDots";
     CursorMode[CursorMode["Debug"] = 3] = "Debug";
+    CursorMode[CursorMode["Flashlight"] = 4] = "Flashlight";
 })(CursorMode || (CursorMode = {}));
 var BackgroundMode;
 (function (BackgroundMode) {
@@ -26,7 +27,7 @@ var BackgroundMode;
     BackgroundMode[BackgroundMode["Checkerboard"] = 2] = "Checkerboard";
     BackgroundMode[BackgroundMode["RandomDots"] = 3] = "RandomDots";
 })(BackgroundMode || (BackgroundMode = {}));
-let currentCursorMode = CursorMode.Debug;
+let currentCursorMode = CursorMode.Flashlight;
 let currentBackgroundMode = BackgroundMode.Black;
 function draw() {
     drawBackground(canvas, ctx, currentBackgroundMode);

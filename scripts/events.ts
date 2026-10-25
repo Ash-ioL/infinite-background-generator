@@ -2,6 +2,11 @@ export interface MouseEvents {
     click(): void;
     move(): void;
     hold(): void;
+    scroll(): void;
+}
+
+export interface ForeverEvent {
+    run(): void;
 }
 
 let currentMouseEvents: MouseEvents = {
@@ -14,9 +19,19 @@ let currentMouseEvents: MouseEvents = {
     hold() {
 
     },
+    scroll() {
+
+    },
+}
+
+let currentForeverEvent: ForeverEvent = {
+    run() {
+
+    },
 }
 
 let mouseIsDown = false;
+export let scrollY = 0;
 
 export function initMouseEvents(canvas: HTMLCanvasElement) {
     canvas.addEventListener("click", () => {
@@ -31,19 +46,55 @@ export function initMouseEvents(canvas: HTMLCanvasElement) {
     canvas.addEventListener("mouseup", () => {
         mouseIsDown = false;
     });
-    startEngine
+    canvas.addEventListener("wheel", () => {
+        currentMouseEvents.scroll();
+    });
+    startEngine();
+    recordWheel();
 }
 
 function startEngine() {
     if (mouseIsDown) {
         currentMouseEvents.hold();
     }
+    currentForeverEvent.run();
     requestAnimationFrame(() => {
         startEngine();
     });
 }
 
+function recordWheel() {
+    window.addEventListener("wheel", (e) => {
+        scrollY += e.deltaY;
+    })
+}
+
 
 export function setMouseEvents(newMouseEvents: MouseEvents) {
     currentMouseEvents = newMouseEvents;
+}
+export function resetMouseEvents() {
+    currentMouseEvents = {
+        click() {
+
+        },
+        move() {
+
+        },
+        hold() {
+
+        },
+        scroll() {
+
+        },
+    }
+}
+
+export function setForeverEvent(newForeverEvent: ForeverEvent) {
+    currentForeverEvent = newForeverEvent;
+}
+export function resetForeverEvent() {
+    currentForeverEvent = {
+        run() {},
+    }
 }

@@ -21,6 +21,7 @@ enum CursorMode {
     ClickDots,
     HoldDots,
     Debug,
+    Flashlight
 }
 
 enum BackgroundMode {
@@ -30,7 +31,7 @@ enum BackgroundMode {
     RandomDots,
 }
 
-let currentCursorMode: CursorMode = CursorMode.Debug as CursorMode;
+let currentCursorMode: CursorMode = CursorMode.Flashlight as CursorMode;
 let currentBackgroundMode: BackgroundMode = BackgroundMode.Black as BackgroundMode;
 
 function draw() {
@@ -43,3 +44,4 @@ initMouseEvents(canvas);
 draw();
 
 export { BackgroundMode, CursorMode }
+
