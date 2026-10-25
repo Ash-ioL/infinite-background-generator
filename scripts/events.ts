@@ -1,7 +1,6 @@
 export interface MouseEvents {
     click(): void;
     move(): void;
-    resize(): void;
     hold(): void;
 }
 
@@ -10,9 +9,6 @@ let currentMouseEvents: MouseEvents = {
 
     },
     move() {
-
-    },
-    resize() {
 
     },
     hold() {
@@ -28,9 +24,6 @@ export function initMouseEvents(canvas: HTMLCanvasElement) {
     });
     canvas.addEventListener("mousemove", () => {
         currentMouseEvents.move();
-    });
-    canvas.addEventListener("resize", () => {
-        currentMouseEvents.resize();
     });
     canvas.addEventListener("mousedown", () => {
         mouseIsDown = true;

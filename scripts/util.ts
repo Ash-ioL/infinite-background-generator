@@ -1,0 +1,87 @@
+export class ColorUtil {
+    static getRandomHex() {
+        const randR: number = Math.floor(Math.random() * 256);
+        const randG: number = Math.floor(Math.random() * 256);
+        const randB: number = Math.floor(Math.random() * 256);
+        return "#" + randR.toString(16).padStart(2, "0") + randG.toString(16).padStart(2, "0") + randB.toString(16).padStart(2, "0");
+    }
+    static getRandomLightHex() {
+        const randR: number = Math.floor(Math.random() * 100) + 156;
+        const randG: number = Math.floor(Math.random() * 100) + 156;
+        const randB: number = Math.floor(Math.random() * 100) + 156;
+        return "#" + randR.toString(16).padStart(2, "0") + randG.toString(16).padStart(2, "0") + randB.toString(16).padStart(2, "0");
+    }
+    static getRandomDarkHex() {
+        const randR: number = Math.floor(Math.random() * 100);
+        const randG: number = Math.floor(Math.random() * 100);
+        const randB: number = Math.floor(Math.random() * 100);
+        return "#" + randR.toString(16).padStart(2, "0") + randG.toString(16).padStart(2, "0") + randB.toString(16).padStart(2, "0");
+    }
+    static getRandomBlackAndWhiteHex(start: number = 0, end: number = 255) {
+        const rand: number = Math.floor(Math.random() * (end-start+1)) + start;
+        return "#" + rand.toString(16).padStart(2, "0").repeat(3);
+    }
+}
+
+export class DrawUtil {
+    static drawCircle(ctx: CanvasRenderingContext2D, x: number | undefined, y: number | undefined, radius: number, fillColor: string | null = null, lineWidth: number = 0, strokeColor: string = 'rgba(0,0,0,0)') {
+        if (!x || !y) {
+            return;
+        }
+        if (!fillColor) {
+            fillColor = ColorUtil.getRandomHex();
+        }
+        ctx.beginPath();
+        ctx.arc(x, y, radius, 0, Math.PI * 2);
+        ctx.fillStyle = fillColor;
+        ctx.fill();
+        ctx.lineWidth = lineWidth;
+        ctx.strokeStyle = strokeColor;
+        ctx.stroke();
+    }
+}
+
+export class RandomUtil {
+    static windowPosition(leftPadding: number, rightPadding: number, topPadding: number, bottomPadding: number) {
+        let xStart = leftPadding;
+        let xEnd = Math.max(0, window.innerWidth - rightPadding);
+        if (xStart > xEnd) {
+            xStart = xEnd;
+        }
+
+        let yStart = topPadding;
+        let yEnd = Math.max(0, window.innerHeight - bottomPadding);
+        if (yStart > yEnd) {
+            yStart = yEnd;
+        }
+
+        return [
+            Math.floor(Math.random() * (xEnd - xStart + 1)) + xStart, 
+            Math.floor(Math.random() * (yEnd - yStart + 1)) + yStart
+        ];
+    }
+
+    static randInt(start: number, end: number) {
+        return Math.floor(Math.random() * (end - start + 1)) + start;
+    }
+}
+
+export class MouseUtil {
+    static #pos: { x: number | undefined; y: number | undefined } = {
+        x: undefined,
+        y: undefined,
+    }
+    static initMouseListener() {
+        window.addEventListener("mousemove", (event) => {
+            MouseUtil.#pos.x = event.x;
+            MouseUtil.#pos.y = event.y;
+        });
+    }
+    static x() {
+        return MouseUtil.#pos.x;
+    }
+    static y() {
+        return MouseUtil.#pos.y;
+    }
+}
+MouseUtil.initMouseListener();

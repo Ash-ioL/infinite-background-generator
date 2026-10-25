@@ -1,5 +1,5 @@
 import { BackgroundMode } from "./main.js";
-import { ColorUtil } from "./color.js";
+import { ColorUtil } from "./util.js";
 
 export function drawBackground(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D, currentBackgroundMode: BackgroundMode) {
     if (currentBackgroundMode === BackgroundMode.Black) {

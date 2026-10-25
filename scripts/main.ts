@@ -29,7 +29,7 @@ enum BackgroundMode {
     
 }
 
-let currentCursorMode: CursorMode = CursorMode.None as CursorMode;
+let currentCursorMode: CursorMode = CursorMode.ClickDots as CursorMode;
 let currentBackgroundMode: BackgroundMode = BackgroundMode.Black as BackgroundMode;
 
 function draw() {
