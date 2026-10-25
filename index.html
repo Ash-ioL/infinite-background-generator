@@ -8,7 +8,33 @@
 </head>
 <body>
     <canvas id="whiteboard"></canvas>
+    <div id="side-panel">
+        <div id="arrow"></div>
+        <div id="inner">
+            <label for="cursor">Select Cursor Mode:</label>
+            <select name="cursor" id="cursor">
+                <option value="random">Random</option>
+                <option value="none">None</option>
+                <option value="click-dots">Click Circles</option>
+                <option value="hold-dots">Hold Circles</option>
+                <option value="flashlight">Flashlight</option>
+            </select>
+            <label for="background">Select Background:</label>
+            <select name="background" id="background">
+                <option value="random">Random</option>
+                <option value="red">Red</option>
+                <option value="green">Green</option>
+                <option value="blue">Blue</option>
+            </select>
 
+            <label for="primary-color">Select Primary Color:</label>
+            <input type="color" id="primary-color" name="primary-color" value="#ff0000">
+                
+            <label for="secondary-color">Select Secondary Color:</label>
+            <input type="color" id="secondary-color" name="secondary-color" value="#ffffff">
+        </div>
+    </div>
     <script type="module" src="./scripts/main.js"></script>
+    <script type="module" src="./scripts/input.js"></script>
 </body>
 </html>
