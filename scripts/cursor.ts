@@ -43,12 +43,12 @@ export function drawCursor(canvas: HTMLCanvasElement, ctx: CanvasRenderingContex
             },
             move() {
                 console.log("moving");
+                ctx.fillText("" + MouseUtil.speed(), 40, 50);
                 ctx.font = "30px Arial";
                 ctx.fillStyle = "white";
 
                 DrawUtil.clearScreen(ctx);
 
-                ctx.fillText("" + MouseUtil.speed(), 40, 50);
             },
             hold() {
 

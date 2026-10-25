@@ -30,7 +30,7 @@ enum BackgroundMode {
     RandomDots,
 }
 
-let currentCursorMode: CursorMode = CursorMode.HoldDots as CursorMode;
+let currentCursorMode: CursorMode = CursorMode.Debug as CursorMode;
 let currentBackgroundMode: BackgroundMode = BackgroundMode.Black as BackgroundMode;
 
 function draw() {
