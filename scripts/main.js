@@ -26,7 +26,7 @@ var BackgroundMode;
     BackgroundMode[BackgroundMode["Checkerboard"] = 2] = "Checkerboard";
     BackgroundMode[BackgroundMode["RandomDots"] = 3] = "RandomDots";
 })(BackgroundMode || (BackgroundMode = {}));
-let currentCursorMode = CursorMode.Debug;
+let currentCursorMode = CursorMode.HoldDots;
 let currentBackgroundMode = BackgroundMode.Black;
 function draw() {
     drawBackground(canvas, ctx, currentBackgroundMode);

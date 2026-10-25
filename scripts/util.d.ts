@@ -18,5 +18,6 @@ export declare class MouseUtil {
     static x(): number | undefined;
     static y(): number | undefined;
     static speed(): number;
+    static percentSpeed(): number;
 }
 //# sourceMappingURL=util.d.ts.map

@@ -113,5 +113,12 @@ export class MouseUtil {
     static speed() {
         return MouseUtil.#speed;
     }
+    static percentSpeed(): number {
+        // 300 - 2000
+        let speed = MouseUtil.#speed;
+        speed = Math.max(300, Math.min(speed, 2000));
+        speed -= 300;
+        return speed / 1700;
+    }
 }
 MouseUtil.initMouseListener();

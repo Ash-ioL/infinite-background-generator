@@ -27,10 +27,10 @@ export function drawCursor(canvas: HTMLCanvasElement, ctx: CanvasRenderingContex
                 
             },
             move() {
-
+                
             },
             hold() {
-                DrawUtil.drawCircle(ctx, MouseUtil.x(), MouseUtil.y(), RandomUtil.randInt(10, 15), "white");
+                DrawUtil.drawCircle(ctx, MouseUtil.x(), MouseUtil.y(), 20 - MouseUtil.percentSpeed()*10, "white");
             },
         };
         setMouseEvents(
