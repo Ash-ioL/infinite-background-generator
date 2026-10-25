@@ -1,6 +1,6 @@
-import { CursorMode } from "./main";
-import { ColorUtil, DrawUtil, RandomUtil, MouseUtil } from "./util";
-import { setMouseEvents } from "./events";
+import { CursorMode } from "./main.js";
+import { ColorUtil, DrawUtil, RandomUtil, MouseUtil } from "./util.js";
+import { setMouseEvents } from "./events.js";
 export function drawCursor(canvas, ctx, currentCursorMode) {
     if (currentCursorMode === CursorMode.None) {
         // Nothing
@@ -11,6 +11,33 @@ export function drawCursor(canvas, ctx, currentCursorMode) {
                 DrawUtil.drawCircle(ctx, MouseUtil.x(), MouseUtil.y(), RandomUtil.randInt(10, 15));
             },
             move() {
+            },
+            hold() {
+            },
+        };
+        setMouseEvents(newMouseEvents);
+    }
+    else if (currentCursorMode === CursorMode.HoldDots) {
+        const newMouseEvents = {
+            click() {
+            },
+            move() {
+            },
+            hold() {
+                DrawUtil.drawCircle(ctx, MouseUtil.x(), MouseUtil.y(), RandomUtil.randInt(10, 15), "white");
+            },
+        };
+        setMouseEvents(newMouseEvents);
+    }
+    else if (currentCursorMode === CursorMode.Debug) {
+        const newMouseEvents = {
+            click() {
+            },
+            move() {
+                ctx.font = "30px Arial";
+                ctx.fillStyle = "white";
+                DrawUtil.clearScreen(ctx);
+                ctx.fillText("" + MouseUtil.speed(), 40, 50);
             },
             hold() {
             },

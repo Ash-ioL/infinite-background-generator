@@ -6,6 +6,7 @@ export declare class ColorUtil {
 }
 export declare class DrawUtil {
     static drawCircle(ctx: CanvasRenderingContext2D, x: number | undefined, y: number | undefined, radius: number, fillColor?: string | null, lineWidth?: number, strokeColor?: string): void;
+    static clearScreen(ctx: CanvasRenderingContext2D): void;
 }
 export declare class RandomUtil {
     static windowPosition(leftPadding: number, rightPadding: number, topPadding: number, bottomPadding: number): number[];
@@ -16,5 +17,6 @@ export declare class MouseUtil {
     static initMouseListener(): void;
     static x(): number | undefined;
     static y(): number | undefined;
+    static speed(): number;
 }
 //# sourceMappingURL=util.d.ts.map

@@ -38,6 +38,9 @@ export class DrawUtil {
         ctx.strokeStyle = strokeColor;
         ctx.stroke();
     }
+    static clearScreen(ctx) {
+        ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    }
 }
 export class RandomUtil {
     static windowPosition(leftPadding, rightPadding, topPadding, bottomPadding) {
@@ -65,10 +68,27 @@ export class MouseUtil {
         x: undefined,
         y: undefined,
     };
+    static #speed = 0; // pixels per second
+    static #prevTime = Date.now() / 1000;
     static initMouseListener() {
         window.addEventListener("mousemove", (event) => {
-            MouseUtil.#pos.x = event.x;
-            MouseUtil.#pos.y = event.y;
+            const newPosX = event.x;
+            const newPosY = event.y;
+            const curTime = Date.now() / 1000;
+            const dt = curTime - MouseUtil.#prevTime;
+            MouseUtil.#prevTime = curTime;
+            if (MouseUtil.#pos.x == undefined || MouseUtil.#pos.y == undefined || dt < 0.00005) {
+                MouseUtil.#pos.x = newPosX;
+                MouseUtil.#pos.y = newPosY;
+                return;
+            }
+            const dx = newPosX - MouseUtil.#pos.x;
+            const dy = newPosY - MouseUtil.#pos.y;
+            MouseUtil.#pos.x = newPosX;
+            MouseUtil.#pos.y = newPosY;
+            const vx = dx / dt;
+            const vy = dy / dt;
+            MouseUtil.#speed = Math.sqrt(vx * vx + vy * vy);
         });
     }
     static x() {
@@ -76,6 +96,9 @@ export class MouseUtil {
     }
     static y() {
         return MouseUtil.#pos.y;
+    }
+    static speed() {
+        return MouseUtil.#speed;
     }
 }
 MouseUtil.initMouseListener();

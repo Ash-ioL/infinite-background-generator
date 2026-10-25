@@ -1,5 +1,5 @@
 import { BackgroundMode } from "./main.js";
-import { ColorUtil } from "./util.js";
+import { ColorUtil, MouseUtil } from "./util.js";
 
 export function drawBackground(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D, currentBackgroundMode: BackgroundMode) {
     if (currentBackgroundMode === BackgroundMode.Black) {
@@ -21,7 +21,7 @@ export function drawBackground(canvas: HTMLCanvasElement, ctx: CanvasRenderingCo
             }
             outerToggle = !outerToggle;
         }
-    } else if (currentBackgroundMode == BackgroundMode.RandomDots) {
+    } else if (currentBackgroundMode === BackgroundMode.RandomDots) {
         canvas.style.backgroundColor = "black";
         const numDots = 50;
         const maxDeviation = 2;

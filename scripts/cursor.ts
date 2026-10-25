@@ -1,7 +1,7 @@
-import { CursorMode } from "./main";
-import { ColorUtil, DrawUtil, RandomUtil, MouseUtil} from "./util";
-import { setMouseEvents } from "./events";
-import type { MouseEvents } from "./events";
+import { CursorMode } from "./main.js";
+import { ColorUtil, DrawUtil, RandomUtil, MouseUtil} from "./util.js";
+import { setMouseEvents } from "./events.js";
+import type { MouseEvents } from "./events.js";
 
 export function drawCursor(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D, currentCursorMode: CursorMode) {
     if (currentCursorMode === CursorMode.None) {
@@ -21,5 +21,39 @@ export function drawCursor(canvas: HTMLCanvasElement, ctx: CanvasRenderingContex
         setMouseEvents(
             newMouseEvents
         );
+    } else if (currentCursorMode === CursorMode.HoldDots) {
+        const newMouseEvents: MouseEvents = {
+            click() {
+                
+            },
+            move() {
+
+            },
+            hold() {
+                DrawUtil.drawCircle(ctx, MouseUtil.x(), MouseUtil.y(), RandomUtil.randInt(10, 15), "white");
+            },
+        };
+        setMouseEvents(
+            newMouseEvents
+        );
+    } else if (currentCursorMode === CursorMode.Debug) {
+        const newMouseEvents: MouseEvents = {
+            click() {
+
+            },
+            move() {
+                console.log("moving");
+                ctx.font = "30px Arial";
+                ctx.fillStyle = "white";
+
+                DrawUtil.clearScreen(ctx);
+
+                ctx.fillText("" + MouseUtil.speed(), 40, 50);
+            },
+            hold() {
+
+            },
+        }
+        setMouseEvents(newMouseEvents);
     }
 }

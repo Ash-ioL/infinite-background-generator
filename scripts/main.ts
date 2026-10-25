@@ -19,6 +19,8 @@ console.log(ctx);
 enum CursorMode {
     None,
     ClickDots,
+    HoldDots,
+    Debug,
 }
 
 enum BackgroundMode {
@@ -26,10 +28,9 @@ enum BackgroundMode {
     White,
     Checkerboard,
     RandomDots,
-    
 }
 
-let currentCursorMode: CursorMode = CursorMode.ClickDots as CursorMode;
+let currentCursorMode: CursorMode = CursorMode.Debug as CursorMode;
 let currentBackgroundMode: BackgroundMode = BackgroundMode.Black as BackgroundMode;
 
 function draw() {
