@@ -9,7 +9,7 @@ export declare class DrawUtil {
     static clearScreen(ctx: CanvasRenderingContext2D): void;
 }
 export declare class RandomUtil {
-    static windowPosition(leftPadding: number, rightPadding: number, topPadding: number, bottomPadding: number): number[];
+    static windowPosition(leftPadding?: number, rightPadding?: number, topPadding?: number, bottomPadding?: number): number[];
     static randInt(start: number, end: number): number;
 }
 export declare class MouseUtil {

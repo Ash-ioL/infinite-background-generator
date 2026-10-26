@@ -9,7 +9,8 @@ declare enum BackgroundMode {
     Black = 0,
     White = 1,
     Checkerboard = 2,
-    RandomDots = 3
+    RandomDots = 3,
+    Particles = 4
 }
 export { BackgroundMode, CursorMode };
 //# sourceMappingURL=main.d.ts.map

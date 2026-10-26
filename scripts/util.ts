@@ -45,7 +45,7 @@ export class DrawUtil {
 }
 
 export class RandomUtil {
-    static windowPosition(leftPadding: number, rightPadding: number, topPadding: number, bottomPadding: number) {
+    static windowPosition(leftPadding: number = 0, rightPadding: number = 0, topPadding: number = 0, bottomPadding: number = 0) {
         let xStart = leftPadding;
         let xEnd = Math.max(0, window.innerWidth - rightPadding);
         if (xStart > xEnd) {

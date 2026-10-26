@@ -13,8 +13,8 @@ window.addEventListener("resize", () => {
 })
 
 
-console.log(canvas); 
-console.log(ctx);
+// console.log(canvas); 
+// console.log(ctx);
 
 enum CursorMode {
     None,
@@ -29,10 +29,11 @@ enum BackgroundMode {
     White,
     Checkerboard,
     RandomDots,
+    Particles,
 }
 
 let currentCursorMode: CursorMode = CursorMode.Flashlight as CursorMode;
-let currentBackgroundMode: BackgroundMode = BackgroundMode.Black as BackgroundMode;
+let currentBackgroundMode: BackgroundMode = BackgroundMode.Particles as BackgroundMode;
 
 function draw() {
     drawBackground(canvas, ctx, currentBackgroundMode);

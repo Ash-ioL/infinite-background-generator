@@ -13,7 +13,7 @@
     position: fixed;
     top: 0;
     right: 0;
-    background-color: rgba(255, 255, 255, 0.200);
+    background-color: rgb(61, 61, 61);
     width: 250px;
     height: 100%;
     font-family: 'Inter', Arial, sans-serif;
@@ -27,6 +27,7 @@
     transition: all 0.3s ease;
     padding-left: 10px;
     padding-right: 20px;
+    overflow-y: auto;
 }
 
 #arrow {
@@ -37,7 +38,7 @@
     margin: 10px 10px;
     box-sizing: border-box;
     transform: rotateY(180deg) rotateX(180deg) rotate(45deg);
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, border-width 0.1s ease;
 }
 #side-panel.out {
     transform: translateX(calc(100% - 50px)); 
@@ -61,7 +62,7 @@
 #inner select {
     font-family: 'Inter', Arial, sans-serif;
     color: white;
-    background-color: rgba(0, 0, 0, 0.200);
+    background-color: rgba(21, 21, 21, 1);
     border: 1px solid rgba(255, 255, 255, 0.200);
     border-radius: 4px;
     padding: 4px 8px;
@@ -91,7 +92,7 @@ input[type="color"]::-moz-color-swatch {
     height: 40px;
     font-family: 'Inter', Arial, sans-serif;
     color: white;
-    background-color: rgba(0, 0, 0, 0.200);
+    background-color: rgba(0, 0, 0, 1);
     border: 1px solid rgba(255, 255, 255, 0.200);
     border-radius: 4px;
     padding: 8px 8px;

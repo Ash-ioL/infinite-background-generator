@@ -10,8 +10,8 @@ window.addEventListener("resize", () => {
     canvas.height = window.innerHeight;
     draw();
 });
-console.log(canvas);
-console.log(ctx);
+// console.log(canvas); 
+// console.log(ctx);
 var CursorMode;
 (function (CursorMode) {
     CursorMode[CursorMode["None"] = 0] = "None";
@@ -26,9 +26,10 @@ var BackgroundMode;
     BackgroundMode[BackgroundMode["White"] = 1] = "White";
     BackgroundMode[BackgroundMode["Checkerboard"] = 2] = "Checkerboard";
     BackgroundMode[BackgroundMode["RandomDots"] = 3] = "RandomDots";
+    BackgroundMode[BackgroundMode["Particles"] = 4] = "Particles";
 })(BackgroundMode || (BackgroundMode = {}));
 let currentCursorMode = CursorMode.Flashlight;
-let currentBackgroundMode = BackgroundMode.Black;
+let currentBackgroundMode = BackgroundMode.Particles;
 function draw() {
     drawBackground(canvas, ctx, currentBackgroundMode);
     drawCursor(canvas, ctx, currentCursorMode);
