@@ -41,7 +41,6 @@ export class DrawUtil {
     }
     static clearScreen(ctx) {
         ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-        resetBackground();
     }
 }
 export class RandomUtil {

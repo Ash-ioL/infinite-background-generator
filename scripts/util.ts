@@ -42,7 +42,6 @@ export class DrawUtil {
     }
     static clearScreen(ctx: CanvasRenderingContext2D) {
         ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-        resetBackground();
     }
 }
 

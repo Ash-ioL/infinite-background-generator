@@ -40,6 +40,8 @@ export let currentBackgroundMode: BackgroundMode = BackgroundMode.Particles as B
 export function setCurrentModes(cursorMode: CursorMode, backgroundMode: BackgroundMode) {
     currentCursorMode = cursorMode;
     currentBackgroundMode = backgroundMode;
+    console.log(currentCursorMode);
+    console.log(currentBackgroundMode);
 }
 
 function draw() {

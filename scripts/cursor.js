@@ -82,8 +82,9 @@ export function drawCursor(canvas, ctx, currentCursorMode) {
                 dScroll /= scrollScale;
                 let rad = startRad + (diff / 2) * dScroll;
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-                drawBackground(canvas, ctx, currentBackgroundMode);
-                DrawUtil.drawCircle(ctx, MouseUtil.x(), MouseUtil.y(), rad, getPrimaryColor());
+                if (MouseUtil.x() !== undefined && MouseUtil.y() !== undefined) {
+                    DrawUtil.drawCircle(ctx, MouseUtil.x(), MouseUtil.y(), rad, getPrimaryColor());
+                }
             }
         };
         resetMouseEvents();

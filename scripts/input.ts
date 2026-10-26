@@ -46,6 +46,7 @@ backgroundSelect!.addEventListener("change", () => {
         const enumValues = Object.values(BackgroundMode) as BackgroundMode[];
         const randomIndex = Math.floor(Math.random() * enumValues.length);
         newBackgroundMode = enumValues[randomIndex]!;
+        console.log(newBackgroundMode);
     } else if (curVal === "black") {
         newBackgroundMode = BackgroundMode.Black;
     } else if (curVal === "white") {
@@ -96,4 +97,5 @@ export function resetBackgroundAndCursor(newBackgroundMode: BackgroundMode, newC
     setCurrentModes(newCursorMode, newBackgroundMode);
     drawBackground(canvas, ctx, newBackgroundMode);
     drawCursor(canvas, ctx, newCursorMode);
+    console.log("runnin");
 }
