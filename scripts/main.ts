@@ -2,8 +2,8 @@ import { drawBackground } from "./background.js";
 import { drawCursor } from "./cursor.js";
 import { initMouseEvents } from "./events.js";
 
-const canvas: HTMLCanvasElement = document.getElementById("whiteboard") as HTMLCanvasElement;
-const ctx: CanvasRenderingContext2D = canvas.getContext("2d") as CanvasRenderingContext2D;
+export const canvas: HTMLCanvasElement = document.getElementById("whiteboard") as HTMLCanvasElement;
+export const ctx: CanvasRenderingContext2D = canvas.getContext("2d") as CanvasRenderingContext2D;
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 window.addEventListener("resize", () => {
@@ -27,17 +27,28 @@ enum CursorMode {
 enum BackgroundMode {
     Black,
     White,
+    Primary,
+    Secondary,
     Checkerboard,
     RandomDots,
     Particles,
 }
 
-let currentCursorMode: CursorMode = CursorMode.Flashlight as CursorMode;
-let currentBackgroundMode: BackgroundMode = BackgroundMode.Particles as BackgroundMode;
+export let currentCursorMode: CursorMode = CursorMode.Flashlight as CursorMode;
+export let currentBackgroundMode: BackgroundMode = BackgroundMode.Particles as BackgroundMode;
+
+export function setCurrentModes(cursorMode: CursorMode, backgroundMode: BackgroundMode) {
+    currentCursorMode = cursorMode;
+    currentBackgroundMode = backgroundMode;
+}
 
 function draw() {
     drawBackground(canvas, ctx, currentBackgroundMode);
     drawCursor(canvas, ctx, currentCursorMode);
+}
+
+export function resetBackground() {
+    drawBackground(canvas, ctx, currentBackgroundMode);
 }
 
 initMouseEvents(canvas);

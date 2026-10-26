@@ -1,11 +1,16 @@
 import { BackgroundMode } from "./main.js";
 import { ColorUtil, DrawUtil, MouseUtil, RandomUtil } from "./util.js";
+import { getColor, getPrimaryColor, getSecondaryColor } from "./input.js";
 
 export function drawBackground(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D, currentBackgroundMode: BackgroundMode) {
     if (currentBackgroundMode === BackgroundMode.Black) {
         canvas.style.background = "black";
     } else if (currentBackgroundMode === BackgroundMode.White) {
         canvas.style.background = "white";
+    } else if (currentBackgroundMode === BackgroundMode.Primary) {
+        canvas.style.background = getPrimaryColor();
+    } else if (currentBackgroundMode === BackgroundMode.Secondary) {
+        canvas.style.background = getSecondaryColor();
     } else if (currentBackgroundMode == BackgroundMode.Checkerboard) {
         const size: number = 100;
         const width: number = window.innerWidth;
@@ -14,8 +19,8 @@ export function drawBackground(canvas: HTMLCanvasElement, ctx: CanvasRenderingCo
         for (let i: number = 0; i < height; i+=size) {
             let innerToggle: boolean = outerToggle ? false : true;
             for (let j: number = 0; j < width; j+=size) {
-                if (innerToggle) ctx.fillStyle = "white";
-                else ctx.fillStyle = "black";
+                if (innerToggle) ctx.fillStyle = getPrimaryColor();
+                else ctx.fillStyle = getSecondaryColor();
                 innerToggle = !innerToggle;
                 ctx.fillRect(j, i, size, size);
             }
@@ -38,7 +43,7 @@ export function drawBackground(canvas: HTMLCanvasElement, ctx: CanvasRenderingCo
 
             let radDev = Math.floor(Math.random()*(maxDeviation + minDeviation + 1)) + minDeviation;
 
-            ctx.fillStyle = ColorUtil.getRandomDarkHex();
+            ctx.fillStyle = getColor();
             // ctx.strokeStyle = "white";
             // ctx.lineWidth = 10;
             ctx.beginPath();
@@ -57,13 +62,13 @@ export function drawBackground(canvas: HTMLCanvasElement, ctx: CanvasRenderingCo
         for (let i: number = 0; i < numParticles; i++) {
             const coords = RandomUtil.windowPosition();
             
-            new Particle(coords[0]!, coords[1]!, (Math.random()*10 + 2) * (Math.random() > 0.5 ? 1 : -1), (Math.random() * 10 + 2) * (Math.random() > 0.5 ? 1 : -1), rad, deviation, ColorUtil.getRandomHex());
+            new Particle(coords[0]!, coords[1]!, (Math.random()*10 + 2) * (Math.random() > 0.5 ? 1 : -1), (Math.random() * 10 + 2) * (Math.random() > 0.5 ? 1 : -1), rad, deviation, getColor());
         }
         Particle.renderParticles(ctx);
     }
 }
 
-class Particle {
+export class Particle {
     x: number;
     y: number;
     vx: number;
@@ -110,6 +115,14 @@ class Particle {
     }
 
     static prevTime: number = -1;
+    static animationFrameId: number | null = null;
+    static stopRendering() {
+        if (Particle.animationFrameId !== null) {
+            cancelAnimationFrame(Particle.animationFrameId);
+            Particle.animationFrameId = null;
+        }
+        Particle.prevTime = -1;
+    }
     static renderParticles(ctx: CanvasRenderingContext2D) {
         if (!Particle.particleArray) return;
         if (Particle.prevTime === -1) {
@@ -124,7 +137,7 @@ class Particle {
                 p.draw(ctx);
             }
         }
-        requestAnimationFrame(() => {
+        Particle.animationFrameId = requestAnimationFrame(() => {
             Particle.renderParticles(ctx);
         });
     }

@@ -14,14 +14,19 @@ let currentForeverEvent = {
 };
 let mouseIsDown = false;
 export let scrollY = 0;
+export function isMouseDown() {
+    return mouseIsDown;
+}
 export function initMouseEvents(canvas) {
     canvas.addEventListener("click", () => {
         currentMouseEvents.click();
     });
-    canvas.addEventListener("mousemove", () => {
+    canvas.addEventListener("mousemove", (event) => {
+        MouseUtil.setPosition(event.clientX, event.clientY);
         currentMouseEvents.move();
     });
-    canvas.addEventListener("mousedown", () => {
+    canvas.addEventListener("mousedown", (event) => {
+        MouseUtil.setPosition(event.clientX, event.clientY);
         mouseIsDown = true;
     });
     canvas.addEventListener("mouseup", () => {
@@ -70,4 +75,5 @@ export function resetForeverEvent() {
         run() { },
     };
 }
+import { MouseUtil } from "./util.js";
 //# sourceMappingURL=events.js.map

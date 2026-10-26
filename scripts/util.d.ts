@@ -17,6 +17,7 @@ export declare class MouseUtil {
     static initMouseListener(): void;
     static x(): number | undefined;
     static y(): number | undefined;
+    static setPosition(x: number, y: number): void;
     static speed(): number;
     static percentSpeed(): number;
 }

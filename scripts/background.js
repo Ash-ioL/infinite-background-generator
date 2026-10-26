@@ -1,11 +1,18 @@
 import { BackgroundMode } from "./main.js";
 import { ColorUtil, DrawUtil, MouseUtil, RandomUtil } from "./util.js";
+import { getColor, getPrimaryColor, getSecondaryColor } from "./input.js";
 export function drawBackground(canvas, ctx, currentBackgroundMode) {
     if (currentBackgroundMode === BackgroundMode.Black) {
         canvas.style.background = "black";
     }
     else if (currentBackgroundMode === BackgroundMode.White) {
         canvas.style.background = "white";
+    }
+    else if (currentBackgroundMode === BackgroundMode.Primary) {
+        canvas.style.background = getPrimaryColor();
+    }
+    else if (currentBackgroundMode === BackgroundMode.Secondary) {
+        canvas.style.background = getSecondaryColor();
     }
     else if (currentBackgroundMode == BackgroundMode.Checkerboard) {
         const size = 100;
@@ -16,9 +23,9 @@ export function drawBackground(canvas, ctx, currentBackgroundMode) {
             let innerToggle = outerToggle ? false : true;
             for (let j = 0; j < width; j += size) {
                 if (innerToggle)
-                    ctx.fillStyle = "white";
+                    ctx.fillStyle = getPrimaryColor();
                 else
-                    ctx.fillStyle = "black";
+                    ctx.fillStyle = getSecondaryColor();
                 innerToggle = !innerToggle;
                 ctx.fillRect(j, i, size, size);
             }
@@ -38,7 +45,7 @@ export function drawBackground(canvas, ctx, currentBackgroundMode) {
             const x = Math.floor(Math.random() * width);
             const y = Math.floor(Math.random() * height);
             let radDev = Math.floor(Math.random() * (maxDeviation + minDeviation + 1)) + minDeviation;
-            ctx.fillStyle = ColorUtil.getRandomDarkHex();
+            ctx.fillStyle = getColor();
             // ctx.strokeStyle = "white";
             // ctx.lineWidth = 10;
             ctx.beginPath();
@@ -57,12 +64,12 @@ export function drawBackground(canvas, ctx, currentBackgroundMode) {
         Particle.clearParticles();
         for (let i = 0; i < numParticles; i++) {
             const coords = RandomUtil.windowPosition();
-            new Particle(coords[0], coords[1], (Math.random() * 10 + 2) * (Math.random() > 0.5 ? 1 : -1), (Math.random() * 10 + 2) * (Math.random() > 0.5 ? 1 : -1), rad, deviation, ColorUtil.getRandomHex());
+            new Particle(coords[0], coords[1], (Math.random() * 10 + 2) * (Math.random() > 0.5 ? 1 : -1), (Math.random() * 10 + 2) * (Math.random() > 0.5 ? 1 : -1), rad, deviation, getColor());
         }
         Particle.renderParticles(ctx);
     }
 }
-class Particle {
+export class Particle {
     x;
     y;
     vx;
@@ -101,6 +108,14 @@ class Particle {
         this.particleArray = [];
     }
     static prevTime = -1;
+    static animationFrameId = null;
+    static stopRendering() {
+        if (Particle.animationFrameId !== null) {
+            cancelAnimationFrame(Particle.animationFrameId);
+            Particle.animationFrameId = null;
+        }
+        Particle.prevTime = -1;
+    }
     static renderParticles(ctx) {
         if (!Particle.particleArray)
             return;
@@ -117,7 +132,7 @@ class Particle {
                 p.draw(ctx);
             }
         }
-        requestAnimationFrame(() => {
+        Particle.animationFrameId = requestAnimationFrame(() => {
             Particle.renderParticles(ctx);
         });
     }

@@ -1,3 +1,4 @@
+import { resetBackground } from "./main.js";
 export class ColorUtil {
     static getRandomHex() {
         const randR = Math.floor(Math.random() * 256);
@@ -24,7 +25,7 @@ export class ColorUtil {
 }
 export class DrawUtil {
     static drawCircle(ctx, x, y, radius, fillColor = null, lineWidth = 0, strokeColor = 'rgba(0,0,0,0)') {
-        if (!x || !y) {
+        if (x === undefined || y === undefined) {
             return;
         }
         if (!fillColor) {
@@ -40,6 +41,7 @@ export class DrawUtil {
     }
     static clearScreen(ctx) {
         ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+        resetBackground();
     }
 }
 export class RandomUtil {
@@ -103,6 +105,10 @@ export class MouseUtil {
     }
     static y() {
         return MouseUtil.#pos.y;
+    }
+    static setPosition(x, y) {
+        MouseUtil.#pos.x = x;
+        MouseUtil.#pos.y = y;
     }
     static speed() {
         return MouseUtil.#speed;

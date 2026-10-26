@@ -1,15 +1,19 @@
-import { CursorMode } from "./main.js";
+import { CursorMode, currentBackgroundMode } from "./main.js";
+import { drawBackground } from "./background.js";
 import { ColorUtil, DrawUtil, RandomUtil, MouseUtil } from "./util.js";
-import { setForeverEvent, setMouseEvents, resetForeverEvent, resetMouseEvents } from "./events.js";
-import { cursorModeVars } from "./constants.js";
+import { setForeverEvent, setMouseEvents, resetForeverEvent, resetMouseEvents, isMouseDown } from "./events.js";
 import { scrollY } from "./events.js";
+import { getColor, getPrimaryColor, getSecondaryColor } from "./input.js";
+let cursorModeVars = {
+    prevScroll: window.scrollY,
+};
 export function drawCursor(canvas, ctx, currentCursorMode) {
     if (currentCursorMode === CursorMode.Debug) {
         const newMouseEvents = {
             click() {
             },
             move() {
-                console.log("moving");
+                //console.log("moving");
                 ctx.fillText("" + MouseUtil.speed(), 40, 50);
                 ctx.font = "30px Arial";
                 ctx.fillStyle = "white";
@@ -29,7 +33,7 @@ export function drawCursor(canvas, ctx, currentCursorMode) {
     else if (currentCursorMode === CursorMode.ClickDots) {
         const newMouseEvents = {
             click() {
-                DrawUtil.drawCircle(ctx, MouseUtil.x(), MouseUtil.y(), RandomUtil.randInt(10, 15));
+                DrawUtil.drawCircle(ctx, MouseUtil.x(), MouseUtil.y(), RandomUtil.randInt(10, 15), getColor());
             },
             move() {
             },
@@ -45,9 +49,12 @@ export function drawCursor(canvas, ctx, currentCursorMode) {
             click() {
             },
             move() {
+                if (!isMouseDown())
+                    return;
+                DrawUtil.drawCircle(ctx, MouseUtil.x(), MouseUtil.y(), 20 - MouseUtil.percentSpeed() * 10, getColor());
             },
             hold() {
-                DrawUtil.drawCircle(ctx, MouseUtil.x(), MouseUtil.y(), 20 - MouseUtil.percentSpeed() * 10, "white");
+                DrawUtil.drawCircle(ctx, MouseUtil.x(), MouseUtil.y(), 20 - MouseUtil.percentSpeed() * 10, getColor());
             },
             scroll() { },
         };
@@ -58,7 +65,6 @@ export function drawCursor(canvas, ctx, currentCursorMode) {
         cursorModeVars.prevScroll = scrollY;
         const newForeverEvent = {
             run() {
-                console.log(scrollY);
                 let maxRad = 100;
                 let minRad = 10;
                 let diff = maxRad - minRad;
@@ -75,8 +81,9 @@ export function drawCursor(canvas, ctx, currentCursorMode) {
                 }
                 dScroll /= scrollScale;
                 let rad = startRad + (diff / 2) * dScroll;
-                DrawUtil.clearScreen(ctx);
-                DrawUtil.drawCircle(ctx, MouseUtil.x(), MouseUtil.y(), rad, "rgba(249, 238, 214, 0.8)");
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                drawBackground(canvas, ctx, currentBackgroundMode);
+                DrawUtil.drawCircle(ctx, MouseUtil.x(), MouseUtil.y(), rad, getPrimaryColor());
             }
         };
         resetMouseEvents();

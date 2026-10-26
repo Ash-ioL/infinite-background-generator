@@ -8,6 +8,7 @@ export interface ForeverEvent {
     run(): void;
 }
 export declare let scrollY: number;
+export declare function isMouseDown(): boolean;
 export declare function initMouseEvents(canvas: HTMLCanvasElement): void;
 export declare function setMouseEvents(newMouseEvents: MouseEvents): void;
 export declare function resetMouseEvents(): void;
