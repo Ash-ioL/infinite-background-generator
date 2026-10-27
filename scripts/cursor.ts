@@ -10,7 +10,7 @@ let cursorModeVars = {
     prevScroll: window.scrollY,
 }
 
-class CursorDot {
+export class CursorDot {
     ctx: CanvasRenderingContext2D;
     x: number;
     y: number;

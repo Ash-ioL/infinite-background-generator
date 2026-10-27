@@ -7,25 +7,38 @@ import { getColor, getPrimaryColor, getSecondaryColor } from "./input.js";
 let cursorModeVars = {
     prevScroll: window.scrollY,
 };
-export function drawCursor(canvas, ctx, currentCursorMode) {
+export class CursorDot {
+    ctx;
+    x;
+    y;
+    rad;
+    fillColor;
+    static dotBoard = [];
+    constructor(ctx, x, y, rad, fillColor) {
+        this.ctx = ctx;
+        this.x = x;
+        this.y = y;
+        this.rad = rad;
+        this.fillColor = fillColor;
+    }
+    draw() {
+        DrawUtil.drawCircle(this.ctx, this.x, this.y, this.rad, this.fillColor ?? getColor());
+    }
+    static drawAll() {
+        for (const dot of CursorDot.dotBoard) {
+            dot.draw();
+        }
+    }
+    static clearAll() {
+        CursorDot.dotBoard = [];
+    }
+    static add(dot) {
+        CursorDot.dotBoard.push(dot);
+    }
+}
+export function initCursor(canvas, ctx, currentCursorMode) {
+    CursorDot.clearAll();
     if (currentCursorMode === CursorMode.Debug) {
-        const newMouseEvents = {
-            click() {
-            },
-            move() {
-                //console.log("moving");
-                ctx.fillText("" + MouseUtil.speed(), 40, 50);
-                ctx.font = "30px Arial";
-                ctx.fillStyle = "white";
-                DrawUtil.clearScreen(ctx);
-            },
-            hold() {
-                //console.log("holding");
-            },
-            scroll() { },
-        };
-        setMouseEvents(newMouseEvents);
-        resetForeverEvent();
     }
     else if (currentCursorMode === CursorMode.None) {
         // Nothing
@@ -33,7 +46,8 @@ export function drawCursor(canvas, ctx, currentCursorMode) {
     else if (currentCursorMode === CursorMode.ClickDots) {
         const newMouseEvents = {
             click() {
-                DrawUtil.drawCircle(ctx, MouseUtil.x(), MouseUtil.y(), RandomUtil.randInt(10, 15), getColor());
+                const dot = new CursorDot(ctx, MouseUtil.x(), MouseUtil.y(), RandomUtil.randInt(10, 15), getColor());
+                CursorDot.add(dot);
             },
             move() {
             },
@@ -51,10 +65,12 @@ export function drawCursor(canvas, ctx, currentCursorMode) {
             move() {
                 if (!isMouseDown())
                     return;
-                DrawUtil.drawCircle(ctx, MouseUtil.x(), MouseUtil.y(), 20 - MouseUtil.percentSpeed() * 10, getColor());
+                const dot = new CursorDot(ctx, MouseUtil.x(), MouseUtil.y(), 20 - MouseUtil.percentSpeed() * 10, getColor());
+                CursorDot.add(dot);
             },
             hold() {
-                DrawUtil.drawCircle(ctx, MouseUtil.x(), MouseUtil.y(), 20 - MouseUtil.percentSpeed() * 10, getColor());
+                const dot = new CursorDot(ctx, MouseUtil.x(), MouseUtil.y(), 20 - MouseUtil.percentSpeed() * 10, getColor());
+                CursorDot.add(dot);
             },
             scroll() { },
         };
@@ -81,15 +97,19 @@ export function drawCursor(canvas, ctx, currentCursorMode) {
                 }
                 dScroll /= scrollScale;
                 let rad = startRad + (diff / 2) * dScroll;
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
                 if (MouseUtil.x() !== undefined && MouseUtil.y() !== undefined) {
-                    DrawUtil.drawCircle(ctx, MouseUtil.x(), MouseUtil.y(), rad, getPrimaryColor());
+                    CursorDot.clearAll();
+                    const dot = new CursorDot(ctx, MouseUtil.x(), MouseUtil.y(), rad, getPrimaryColor());
+                    CursorDot.add(dot);
                 }
             }
         };
         resetMouseEvents();
         setForeverEvent(newForeverEvent);
     }
+}
+export function drawCursor() {
+    CursorDot.drawAll();
 }
 export function switchCursor() {
     cursorModeVars.prevScroll = window.scrollY;

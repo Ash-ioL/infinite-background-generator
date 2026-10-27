@@ -1,4 +1,4 @@
-import { BackgroundMode } from "./main.js";
+import { BackgroundMode, ctx } from "./main.js";
 import { ColorUtil, DrawUtil, MouseUtil, RandomUtil } from "./util.js";
 import { getColor, getPrimaryColor, getSecondaryColor } from "./input.js";
 export function drawBackground(canvas, ctx, currentBackgroundMode) {
@@ -34,37 +34,10 @@ export function drawBackground(canvas, ctx, currentBackgroundMode) {
     }
     else if (currentBackgroundMode === BackgroundMode.RandomDots) {
         canvas.style.backgroundColor = "black";
-        const numDots = 50;
-        const maxDeviation = 2;
-        const minDeviation = 5;
-        const rad = 10;
-        const width = window.innerWidth;
-        const height = window.innerHeight;
-        //let dotColor = "white";
-        for (let i = 0; i < numDots; i++) {
-            const x = Math.floor(Math.random() * width);
-            const y = Math.floor(Math.random() * height);
-            let radDev = Math.floor(Math.random() * (maxDeviation + minDeviation + 1)) + minDeviation;
-            ctx.fillStyle = getColor();
-            // ctx.strokeStyle = "white";
-            // ctx.lineWidth = 10;
-            ctx.beginPath();
-            ctx.arc(x, y, rad + radDev, 0, Math.PI * 2);
-            // ctx.stroke();
-            ctx.fill();
-        }
     }
     else if (currentBackgroundMode === BackgroundMode.Particles) {
-        canvas.style.backgroundColor = "black";
-        const numParticles = 50;
-        const deviation = 5;
-        const rad = 10;
-        const width = window.innerWidth;
-        const height = window.innerHeight;
-        Particle.clearParticles();
-        for (let i = 0; i < numParticles; i++) {
-            const coords = RandomUtil.windowPosition();
-            new Particle(coords[0], coords[1], (Math.random() * 10 + 2) * (Math.random() > 0.5 ? 1 : -1), (Math.random() * 10 + 2) * (Math.random() > 0.5 ? 1 : -1), rad, deviation, getColor());
+        if (Particle.particleArray.length === 0) {
+            Particle.initParticles();
         }
         Particle.renderParticles(ctx);
     }
@@ -108,14 +81,14 @@ export class Particle {
         this.particleArray = [];
     }
     static prevTime = -1;
-    static animationFrameId = null;
-    static stopRendering() {
-        if (Particle.animationFrameId !== null) {
-            cancelAnimationFrame(Particle.animationFrameId);
-            Particle.animationFrameId = null;
-        }
-        Particle.prevTime = -1;
-    }
+    // static animationFrameId: number | null = null;
+    // static stopRendering() {
+    //     if (Particle.animationFrameId !== null) {
+    //         cancelAnimationFrame(Particle.animationFrameId);
+    //         Particle.animationFrameId = null;
+    //     }
+    //     Particle.prevTime = -1;
+    // }
     static renderParticles(ctx) {
         if (!Particle.particleArray)
             return;
@@ -132,9 +105,19 @@ export class Particle {
                 p.draw(ctx);
             }
         }
-        Particle.animationFrameId = requestAnimationFrame(() => {
-            Particle.renderParticles(ctx);
-        });
+        // Particle.animationFrameId = requestAnimationFrame(() => {
+        //     Particle.renderParticles(ctx);
+        // });
+    }
+    static initParticles() {
+        Particle.clearParticles();
+        const numParticles = 50;
+        const rad = 10;
+        const radDev = 5;
+        for (let i = 0; i < numParticles; i++) {
+            const coords = RandomUtil.windowPosition();
+            new Particle(coords[0], coords[1], (Math.random() * 10 + 2) * (Math.random() > 0.5 ? 1 : -1), (Math.random() * 10 + 2) * (Math.random() > 0.5 ? 1 : -1), rad, radDev, getColor());
+        }
     }
 }
 //# sourceMappingURL=background.js.map

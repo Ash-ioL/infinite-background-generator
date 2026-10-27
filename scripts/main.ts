@@ -1,18 +1,20 @@
 import { drawBackground } from "./background.js";
 import { drawCursor } from "./cursor.js";
 import { initMouseEvents, mouseTasks } from "./events.js";
+import { resetBackgroundAndCursor } from "./input.js";
 import { setMainLoop, type LoopSet } from "./task_scheduler.js";
+import { DrawUtil } from "./util.js";
 
 export const canvas: HTMLCanvasElement = document.getElementById("whiteboard") as HTMLCanvasElement;
 export const ctx: CanvasRenderingContext2D = canvas.getContext("2d") as CanvasRenderingContext2D;
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
+
 window.addEventListener("resize", () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-    draw();
+    resetBackgroundAndCursor(currentBackgroundMode, currentCursorMode);
 })
-
 
 // console.log(canvas); 
 // console.log(ctx);
@@ -56,7 +58,7 @@ export function resetBackground() {
 
 let newLoop: LoopSet = {
     before() {
-
+        DrawUtil.clearScreen(ctx);
     },
     background() {
         drawBackground(canvas, ctx, currentBackgroundMode);
@@ -77,4 +79,3 @@ initMouseEvents(canvas);
 // draw();
 
 export { BackgroundMode, CursorMode }
-

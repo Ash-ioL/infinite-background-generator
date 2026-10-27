@@ -14,8 +14,7 @@ export declare class Particle {
     draw(ctx: CanvasRenderingContext2D): void;
     static clearParticles(): void;
     static prevTime: number;
-    static animationFrameId: number | null;
-    static stopRendering(): void;
     static renderParticles(ctx: CanvasRenderingContext2D): void;
+    static initParticles(): void;
 }
 //# sourceMappingURL=background.d.ts.map
