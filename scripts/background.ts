@@ -27,8 +27,10 @@ export function drawBackground(canvas: HTMLCanvasElement, ctx: CanvasRenderingCo
             outerToggle = !outerToggle;
         }
     } else if (currentBackgroundMode === BackgroundMode.RandomDots) {
-        canvas.style.backgroundColor = "black";
-        
+        if (Particle.particleArray.length === 0) {
+            Particle.initRandomColorStationary();
+        }
+        Particle.renderParticles(ctx);
     } else if (currentBackgroundMode === BackgroundMode.Particles) {
         if (Particle.particleArray.length === 0) {
             Particle.initParticles();
@@ -128,6 +130,25 @@ export class Particle {
                 radDev,
                 getColor(),
             );
+        }
+    }
+
+    static initRandomColorStationary() {
+        Particle.clearParticles();
+        const numDots = 50;
+        const maxDeviation = 2;
+        const minDeviation = 5;
+        const rad = 10
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+
+        //let dotColor = "white";
+
+        for (let i: number = 0; i < numDots; i++) {
+            const x = Math.floor(Math.random()*width);
+            const y = Math.floor(Math.random()*height);
+            
+            new Particle(x, y, 0, 0, rad, 5, ColorUtil.getRandomHex());
         }
     }
 }

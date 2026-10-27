@@ -20,21 +20,21 @@ window.addEventListener("resize", () => {
 // console.log(ctx);
 
 enum CursorMode {
-    None,
-    ClickDots,
-    HoldDots,
-    Debug,
-    Flashlight
+    None = "none",
+    ClickDots = "click-dots",
+    HoldDots = "hold-dots",
+    //Debug = "debug",
+    Flashlight = "flashlight",
 }
 
 enum BackgroundMode {
-    Black,
-    White,
-    Primary,
-    Secondary,
-    Checkerboard,
-    RandomDots,
-    Particles,
+    Black = "black",
+    White = "white",
+    Primary = "primary",
+    Secondary = "secondary",
+    Checkerboard = "checkerboard",
+    RandomDots = "random-dots",
+    Particles = "particles",
 }
 
 export let currentCursorMode: CursorMode = CursorMode.Flashlight as CursorMode;

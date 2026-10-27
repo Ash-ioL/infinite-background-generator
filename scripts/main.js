@@ -17,21 +17,21 @@ window.addEventListener("resize", () => {
 // console.log(ctx);
 var CursorMode;
 (function (CursorMode) {
-    CursorMode[CursorMode["None"] = 0] = "None";
-    CursorMode[CursorMode["ClickDots"] = 1] = "ClickDots";
-    CursorMode[CursorMode["HoldDots"] = 2] = "HoldDots";
-    CursorMode[CursorMode["Debug"] = 3] = "Debug";
-    CursorMode[CursorMode["Flashlight"] = 4] = "Flashlight";
+    CursorMode["None"] = "none";
+    CursorMode["ClickDots"] = "click-dots";
+    CursorMode["HoldDots"] = "hold-dots";
+    //Debug = "debug",
+    CursorMode["Flashlight"] = "flashlight";
 })(CursorMode || (CursorMode = {}));
 var BackgroundMode;
 (function (BackgroundMode) {
-    BackgroundMode[BackgroundMode["Black"] = 0] = "Black";
-    BackgroundMode[BackgroundMode["White"] = 1] = "White";
-    BackgroundMode[BackgroundMode["Primary"] = 2] = "Primary";
-    BackgroundMode[BackgroundMode["Secondary"] = 3] = "Secondary";
-    BackgroundMode[BackgroundMode["Checkerboard"] = 4] = "Checkerboard";
-    BackgroundMode[BackgroundMode["RandomDots"] = 5] = "RandomDots";
-    BackgroundMode[BackgroundMode["Particles"] = 6] = "Particles";
+    BackgroundMode["Black"] = "black";
+    BackgroundMode["White"] = "white";
+    BackgroundMode["Primary"] = "primary";
+    BackgroundMode["Secondary"] = "secondary";
+    BackgroundMode["Checkerboard"] = "checkerboard";
+    BackgroundMode["RandomDots"] = "random-dots";
+    BackgroundMode["Particles"] = "particles";
 })(BackgroundMode || (BackgroundMode = {}));
 export let currentCursorMode = CursorMode.Flashlight;
 export let currentBackgroundMode = BackgroundMode.Particles;

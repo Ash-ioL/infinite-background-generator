@@ -49,9 +49,9 @@ export class CursorDot {
 export function initCursor(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D, currentCursorMode: CursorMode) {
     CursorDot.clearAll();
 
-    if (currentCursorMode === CursorMode.Debug) {
+    //if (currentCursorMode === CursorMode.Debug) {
         
-    } else if (currentCursorMode === CursorMode.None) {
+    if (currentCursorMode === CursorMode.None) {
         // Nothing
     } else if (currentCursorMode === CursorMode.ClickDots) {
         const newMouseEvents: MouseEvents = {

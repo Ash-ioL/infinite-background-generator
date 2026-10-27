@@ -1,20 +1,19 @@
 export declare const canvas: HTMLCanvasElement;
 export declare const ctx: CanvasRenderingContext2D;
 declare enum CursorMode {
-    None = 0,
-    ClickDots = 1,
-    HoldDots = 2,
-    Debug = 3,
-    Flashlight = 4
+    None = "none",
+    ClickDots = "click-dots",
+    HoldDots = "hold-dots",
+    Flashlight = "flashlight"
 }
 declare enum BackgroundMode {
-    Black = 0,
-    White = 1,
-    Primary = 2,
-    Secondary = 3,
-    Checkerboard = 4,
-    RandomDots = 5,
-    Particles = 6
+    Black = "black",
+    White = "white",
+    Primary = "primary",
+    Secondary = "secondary",
+    Checkerboard = "checkerboard",
+    RandomDots = "random-dots",
+    Particles = "particles"
 }
 export declare let currentCursorMode: CursorMode;
 export declare let currentBackgroundMode: BackgroundMode;

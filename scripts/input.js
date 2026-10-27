@@ -60,6 +60,9 @@ backgroundSelect.addEventListener("change", () => {
     else if (curVal === "checkerboard") {
         newBackgroundMode = BackgroundMode.Checkerboard;
     }
+    else if (curVal === "random-dots") {
+        newBackgroundMode = BackgroundMode.RandomDots;
+    }
     else if (curVal === "particles") {
         newBackgroundMode = BackgroundMode.Particles;
     }

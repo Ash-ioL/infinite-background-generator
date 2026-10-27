@@ -16,5 +16,6 @@ export declare class Particle {
     static prevTime: number;
     static renderParticles(ctx: CanvasRenderingContext2D): void;
     static initParticles(): void;
+    static initRandomColorStationary(): void;
 }
 //# sourceMappingURL=background.d.ts.map

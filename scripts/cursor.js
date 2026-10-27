@@ -38,9 +38,8 @@ export class CursorDot {
 }
 export function initCursor(canvas, ctx, currentCursorMode) {
     CursorDot.clearAll();
-    if (currentCursorMode === CursorMode.Debug) {
-    }
-    else if (currentCursorMode === CursorMode.None) {
+    //if (currentCursorMode === CursorMode.Debug) {
+    if (currentCursorMode === CursorMode.None) {
         // Nothing
     }
     else if (currentCursorMode === CursorMode.ClickDots) {
