@@ -55,18 +55,14 @@ export function initMouseEvents(canvas: HTMLCanvasElement) {
     canvas.addEventListener("wheel", () => {
         currentMouseEvents.scroll();
     });
-    startEngine();
     recordWheel();
 }
 
-function startEngine() {
+export function mouseTasks() {
     if (mouseIsDown) {
         currentMouseEvents.hold();
     }
     currentForeverEvent.run();
-    requestAnimationFrame(() => {
-        startEngine();
-    });
 }
 
 function recordWheel() {

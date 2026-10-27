@@ -13,8 +13,21 @@ export interface LoopSet {
     after?(): void;
 };
 
+let curLoop: LoopSet = {
+    background() {},
+    cursor() {},
+}
+
 export class task_scheduler {
     static #mainLoop() {
-        
+        curLoop.before?.();
+        curLoop.background();
+        curLoop.cursor();
+        curLoop.after?.();
     }
+    
+}
+
+export function setMainLoop(newLoop: LoopSet) {
+    curLoop = newLoop;
 }

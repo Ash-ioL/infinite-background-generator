@@ -68,7 +68,7 @@ export function drawBackground(canvas: HTMLCanvasElement, ctx: CanvasRenderingCo
     }
 }
 
-export class Particle {
+export class BackgroundParticle {
     x: number;
     y: number;
     vx: number;
@@ -115,14 +115,14 @@ export class Particle {
     }
 
     static prevTime: number = -1;
-    static animationFrameId: number | null = null;
-    static stopRendering() {
-        if (Particle.animationFrameId !== null) {
-            cancelAnimationFrame(Particle.animationFrameId);
-            Particle.animationFrameId = null;
-        }
-        Particle.prevTime = -1;
-    }
+    // static animationFrameId: number | null = null;
+    // static stopRendering() {
+    //     if (Particle.animationFrameId !== null) {
+    //         cancelAnimationFrame(Particle.animationFrameId);
+    //         Particle.animationFrameId = null;
+    //     }
+    //     Particle.prevTime = -1;
+    // }
     static renderParticles(ctx: CanvasRenderingContext2D) {
         if (!Particle.particleArray) return;
         if (Particle.prevTime === -1) {
@@ -137,8 +137,8 @@ export class Particle {
                 p.draw(ctx);
             }
         }
-        Particle.animationFrameId = requestAnimationFrame(() => {
-            Particle.renderParticles(ctx);
-        });
+        // Particle.animationFrameId = requestAnimationFrame(() => {
+        //     Particle.renderParticles(ctx);
+        // });
     }
 }
