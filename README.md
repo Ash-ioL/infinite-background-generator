@@ -6,7 +6,8 @@ An procedural infinite random background generator using HTML Canvas.
 
 ## AI Usage Declaration
 
-
+- GitHub Copilot for autocompletions
+- GPT 6 Asta for debugging
 
 ## Desc
 
