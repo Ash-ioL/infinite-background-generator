@@ -13,12 +13,22 @@ arrow!.addEventListener("click", () => {
     sidePanel!.classList.toggle("out");
 });
 
+// readColor();
+// readBackground();
+
 let cursorSelect: HTMLInputElement = document.getElementById("cursor") as HTMLInputElement;
 let backgroundSelect: HTMLInputElement = document.getElementById("background") as HTMLInputElement;
 let primaryColor: HTMLInputElement = document.getElementById("primary-color") as HTMLInputElement;
 let secondaryColor: HTMLInputElement = document.getElementById("secondary-color") as HTMLInputElement;
 
 cursorSelect!.addEventListener("change", () => {
+    readColor();
+});
+backgroundSelect!.addEventListener("change", () => {
+    readBackground();
+});
+
+export function readColor() {
     let newCursorMode = CursorMode.None;
     let curVal: string = cursorSelect.value;
 
@@ -37,11 +47,12 @@ cursorSelect!.addEventListener("change", () => {
     }
 
     resetBackgroundAndCursor(currentBackgroundMode, newCursorMode);
-});
-backgroundSelect!.addEventListener("change", () => {
+}
+
+export function readBackground() {
     let newBackgroundMode = BackgroundMode.Black;
     let curVal: string = backgroundSelect.value;
-    
+
     if (curVal === "random") {
         const enumValues = Object.values(BackgroundMode) as BackgroundMode[];
         const randomIndex = Math.floor(Math.random() * enumValues.length);
@@ -64,7 +75,7 @@ backgroundSelect!.addEventListener("change", () => {
     }
 
     resetBackgroundAndCursor(newBackgroundMode, currentCursorMode);
-});
+}
 
 primaryColor!.addEventListener("input", (event) => {
     resetBackgroundAndCursor(currentBackgroundMode, currentCursorMode);

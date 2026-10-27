@@ -10,11 +10,19 @@ let arrow = document.getElementById("arrow");
 arrow.addEventListener("click", () => {
     sidePanel.classList.toggle("out");
 });
+// readColor();
+// readBackground();
 let cursorSelect = document.getElementById("cursor");
 let backgroundSelect = document.getElementById("background");
 let primaryColor = document.getElementById("primary-color");
 let secondaryColor = document.getElementById("secondary-color");
 cursorSelect.addEventListener("change", () => {
+    readColor();
+});
+backgroundSelect.addEventListener("change", () => {
+    readBackground();
+});
+export function readColor() {
     let newCursorMode = CursorMode.None;
     let curVal = cursorSelect.value;
     if (curVal === "none") {
@@ -35,8 +43,8 @@ cursorSelect.addEventListener("change", () => {
         newCursorMode = CursorMode.Flashlight;
     }
     resetBackgroundAndCursor(currentBackgroundMode, newCursorMode);
-});
-backgroundSelect.addEventListener("change", () => {
+}
+export function readBackground() {
     let newBackgroundMode = BackgroundMode.Black;
     let curVal = backgroundSelect.value;
     if (curVal === "random") {
@@ -67,7 +75,7 @@ backgroundSelect.addEventListener("change", () => {
         newBackgroundMode = BackgroundMode.Particles;
     }
     resetBackgroundAndCursor(newBackgroundMode, currentCursorMode);
-});
+}
 primaryColor.addEventListener("input", (event) => {
     resetBackgroundAndCursor(currentBackgroundMode, currentCursorMode);
 });

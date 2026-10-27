@@ -1,7 +1,7 @@
 import { drawBackground } from "./background.js";
 import { drawCursor } from "./cursor.js";
 import { initMouseEvents, mouseTasks } from "./events.js";
-import { resetBackgroundAndCursor } from "./input.js";
+import { readBackground, readColor, resetBackgroundAndCursor } from "./input.js";
 import { setMainLoop } from "./task_scheduler.js";
 import { DrawUtil } from "./util.js";
 export const canvas = document.getElementById("whiteboard");
@@ -63,6 +63,8 @@ let newLoop = {
     },
 };
 setMainLoop(newLoop);
+readColor();
+readBackground();
 initMouseEvents(canvas);
 // draw();
 export { BackgroundMode, CursorMode };

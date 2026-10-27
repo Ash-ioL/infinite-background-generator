@@ -1,7 +1,7 @@
 import { drawBackground } from "./background.js";
 import { drawCursor } from "./cursor.js";
 import { initMouseEvents, mouseTasks } from "./events.js";
-import { resetBackgroundAndCursor } from "./input.js";
+import { readBackground, readColor, resetBackgroundAndCursor } from "./input.js";
 import { setMainLoop, type LoopSet } from "./task_scheduler.js";
 import { DrawUtil } from "./util.js";
 
@@ -73,6 +73,9 @@ let newLoop: LoopSet = {
 setMainLoop(
     newLoop
 )
+
+readColor();
+readBackground();
 
 initMouseEvents(canvas);
 
