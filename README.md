@@ -19,6 +19,9 @@ Scroll down to versions section for different instructions for different checkpo
 
 ## Tech Stack
 
+- HTML
+- CSS
+- TypeScript
 
 ## Examples
 ![Uploading image.png…]()
