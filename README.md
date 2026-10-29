@@ -24,7 +24,9 @@ Scroll down to versions section for different instructions for different checkpo
 - TypeScript
 
 ## Examples
-![Uploading image.png…]()
+
+<img width="1440" height="671" alt="image" src="https://github.com/user-attachments/assets/ac4373b6-a2a3-4e50-9b2f-ee46b5c86411" />
+
 
 ## Versions
 
