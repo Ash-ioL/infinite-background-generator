@@ -6,7 +6,7 @@ import { scrollY } from "./events.js";
 import { getColor, getPrimaryColor, getSecondaryColor } from "./input.js";
 import Particle from "./components/Particle.js";
 let cursorModeVars = {
-    prevScroll: window.scrollY,
+    prevScroll: window.scrollY
 };
 export class CursorParticle extends Particle {
 }
