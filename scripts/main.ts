@@ -25,6 +25,9 @@ enum CursorMode {
     HoldDots = "hold-dots",
     //Debug = "debug",
     Flashlight = "flashlight",
+    Expel = "expel",
+    SlowDrift = "slow-drift",
+    Constellations = "constellations"
 }
 
 enum BackgroundMode {

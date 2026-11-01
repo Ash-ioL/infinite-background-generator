@@ -7,6 +7,7 @@ export declare class ColorUtil {
 export declare class DrawUtil {
     static drawCircle(ctx: CanvasRenderingContext2D, x: number | undefined, y: number | undefined, radius: number, fillColor?: string | null, lineWidth?: number, strokeColor?: string): void;
     static clearScreen(ctx: CanvasRenderingContext2D): void;
+    static drawLine(ctx: CanvasRenderingContext2D, x1: number | undefined, y1: number | undefined, x2: number | undefined, y2: number | undefined, lineWidth?: number, strokeColor?: string): void;
 }
 export declare class RandomUtil {
     static windowPosition(leftPadding?: number, rightPadding?: number, topPadding?: number, bottomPadding?: number): number[];

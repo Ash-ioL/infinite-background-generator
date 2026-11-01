@@ -42,6 +42,17 @@ export class DrawUtil {
     static clearScreen(ctx) {
         ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
     }
+    static drawLine(ctx, x1, y1, x2, y2, lineWidth = 1, strokeColor = 'rgba(0,0,0,0)') {
+        if (x1 === undefined || y1 === undefined || x2 === undefined || y2 === undefined) {
+            return;
+        }
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.lineWidth = lineWidth;
+        ctx.strokeStyle = strokeColor;
+        ctx.stroke();
+    }
 }
 export class RandomUtil {
     static windowPosition(leftPadding = 0, rightPadding = 0, topPadding = 0, bottomPadding = 0) {

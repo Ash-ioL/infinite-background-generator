@@ -22,6 +22,9 @@ var CursorMode;
     CursorMode["HoldDots"] = "hold-dots";
     //Debug = "debug",
     CursorMode["Flashlight"] = "flashlight";
+    CursorMode["Expel"] = "expel";
+    CursorMode["SlowDrift"] = "slow-drift";
+    CursorMode["Constellations"] = "constellations";
 })(CursorMode || (CursorMode = {}));
 var BackgroundMode;
 (function (BackgroundMode) {

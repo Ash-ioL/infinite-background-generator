@@ -43,6 +43,17 @@ export class DrawUtil {
     static clearScreen(ctx: CanvasRenderingContext2D) {
         ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
     }
+    static drawLine(ctx: CanvasRenderingContext2D, x1: number | undefined, y1: number | undefined, x2: number | undefined, y2: number | undefined, lineWidth: number = 1, strokeColor: string = 'rgba(0,0,0,0)') {
+        if (x1 === undefined || y1 === undefined || x2 === undefined || y2 === undefined) {
+            return;
+        }
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.lineWidth = lineWidth;
+        ctx.strokeStyle = strokeColor;
+        ctx.stroke();
+    }
 }
 
 export class RandomUtil {

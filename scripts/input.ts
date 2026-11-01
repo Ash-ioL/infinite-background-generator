@@ -44,6 +44,12 @@ export function readColor() {
         newCursorMode = CursorMode.HoldDots;
     } else if (curVal === "flashlight") {
         newCursorMode = CursorMode.Flashlight;
+    } else if (curVal === "expel") {
+        newCursorMode = CursorMode.Expel;
+    } else if (curVal === "slow-drift") {
+        newCursorMode = CursorMode.SlowDrift;
+    } else if (curVal === "constellations") {
+        newCursorMode = CursorMode.Constellations;
     }
 
     resetBackgroundAndCursor(currentBackgroundMode, newCursorMode);

@@ -36,6 +36,11 @@ export function drawBackground(canvas: HTMLCanvasElement, ctx: CanvasRenderingCo
             Particle.initParticles();
         }
         Particle.renderParticles(ctx);
+    } else if (currentBackgroundMode === BackgroundMode.RandomConstellations) {
+        if (Particle.particleArray.length === 0) {
+            Particle.initRandomColorStationary();
+        }
+        Particle.renderParticles(ctx);
     }
 }
 

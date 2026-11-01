@@ -1,4 +1,4 @@
-import { CursorMode, currentBackgroundMode } from "./main.js";
+import { CursorMode, currentBackgroundMode, currentCursorMode } from "./main.js";
 import { drawBackground } from "./background.js";
 import { ColorUtil, DrawUtil, RandomUtil, MouseUtil} from "./util.js";
 import { setForeverEvent, setMouseEvents, resetForeverEvent, resetMouseEvents, isMouseDown } from "./events.js";
@@ -14,26 +14,84 @@ export class CursorDot {
     ctx: CanvasRenderingContext2D;
     x: number;
     y: number;
+    vx: number;
+    vy: number;
+    vSize: number;
     rad: number;
     fillColor: string | null;
+    prevTime: number = -1;
 
     static dotBoard: Array<CursorDot> = [];
 
-    constructor(ctx: CanvasRenderingContext2D, x: number, y: number, rad: number, fillColor: string | null) {
+    constructor(ctx: CanvasRenderingContext2D, x: number, y: number, rad: number, fillColor: string | null, vx: number = 0, vy: number = 0, vSize: number = 0) {
         this.ctx = ctx;
         this.x = x;
         this.y = y;
+        this.vx = vx;
+        this.vy = vy;
+        this.vSize = vSize;
         this.rad = rad;
         this.fillColor = fillColor;
     }
 
-    draw() {
-        DrawUtil.drawCircle(this.ctx, this.x, this.y, this.rad, this.fillColor ?? getColor()); 
+    update() {
+        if (this.prevTime === -1) {
+            this.prevTime = Date.now() / 1000;
+            return;
+        }
+        let dt = Date.now() / 1000 - this.prevTime;
+        this.prevTime = Date.now() / 1000;
+
+        let seconds = dt;
+
+
+        this.rad += this.vSize * seconds;
+        this.x += this.vx * seconds;
+        this.y += this.vy * seconds;
+        this.rad += this.vSize * seconds;
     }
 
-    static drawAll() {
+    draw(color: string = getColor()) {
+        if (this.rad <= 0) return;
+        DrawUtil.drawCircle(this.ctx, this.x, this.y, this.rad, this.fillColor ?? color); 
+    }
+
+    drawLine(i: number, j: number, color: string = getSecondaryColor()) {
+        const dot1 = CursorDot.dotBoard[i];
+        const dot2 = CursorDot.dotBoard[j];
+        if (dot1 && dot2) {
+            const dx = dot1.x - dot2.x;
+            const dy = dot1.y - dot2.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 100) {
+                DrawUtil.drawLine(this.ctx, dot1.x, dot1.y, dot2.x, dot2.y, (dot1.vSize + dot2.vSize) / 20, color);
+            }
+        }
+    }
+
+    static drawAllLines(color: string = getSecondaryColor()) {
+        for (let i = 0; i < CursorDot.dotBoard.length; i++) {
+            for (let j = i + 1; j < CursorDot.dotBoard.length; j++) {
+                CursorDot.dotBoard[i]!.drawLine(i, j, color);
+            }
+        }
+    }
+
+    static updateAll() {
         for (const dot of CursorDot.dotBoard) {
-            dot.draw();
+            dot.update();
+        }
+    }
+
+    static drawAll(color: string = getColor()) {
+        CursorDot.updateAll();
+        for (let i = CursorDot.dotBoard.length - 1; i >= 0; i--) {
+            if (CursorDot.dotBoard[i]!.rad <= 0) {
+                CursorDot.dotBoard.splice(i, 1);
+            }
+        }
+        for (const dot of CursorDot.dotBoard) {
+            dot.draw(color);
         }
     }
 
@@ -77,9 +135,7 @@ export function initCursor(canvas: HTMLCanvasElement, ctx: CanvasRenderingContex
                 
             },
             move() {
-                if (!isMouseDown()) return;
-                const dot = new CursorDot(ctx, MouseUtil.x()!, MouseUtil.y()!, 20 - MouseUtil.percentSpeed()*10, getColor());
-                CursorDot.add(dot);
+               
             },
             hold() {
                 const dot = new CursorDot(ctx, MouseUtil.x()!, MouseUtil.y()!, 20 - MouseUtil.percentSpeed()*10, getColor());
@@ -125,11 +181,80 @@ export function initCursor(canvas: HTMLCanvasElement, ctx: CanvasRenderingContex
         setForeverEvent (
             newForeverEvent
         );
-    } 
+    } else if (currentCursorMode === CursorMode.Expel) {
+        const newMouseEvents: MouseEvents = {
+            click() {
+                
+            },
+            move() {
+                if (MouseUtil.x() === undefined || MouseUtil.y() === undefined) return;
+                const vx = Math.random() * 30 * (Math.random() < 0.5 ? -1 : 1);
+                const vy = Math.random() * 30 * (Math.random() < 0.5 ? -1 : 1);
+                const dot = new CursorDot(ctx, MouseUtil.x()!, MouseUtil.y()!, RandomUtil.randInt(10, 15), getColor(), vx, vy, -5);
+                CursorDot.add(dot);
+            },
+            hold() {
+
+            },
+            scroll() {},
+        };
+        setMouseEvents(
+            newMouseEvents
+        );
+        resetForeverEvent();
+    } else if (currentCursorMode === CursorMode.SlowDrift) {
+        const vx = Math.random() * 10 * (Math.random() < 0.5 ? -1 : 1);
+        const vy = Math.random() * 10 * (Math.random() < 0.5 ? -1 : 1);
+        const newMouseEvents: MouseEvents = {
+            click() {
+                
+            },
+            move() {
+                if (MouseUtil.x() === undefined || MouseUtil.y() === undefined) return;
+                const dot = new CursorDot(ctx, MouseUtil.x()!, MouseUtil.y()!, RandomUtil.randInt(10, 15), getColor(), vx, vy, -0.5);
+                CursorDot.add(dot);
+            },
+            hold() {
+
+            },
+            scroll() {},
+        };
+        setMouseEvents(
+            newMouseEvents
+        );
+        resetForeverEvent();
+    } else if (currentCursorMode === CursorMode.Constellations) {
+        const newMouseEvents: MouseEvents = {
+            click() {
+                
+            },
+            move() {
+                if (MouseUtil.x() === undefined || MouseUtil.y() === undefined) return;
+                const vx = Math.random() * 50 * (Math.random() < 0.5 ? -1 : 1);
+                const vy = Math.random() * 50 * (Math.random() < 0.5 ? -1 : 1);
+                const dot = new CursorDot(ctx, MouseUtil.x()!, MouseUtil.y()!, RandomUtil.randInt(10, 15), getPrimaryColor(), vx, vy, -1);
+                CursorDot.add(dot);
+            },
+            hold() {
+
+            },
+            scroll() {},
+        };
+        setMouseEvents(
+            newMouseEvents
+        );
+        resetForeverEvent();   
+    }
 }
 
 export function drawCursor() {
-    CursorDot.drawAll();
+    if (currentCursorMode == CursorMode.Constellations) {
+        CursorDot.drawAllLines(getSecondaryColor());
+        CursorDot.drawAll(getPrimaryColor());
+    } else {
+        CursorDot.drawAllLines();
+        CursorDot.drawAll();
+    }
 }
 
 export function switchCursor() {

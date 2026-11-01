@@ -4,7 +4,10 @@ declare enum CursorMode {
     None = "none",
     ClickDots = "click-dots",
     HoldDots = "hold-dots",
-    Flashlight = "flashlight"
+    Flashlight = "flashlight",
+    Expel = "expel",
+    SlowDrift = "slow-drift",
+    Constellations = "constellations"
 }
 declare enum BackgroundMode {
     Black = "black",
