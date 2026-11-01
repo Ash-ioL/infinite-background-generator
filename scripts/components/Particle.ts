@@ -1,6 +1,6 @@
-import { CursorParticle } from "../cursor";
-import { getColor, getSecondaryColor } from "../input";
-import { DrawUtil } from "../util";
+import { CursorParticle } from "../cursor.js";
+import { getColor, getSecondaryColor } from "../input.js";
+import { DrawUtil } from "../util.js";
 
 export default class Particle {
     ctx: CanvasRenderingContext2D;

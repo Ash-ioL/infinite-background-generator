@@ -101,7 +101,7 @@ export function initCursor(canvas: HTMLCanvasElement, ctx: CanvasRenderingContex
                 if (MouseUtil.x() === undefined || MouseUtil.y() === undefined) return;
                 const vx = Math.random() * 30 * (Math.random() < 0.5 ? -1 : 1);
                 const vy = Math.random() * 30 * (Math.random() < 0.5 ? -1 : 1);
-                const dot = new CursorParticle(ctx, MouseUtil.x()!, MouseUtil.y()!, 0, 0, RandomUtil.randInt(10, 15), 0, getColor(), false);
+                const dot = new CursorParticle(ctx, MouseUtil.x()!, MouseUtil.y()!, vx, vy, RandomUtil.randInt(10, 15), 0, getColor(), false);
                 CursorParticle.add(dot);
             },
             hold() {
@@ -122,7 +122,7 @@ export function initCursor(canvas: HTMLCanvasElement, ctx: CanvasRenderingContex
             },
             move() {
                 if (MouseUtil.x() === undefined || MouseUtil.y() === undefined) return;
-                const dot = new CursorParticle(ctx, MouseUtil.x()!, MouseUtil.y()!, 0, 0, RandomUtil.randInt(10, 15), 0, getColor(), false);
+                const dot = new CursorParticle(ctx, MouseUtil.x()!, MouseUtil.y()!, vx, vy, RandomUtil.randInt(10, 15), 0, getColor(), false);
                 CursorParticle.add(dot);
             },
             hold() {
@@ -143,7 +143,7 @@ export function initCursor(canvas: HTMLCanvasElement, ctx: CanvasRenderingContex
                 if (MouseUtil.x() === undefined || MouseUtil.y() === undefined) return;
                 const vx = Math.random() * 50 * (Math.random() < 0.5 ? -1 : 1);
                 const vy = Math.random() * 50 * (Math.random() < 0.5 ? -1 : 1);
-                const dot = new CursorParticle(ctx, MouseUtil.x()!, MouseUtil.y()!, 0, 0, RandomUtil.randInt(10, 15), 0, getPrimaryColor(), false);
+                const dot = new CursorParticle(ctx, MouseUtil.x()!, MouseUtil.y()!, vx, vy, RandomUtil.randInt(10, 15), 0, getPrimaryColor(), false);
                 CursorParticle.add(dot);
             },
             hold() {
@@ -163,7 +163,6 @@ export function drawCursor() {
         CursorParticle.drawAllLines(getSecondaryColor());
         CursorParticle.drawAll(getPrimaryColor());
     } else {
-        CursorParticle.drawAllLines();
         CursorParticle.drawAll();
     }
 }

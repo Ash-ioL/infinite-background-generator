@@ -1,4 +1,4 @@
-import { CursorParticle } from "../cursor";
+import { CursorParticle } from "../cursor.js";
 export default class Particle {
     ctx: CanvasRenderingContext2D;
     x: number;
