@@ -11,7 +11,7 @@ An procedural infinite random background generator using HTML Canvas.
 
 ## Desc
 
-Hi! This project and it stems from my long interest to learn to use a modern rendering tool like HTML Canvas. I'm developing this as checkpoints of mini projects and evetually build up to an advanced stunning infinite background generator that can be exported and implemented in other projects.
+Hi! This project stems from my interest to learn to use a modern rendering tool like HTML Canvas. I'm developing this as checkpoints of mini projects and eventually build up to an advanced stunning infinite background generator that can export backgrounds and implemented in other projects.
 
 ## How To Test
 
@@ -19,9 +19,14 @@ Scroll down to versions section for different instructions for different checkpo
 
 ## Tech Stack
 
+- HTML
+- CSS
+- TypeScript
 
 ## Examples
-![Uploading image.png…]()
+
+<img width="1440" height="671" alt="image" src="https://github.com/user-attachments/assets/ac4373b6-a2a3-4e50-9b2f-ee46b5c86411" />
+
 
 ## Versions
 
