@@ -1,9 +1,8 @@
-import { Particle } from "./background.js";
 import { DrawUtil } from "./util.js";
 import { ctx, canvas, currentBackgroundMode, currentCursorMode } from "./main.js";
 import { BackgroundMode, CursorMode, setCurrentModes } from "./main.js";
-import { drawBackground } from "./background.js";
-import { CursorDot, drawCursor, initCursor } from "./cursor.js";
+import { BackgroundParticle, drawBackground } from "./background.js";
+import { CursorParticle, drawCursor, initCursor } from "./cursor.js";
 import { resetForeverEvent, resetMouseEvents } from "./events.js";
 
 let sidePanel = document.getElementById("side-panel")
@@ -108,9 +107,9 @@ export function getSecondaryColor() {
 }
 
 export function resetBackgroundAndCursor(newBackgroundMode: BackgroundMode, newCursorMode: CursorMode) {
-    Particle.clearParticles();
+    BackgroundParticle.clearAll();
     DrawUtil.clearScreen(ctx);
-    CursorDot.clearAll();
+    CursorParticle.clearAll();
     resetForeverEvent();
     resetMouseEvents();
     setCurrentModes(newCursorMode, newBackgroundMode);

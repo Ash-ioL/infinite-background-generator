@@ -35,6 +35,7 @@ var BackgroundMode;
     BackgroundMode["Checkerboard"] = "checkerboard";
     BackgroundMode["RandomDots"] = "random-dots";
     BackgroundMode["Particles"] = "particles";
+    BackgroundMode["RandomConstellations"] = "random-constellations";
 })(BackgroundMode || (BackgroundMode = {}));
 export let currentCursorMode = CursorMode.Flashlight;
 export let currentBackgroundMode = BackgroundMode.Particles;
