@@ -11,8 +11,6 @@ declare enum CursorMode {
     Constellations = "constellations"
 }
 declare enum BackgroundMode {
-    Black = "black",
-    White = "white",
     Primary = "primary",
     Secondary = "secondary",
     Checkerboard = "checkerboard",

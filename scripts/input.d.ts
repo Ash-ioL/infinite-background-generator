@@ -1,5 +1,5 @@
 import { BackgroundMode, CursorMode } from "./main.js";
-export declare function readColor(): void;
+export declare function readCursor(): void;
 export declare function readBackground(): void;
 export declare function getColor(): string;
 export declare function getPrimaryColor(): string;

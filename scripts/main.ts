@@ -2,7 +2,7 @@ import { drawBackground } from "./background.js";
 import ParticleManager from "./components/ParticleManager.js";
 import { drawCursor } from "./cursor.js";
 import { initMouseEvents, mouseTasks } from "./events.js";
-import { readBackground, readColor, resetBackgroundAndCursor } from "./input.js";
+import { readBackground, readCursor, resetBackgroundAndCursor } from "./input.js";
 import { setMainLoop, type LoopSet } from "./taskScheduler.js";
 import { DrawUtil } from "./util.js";
 
@@ -32,8 +32,6 @@ enum CursorMode {
 }
 
 enum BackgroundMode {
-    Black = "black",
-    White = "white",
     Primary = "primary",
     Secondary = "secondary",
     Checkerboard = "checkerboard",
@@ -83,7 +81,7 @@ setMainLoop(
     newLoop
 )
 
-readColor();
+readCursor();
 readBackground();
 
 initMouseEvents(canvas);

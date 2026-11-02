@@ -2,7 +2,7 @@ import { drawBackground } from "./background.js";
 import ParticleManager from "./components/ParticleManager.js";
 import { drawCursor } from "./cursor.js";
 import { initMouseEvents, mouseTasks } from "./events.js";
-import { readBackground, readColor, resetBackgroundAndCursor } from "./input.js";
+import { readBackground, readCursor, resetBackgroundAndCursor } from "./input.js";
 import { setMainLoop } from "./taskScheduler.js";
 import { DrawUtil } from "./util.js";
 export const canvas = document.getElementById("whiteboard");
@@ -29,8 +29,6 @@ var CursorMode;
 })(CursorMode || (CursorMode = {}));
 var BackgroundMode;
 (function (BackgroundMode) {
-    BackgroundMode["Black"] = "black";
-    BackgroundMode["White"] = "white";
     BackgroundMode["Primary"] = "primary";
     BackgroundMode["Secondary"] = "secondary";
     BackgroundMode["Checkerboard"] = "checkerboard";
@@ -71,7 +69,7 @@ let newLoop = {
     },
 };
 setMainLoop(newLoop);
-readColor();
+readCursor();
 readBackground();
 initMouseEvents(canvas);
 export function getCtx() {

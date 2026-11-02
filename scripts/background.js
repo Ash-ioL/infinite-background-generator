@@ -32,13 +32,7 @@ export function initBackground(ctx, currentBackgroundMode) {
     }
 }
 export function drawBackground(canvas, ctx, currentBackgroundMode) {
-    if (currentBackgroundMode === BackgroundMode.Black) {
-        canvas.style.background = "black";
-    }
-    else if (currentBackgroundMode === BackgroundMode.White) {
-        canvas.style.background = "white";
-    }
-    else if (currentBackgroundMode === BackgroundMode.Primary) {
+    if (currentBackgroundMode === BackgroundMode.Primary) {
         canvas.style.background = getPrimaryColor();
     }
     else if (currentBackgroundMode === BackgroundMode.Secondary) {

@@ -15,13 +15,14 @@ let cursorSelect = document.getElementById("cursor");
 let backgroundSelect = document.getElementById("background");
 let primaryColor = document.getElementById("primary-color");
 let secondaryColor = document.getElementById("secondary-color");
+let backgroundColor = document.getElementById("background-color");
 cursorSelect.addEventListener("change", () => {
-    readColor();
+    readCursor();
 });
 backgroundSelect.addEventListener("change", () => {
     readBackground();
 });
-export function readColor() {
+export function readCursor() {
     let newCursorMode = CursorMode.None;
     let curVal = cursorSelect.value;
     if (curVal === "none") {
@@ -53,19 +54,13 @@ export function readColor() {
     resetBackgroundAndCursor(currentBackgroundMode, newCursorMode);
 }
 export function readBackground() {
-    let newBackgroundMode = BackgroundMode.Black;
+    let newBackgroundMode = BackgroundMode.Primary;
     let curVal = backgroundSelect.value;
     if (curVal === "random") {
         const enumValues = Object.values(BackgroundMode);
         const randomIndex = Math.floor(Math.random() * enumValues.length);
         newBackgroundMode = enumValues[randomIndex];
         console.log(newBackgroundMode);
-    }
-    else if (curVal === "black") {
-        newBackgroundMode = BackgroundMode.Black;
-    }
-    else if (curVal === "white") {
-        newBackgroundMode = BackgroundMode.White;
     }
     else if (curVal === "primary") {
         newBackgroundMode = BackgroundMode.Primary;
@@ -93,6 +88,9 @@ primaryColor.addEventListener("input", (event) => {
 secondaryColor.addEventListener("input", (event) => {
     resetBackgroundAndCursor(currentBackgroundMode, currentCursorMode);
 });
+backgroundColor.addEventListener("input", (event) => {
+    setBackgroundColor(backgroundColor.value);
+});
 export function getColor() {
     if (Math.random() < 0.3) {
         return secondaryColor.value;
@@ -114,5 +112,8 @@ export function resetBackgroundAndCursor(newBackgroundMode, newCursorMode) {
     setCurrentModes(newCursorMode, newBackgroundMode);
     initCursor(ctx, newCursorMode);
     initBackground(ctx, newBackgroundMode);
+}
+function setBackgroundColor(color) {
+    document.getElementById("whiteboard").style.background = color;
 }
 //# sourceMappingURL=input.js.map

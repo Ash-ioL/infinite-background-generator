@@ -31,7 +31,7 @@
 }
 
 #arrow {
-    width: 20px;
+    min-width: 1vw;
     aspect-ratio: 1 / 1;
     border-bottom: 2px solid white;
     border-left: 2px solid white;
@@ -42,7 +42,6 @@
 }
 #side-panel.out {
     transform: translateX(calc(100% - 50px)); 
-
     & #arrow {
         transform: rotate(45deg);
     }

@@ -64,11 +64,7 @@ export function initBackground(ctx: CanvasRenderingContext2D, currentBackgroundM
 }
 
 export function drawBackground(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D, currentBackgroundMode: BackgroundMode) {
-    if (currentBackgroundMode === BackgroundMode.Black) {
-        canvas.style.background = "black";
-    } else if (currentBackgroundMode === BackgroundMode.White) {
-        canvas.style.background = "white";
-    } else if (currentBackgroundMode === BackgroundMode.Primary) {
+    if (currentBackgroundMode === BackgroundMode.Primary) {
         canvas.style.background = getPrimaryColor();
     } else if (currentBackgroundMode === BackgroundMode.Secondary) {
         canvas.style.background = getSecondaryColor();
