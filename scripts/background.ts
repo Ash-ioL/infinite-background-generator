@@ -83,8 +83,6 @@ export function initBackground(ctx: CanvasRenderingContext2D, currentBackgroundM
             backgroundManager.add(particle);
         }
     }
-
-    // TODO: Strokewidth of the constellations in background is dependingo n the cursor ones or some reaons
 }
 
 export function drawBackground(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D, currentBackgroundMode: BackgroundMode) {

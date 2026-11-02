@@ -14,7 +14,7 @@ export default class ParticleManager {
             const dy = dot1.y - dot2.y;
             const dist = Math.sqrt(dx * dx + dy * dy);
             if (dist < 100) {
-                DrawUtil.drawLine(this.ctx, dot1.x, dot1.y, dot2.x, dot2.y, (dot1.vSize + dot2.vSize) / 20, color);
+                DrawUtil.drawLine(this.ctx, dot1.x, dot1.y, dot2.x, dot2.y, (dot1.rad + dot2.rad) / 20, color);
             }
         }
     }
