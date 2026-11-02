@@ -32,6 +32,7 @@ enum CursorMode {
 }
 
 enum BackgroundMode {
+    None = "none",
     Primary = "primary",
     Secondary = "secondary",
     Checkerboard = "checkerboard",

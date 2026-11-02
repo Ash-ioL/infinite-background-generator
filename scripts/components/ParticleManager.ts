@@ -5,9 +5,11 @@ import type Particle from "./Particle.ts";
 export default class ParticleManager {
     particleArray: Array<Particle> = [];
     ctx: CanvasRenderingContext2D;
+    collideBounce: boolean;
 
-    constructor(ctx: CanvasRenderingContext2D) {
+    constructor(ctx: CanvasRenderingContext2D, collideBounce: boolean = false) {
         this.ctx = ctx;
+        this.collideBounce = collideBounce;
     }
 
     drawLine(i: number, j: number, color: string = getSecondaryColor()) {
@@ -34,6 +36,44 @@ export default class ParticleManager {
     updateAll() {
         for (const dot of this.particleArray) {
             dot.update();
+        }
+        if (this.collideBounce) {
+            for (let i = 0; i < this.particleArray.length; i++) {
+                for (let j = i + 1; j < this.particleArray.length; j++) {
+                    const dot1 = this.particleArray[i];
+                    const dot2 = this.particleArray[j];
+
+                    if (dot1 && dot2) {
+                        const dx = dot1.x - dot2.x;
+                        const dy = dot1.y - dot2.y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist === 0) return;
+                        if (dist < dot1.rad + dot2.rad) {
+                            let overlap = dot1.rad + dot2.rad - dist;
+                            let newDx = dx * (overlap / dist);
+                            let newDy = dy * (overlap / dist);
+
+                            if (dot1.x > dot2.x) {
+                                dot1.x += newDx / 2;
+                                dot2.x -= newDx / 2;
+                            } else {
+                                dot1.x += newDx / 2;
+                                dot2.x -= newDx / 2;
+                            }
+
+                            if (dot1.y > dot2.y) {
+                                dot1.y += newDy / 2;
+                                dot2.y -= newDy / 2;
+                            } else {
+                                dot1.y += newDy / 2;
+                                dot2.y -= newDy / 2;
+                            }
+
+                            
+                        }
+                    }
+                }
+            }
         }
     }
 
