@@ -61,10 +61,10 @@ export function initCursor(ctx: CanvasRenderingContext2D, currentCursorMode: Cur
         cursorModeVars.prevScroll = scrollY;
         const newForeverEvent: ForeverEvent = {
             run() {
-                let maxRad: number = 100;
+                let maxRad: number = 500;
                 let minRad: number = 10;
                 let diff: number = maxRad - minRad;
-                let startRad = minRad + diff/2;
+                let startRad = 100;
                 let scrollScale = 1000;
 
                 let dScroll = scrollY - cursorModeVars.prevScroll;
@@ -161,6 +161,8 @@ export function drawCursor() {
     if (currentCursorMode == CursorMode.Constellations) {
         cursorManager.drawAllLines(getSecondaryColor());
         cursorManager.drawAll(getPrimaryColor(), getSecondaryColor());
+    } else if (currentCursorMode == CursorMode.Flashlight) {
+        cursorManager.drawAll(getSecondaryColor() + "80", null);  
     } else {
         cursorManager.drawAll(getPrimaryColor());
     }
