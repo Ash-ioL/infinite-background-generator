@@ -22,19 +22,16 @@
     z-index: 1;
     display: flex;
     flex-direction: row;
-    gap: 12px;
+    gap: 4vw;
     align-items: center;
     transition: all 0.3s ease;
     padding-left: 10px;
     padding-right: 20px;
     overflow-y: auto;
-
-    box-sizing: border-box;
-    overflow-x: hidden;
 }
 
 #arrow {
-    width: 20px;
+    min-width: 1vw;
     aspect-ratio: 1 / 1;
     border-bottom: 2px solid white;
     border-left: 2px solid white;
@@ -45,7 +42,6 @@
 }
 #side-panel.out {
     transform: translateX(calc(100% - 50px)); 
-
     & #arrow {
         transform: rotate(45deg);
     }
@@ -60,9 +56,6 @@
     display: flex;
     flex-direction: column;
     gap: 1.5vh;
-
-    min-width: 0;
-    flex-grow: 1;
 }
 
 #inner select {
