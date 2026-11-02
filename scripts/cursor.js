@@ -1,5 +1,4 @@
-import { CursorMode, currentBackgroundMode, currentCursorMode } from "./main.js";
-import { drawBackground } from "./background.js";
+import { CursorMode, currentCursorMode } from "./main.js";
 import { ColorUtil, DrawUtil, RandomUtil, MouseUtil } from "./util.js";
 import { setForeverEvent, setMouseEvents, resetForeverEvent, resetMouseEvents, isMouseDown } from "./events.js";
 import { scrollY } from "./events.js";
@@ -9,6 +8,7 @@ let cursorModeVars = {
     prevScroll: window.scrollY
 };
 export class CursorParticle extends Particle {
+    static particleArray = [];
 }
 export function initCursor(canvas, ctx, currentCursorMode) {
     CursorParticle.clearAll();

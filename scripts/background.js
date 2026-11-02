@@ -4,6 +4,7 @@ import { getColor, getPrimaryColor, getSecondaryColor } from "./input.js";
 import Particle from "./components/Particle.js";
 let numCircles = 50;
 export class BackgroundParticle extends Particle {
+    static particleArray = [];
 }
 export function drawBackground(canvas, ctx, currentBackgroundMode) {
     if (currentBackgroundMode === BackgroundMode.Black) {
@@ -40,8 +41,10 @@ export function drawBackground(canvas, ctx, currentBackgroundMode) {
         if (BackgroundParticle.particleArray.length === 0) {
             for (let i = 0; i < numCircles; i++) {
                 const coords = RandomUtil.windowPosition();
-                let particle = new BackgroundParticle(ctx, coords[0], coords[1], 0, 0, Math.floor(Math.random() * 10 + 5), Math.floor(Math.random() * 10 + 5), getColor(), true);
+                let particle = new BackgroundParticle(ctx, coords[0], coords[1], 0, 0, Math.floor(Math.random() * 10 + 5), Math.floor(Math.random() * 10 + 5), getColor(), false);
+                console.log("bere add" + BackgroundParticle.particleArray.length);
                 BackgroundParticle.add(particle);
+                console.log("after add" + BackgroundParticle.particleArray.length);
             }
         }
         BackgroundParticle.drawAll();

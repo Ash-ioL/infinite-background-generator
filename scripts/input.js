@@ -112,6 +112,5 @@ export function resetBackgroundAndCursor(newBackgroundMode, newCursorMode) {
     resetMouseEvents();
     setCurrentModes(newCursorMode, newBackgroundMode);
     initCursor(canvas, ctx, newCursorMode);
-    console.log("runnin");
 }
 //# sourceMappingURL=input.js.map

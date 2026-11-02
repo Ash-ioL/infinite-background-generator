@@ -1,4 +1,3 @@
-import { CursorParticle } from "../cursor.js";
 import { getColor, getSecondaryColor } from "../input.js";
 import { DrawUtil } from "../util.js";
 
@@ -13,8 +12,6 @@ export default class Particle {
     fillColor: string | null;
     prevTime: number = -1;
     bounce: boolean = true;
-
-    static particleArray: Array<Particle> = [];
 
     constructor(ctx: CanvasRenderingContext2D, x: number, y: number, vx: number = 0, vy: number = 0, rad: number, vSize: number = 0, fillColor: string | null, bounce: boolean = true) {
         this.ctx = ctx;
@@ -58,52 +55,5 @@ export default class Particle {
     draw(color: string = getColor()) {
         if (this.rad <= 0) return;
         DrawUtil.drawCircle(this.ctx, this.x, this.y, this.rad, this.fillColor ?? color); 
-    }
-
-    drawLine(i: number, j: number, color: string = getSecondaryColor()) {
-        const dot1 = CursorParticle.particleArray[i];
-        const dot2 = CursorParticle.particleArray[j];
-        if (dot1 && dot2) {
-            const dx = dot1.x - dot2.x;
-            const dy = dot1.y - dot2.y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-            if (dist < 100) {
-                DrawUtil.drawLine(this.ctx, dot1.x, dot1.y, dot2.x, dot2.y, (dot1.vSize + dot2.vSize) / 20, color);
-            }
-        }
-    }
-
-    static drawAllLines(color: string = getSecondaryColor()) {
-        for (let i = 0; i < CursorParticle.particleArray.length; i++) {
-            for (let j = i + 1; j < CursorParticle.particleArray.length; j++) {
-                CursorParticle.particleArray[i]!.drawLine(i, j, color);
-            }
-        }
-    }
-
-    static updateAll() {
-        for (const dot of CursorParticle.particleArray) {
-            dot.update();
-        }
-    }
-
-    static drawAll(color: string = getColor()) {
-        CursorParticle.updateAll();
-        for (let i = CursorParticle.particleArray.length - 1; i >= 0; i--) {
-            if (CursorParticle.particleArray[i]!.rad <= 0) {
-                CursorParticle.particleArray.splice(i, 1);
-            }
-        }
-        for (const dot of CursorParticle.particleArray) {
-            dot.draw(color);
-        }
-    }
-
-    static clearAll() {
-        CursorParticle.particleArray = [];
-    }
-
-    static add(dot: CursorParticle) {
-        CursorParticle.particleArray.push(dot);
     }
 }

@@ -2,7 +2,7 @@ import { drawBackground } from "./background.js";
 import { drawCursor } from "./cursor.js";
 import { initMouseEvents, mouseTasks } from "./events.js";
 import { readBackground, readColor, resetBackgroundAndCursor } from "./input.js";
-import { setMainLoop } from "./task_scheduler.js";
+import { setMainLoop } from "./taskScheduler.js";
 import { DrawUtil } from "./util.js";
 export const canvas = document.getElementById("whiteboard");
 export const ctx = canvas.getContext("2d");

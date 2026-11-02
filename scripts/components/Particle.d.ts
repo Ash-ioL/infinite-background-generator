@@ -1,4 +1,3 @@
-import { CursorParticle } from "../cursor.js";
 export default class Particle {
     ctx: CanvasRenderingContext2D;
     x: number;
@@ -19,6 +18,6 @@ export default class Particle {
     static updateAll(): void;
     static drawAll(color?: string): void;
     static clearAll(): void;
-    static add(dot: CursorParticle): void;
+    static add(dot: any): void;
 }
 //# sourceMappingURL=Particle.d.ts.map

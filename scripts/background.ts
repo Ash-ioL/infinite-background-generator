@@ -2,10 +2,68 @@ import { BackgroundMode, ctx } from "./main.js";
 import { ColorUtil, DrawUtil, MouseUtil, RandomUtil } from "./util.js";
 import { getColor, getPrimaryColor, getSecondaryColor } from "./input.js";
 import Particle from "./components/Particle.js";
+import ParticleManager from "./components/ParticleManager.js";
 
 let numCircles: number = 50;
-export class BackgroundParticle extends Particle {
 
+let backgroundManager = new ParticleManager(ctx);
+
+export function initBackground(ctx: CanvasRenderingContext2D, currentBackgroundMode: BackgroundMode) {
+    backgroundManager.clearAll();
+    if (currentBackgroundMode === BackgroundMode.RandomDots) {
+        for (let i: number = 0; i < numCircles; i++) {
+            for (let i: number = 0; i < numCircles; i++) {
+                const coords = RandomUtil.windowPosition();
+                let particle: Particle = new Particle(
+                    ctx,
+                    coords[0]!,
+                    coords[1]!,
+                    0,
+                    0,
+                    Math.floor(Math.random() * 10 + 5),
+                    Math.floor(Math.random() * 10 + 5),
+                    getColor(),
+                    false
+                );
+                backgroundManager.add(particle);
+                console.log("bere add" + backgroundManager.particleArray.length);
+                backgroundManager.add(particle);
+                console.log("after add" + backgroundManager.particleArray.length);
+            }
+        }
+    } else if (currentBackgroundMode === BackgroundMode.Particles) {
+        for (let i: number = 0; i < numCircles; i++) {
+            const coords = RandomUtil.windowPosition();
+            let particle: Particle = new Particle(
+                ctx,
+                coords[0]!,
+                coords[1]!,
+                0,
+                0,
+                Math.floor(Math.random() * 10 + 5),
+                Math.floor(Math.random() * 10 + 5),
+                getColor(),
+                true
+            );
+            backgroundManager.add(particle);
+        }
+    } else if (currentBackgroundMode === BackgroundMode.RandomConstellations) {
+        for (let i: number = 0; i < numCircles; i++) {
+            const coords = RandomUtil.windowPosition();
+            let particle: Particle = new Particle(
+                ctx,
+                coords[0]!,
+                coords[1]!,
+                RandomUtil.randInt(-10, 10),
+                RandomUtil.randInt(-10, 10),
+                Math.floor(Math.random() * 10 + 5),
+                Math.floor(Math.random() * 10 + 5),
+                getColor(),
+                true
+            );
+            backgroundManager.add(particle);
+        }
+    }
 }
 
 export function drawBackground(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D, currentBackgroundMode: BackgroundMode) {
@@ -33,63 +91,11 @@ export function drawBackground(canvas: HTMLCanvasElement, ctx: CanvasRenderingCo
             outerToggle = !outerToggle;
         }
     } else if (currentBackgroundMode === BackgroundMode.RandomDots) {
-        if (BackgroundParticle.particleArray.length === 0) {
-            for (let i: number = 0; i < numCircles; i++) {
-                const coords = RandomUtil.windowPosition();
-                let particle: BackgroundParticle = new BackgroundParticle(
-                    ctx,
-                    coords[0]!,
-                    coords[1]!,
-                    0,
-                    0,
-                    Math.floor(Math.random() * 10 + 5),
-                    Math.floor(Math.random() * 10 + 5),
-                    getColor(),
-                    true
-                );
-                BackgroundParticle.add(particle);
-            }
-        }
-        BackgroundParticle.drawAll();
+        backgroundManager.drawAll();
     } else if (currentBackgroundMode === BackgroundMode.Particles) {
-        if (BackgroundParticle.particleArray.length === 0) {
-            if (Particle.particleArray.length === 0) {
-                for (let i: number = 0; i < numCircles; i++) {
-                    const coords = RandomUtil.windowPosition();
-                    let particle: BackgroundParticle = new BackgroundParticle(
-                        ctx,
-                        coords[0]!,
-                        coords[1]!,
-                        0,
-                        0,
-                        Math.floor(Math.random() * 10 + 5),
-                        Math.floor(Math.random() * 10 + 5),
-                        getColor(),
-                        true
-                    );
-                    BackgroundParticle.add(particle);
-                }
-            }
-        }
-        BackgroundParticle.drawAll();
+        backgroundManager.drawAll();
     } else if (currentBackgroundMode === BackgroundMode.RandomConstellations) {
-        if (BackgroundParticle.particleArray.length === 0) {
-            for (let i: number = 0; i < numCircles; i++) {
-                const coords = RandomUtil.windowPosition();
-                let particle: BackgroundParticle = new BackgroundParticle(
-                    ctx,
-                    coords[0]!,
-                    coords[1]!,
-                    RandomUtil.randInt(-10, 10),
-                    RandomUtil.randInt(-10, 10),
-                    Math.floor(Math.random() * 10 + 5),
-                    Math.floor(Math.random() * 10 + 5),
-                    getColor(),
-                    true
-                );
-                BackgroundParticle.add(particle);
-            }
-        }
-        BackgroundParticle.drawAll();
+        backgroundManager.drawAll(getPrimaryColor());
+        backgroundManager.drawAllLines(getSecondaryColor());
     }
 }
