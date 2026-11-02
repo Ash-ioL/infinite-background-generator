@@ -1,10 +1,38 @@
-import { BackgroundMode, ctx } from "./main.js";
+import { BackgroundMode, ctx, getCtx, getParticleManager } from "./main.js";
 import { ColorUtil, DrawUtil, MouseUtil, RandomUtil } from "./util.js";
 import { getColor, getPrimaryColor, getSecondaryColor } from "./input.js";
 import Particle from "./components/Particle.js";
+import ParticleManager from "./components/ParticleManager.js";
 let numCircles = 50;
-export class BackgroundParticle extends Particle {
-    static particleArray = [];
+let backgroundManager = new ParticleManager(getCtx());
+export function initBackground(ctx, currentBackgroundMode) {
+    backgroundManager.clearAll();
+    if (currentBackgroundMode === BackgroundMode.RandomDots) {
+        for (let i = 0; i < numCircles; i++) {
+            for (let i = 0; i < numCircles; i++) {
+                const coords = RandomUtil.windowPosition();
+                let particle = new Particle(ctx, coords[0], coords[1], 0, 0, Math.floor(Math.random() * 10 + 5), 0, getColor(), false);
+                backgroundManager.add(particle);
+                console.log("bere add" + backgroundManager.particleArray.length);
+                backgroundManager.add(particle);
+                console.log("after add" + backgroundManager.particleArray.length);
+            }
+        }
+    }
+    else if (currentBackgroundMode === BackgroundMode.Particles) {
+        for (let i = 0; i < numCircles; i++) {
+            const coords = RandomUtil.windowPosition();
+            let particle = new Particle(ctx, coords[0], coords[1], 0, 0, Math.floor(Math.random() * 10 + 5), 0, getColor(), true);
+            backgroundManager.add(particle);
+        }
+    }
+    else if (currentBackgroundMode === BackgroundMode.RandomConstellations) {
+        for (let i = 0; i < numCircles; i++) {
+            const coords = RandomUtil.windowPosition();
+            let particle = new Particle(ctx, coords[0], coords[1], RandomUtil.randInt(-10, 10), RandomUtil.randInt(-10, 10), Math.floor(Math.random() * 10 + 5), 0, getColor(), true);
+            backgroundManager.add(particle);
+        }
+    }
 }
 export function drawBackground(canvas, ctx, currentBackgroundMode) {
     if (currentBackgroundMode === BackgroundMode.Black) {
@@ -38,38 +66,14 @@ export function drawBackground(canvas, ctx, currentBackgroundMode) {
         }
     }
     else if (currentBackgroundMode === BackgroundMode.RandomDots) {
-        if (BackgroundParticle.particleArray.length === 0) {
-            for (let i = 0; i < numCircles; i++) {
-                const coords = RandomUtil.windowPosition();
-                let particle = new BackgroundParticle(ctx, coords[0], coords[1], 0, 0, Math.floor(Math.random() * 10 + 5), Math.floor(Math.random() * 10 + 5), getColor(), false);
-                console.log("bere add" + BackgroundParticle.particleArray.length);
-                BackgroundParticle.add(particle);
-                console.log("after add" + BackgroundParticle.particleArray.length);
-            }
-        }
-        BackgroundParticle.drawAll();
+        backgroundManager.drawAll();
     }
     else if (currentBackgroundMode === BackgroundMode.Particles) {
-        if (BackgroundParticle.particleArray.length === 0) {
-            if (Particle.particleArray.length === 0) {
-                for (let i = 0; i < numCircles; i++) {
-                    const coords = RandomUtil.windowPosition();
-                    let particle = new BackgroundParticle(ctx, coords[0], coords[1], 0, 0, Math.floor(Math.random() * 10 + 5), Math.floor(Math.random() * 10 + 5), getColor(), true);
-                    BackgroundParticle.add(particle);
-                }
-            }
-        }
-        BackgroundParticle.drawAll();
+        backgroundManager.drawAll();
     }
     else if (currentBackgroundMode === BackgroundMode.RandomConstellations) {
-        if (BackgroundParticle.particleArray.length === 0) {
-            for (let i = 0; i < numCircles; i++) {
-                const coords = RandomUtil.windowPosition();
-                let particle = new BackgroundParticle(ctx, coords[0], coords[1], RandomUtil.randInt(-10, 10), RandomUtil.randInt(-10, 10), Math.floor(Math.random() * 10 + 5), Math.floor(Math.random() * 10 + 5), getColor(), true);
-                BackgroundParticle.add(particle);
-            }
-        }
-        BackgroundParticle.drawAll();
+        backgroundManager.drawAll(getPrimaryColor());
+        backgroundManager.drawAllLines(getSecondaryColor());
     }
 }
 //# sourceMappingURL=background.js.map

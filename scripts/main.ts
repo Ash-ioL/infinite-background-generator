@@ -1,4 +1,5 @@
 import { drawBackground } from "./background.js";
+import ParticleManager from "./components/ParticleManager.js";
 import { drawCursor } from "./cursor.js";
 import { initMouseEvents, mouseTasks } from "./events.js";
 import { readBackground, readColor, resetBackgroundAndCursor } from "./input.js";
@@ -17,7 +18,7 @@ window.addEventListener("resize", () => {
 })
 
 // console.log(canvas); 
-// console.log(ctx);
+// console.log(ctx)
 
 enum CursorMode {
     None = "none",
@@ -60,6 +61,10 @@ export function resetBackground() {
     drawBackground(canvas, ctx, currentBackgroundMode);
 }
 
+export function getParticleManager() {
+    return new ParticleManager(ctx);
+}
+
 let newLoop: LoopSet = {
     before() {
         DrawUtil.clearScreen(ctx);
@@ -82,6 +87,11 @@ readColor();
 readBackground();
 
 initMouseEvents(canvas);
+
+
+export function getCtx() {
+    return (document.getElementById("whiteboard") as HTMLCanvasElement).getContext("2d") as CanvasRenderingContext2D;
+}
 
 // draw();
 

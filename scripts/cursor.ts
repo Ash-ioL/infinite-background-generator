@@ -1,4 +1,4 @@
-import { CursorMode, ctx, currentCursorMode } from "./main.js";
+import { CursorMode, ctx, currentCursorMode, getCtx, getParticleManager } from "./main.js";
 import { ColorUtil, DrawUtil, RandomUtil, MouseUtil} from "./util.js";
 import { setForeverEvent, setMouseEvents, resetForeverEvent, resetMouseEvents, isMouseDown } from "./events.js";
 import { scrollY } from "./events.js";
@@ -11,13 +11,13 @@ let cursorModeVars = {
     prevScroll: window.scrollY
 }
 
-let cursorManager = new ParticleManager(ctx);
+let cursorManager = new ParticleManager(getCtx());
 
 export function initCursor(ctx: CanvasRenderingContext2D, currentCursorMode: CursorMode) {
     cursorManager.clearAll();
 
     //if (currentCursorMode === CursorMode.Debug) {
-        
+
     if (currentCursorMode === CursorMode.None) {
         // Nothing
     } else if (currentCursorMode === CursorMode.ClickDots) {

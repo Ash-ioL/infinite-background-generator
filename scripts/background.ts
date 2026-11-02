@@ -1,4 +1,4 @@
-import { BackgroundMode, ctx } from "./main.js";
+import { BackgroundMode, ctx, getCtx, getParticleManager } from "./main.js";
 import { ColorUtil, DrawUtil, MouseUtil, RandomUtil } from "./util.js";
 import { getColor, getPrimaryColor, getSecondaryColor } from "./input.js";
 import Particle from "./components/Particle.js";
@@ -6,7 +6,7 @@ import ParticleManager from "./components/ParticleManager.js";
 
 let numCircles: number = 50;
 
-let backgroundManager = new ParticleManager(ctx);
+let backgroundManager = new ParticleManager(getCtx());
 
 export function initBackground(ctx: CanvasRenderingContext2D, currentBackgroundMode: BackgroundMode) {
     backgroundManager.clearAll();
@@ -21,7 +21,7 @@ export function initBackground(ctx: CanvasRenderingContext2D, currentBackgroundM
                     0,
                     0,
                     Math.floor(Math.random() * 10 + 5),
-                    Math.floor(Math.random() * 10 + 5),
+                    0,
                     getColor(),
                     false
                 );
@@ -38,10 +38,10 @@ export function initBackground(ctx: CanvasRenderingContext2D, currentBackgroundM
                 ctx,
                 coords[0]!,
                 coords[1]!,
-                0,
-                0,
+                RandomUtil.randInt(-10, 10),
+                RandomUtil.randInt(-10, 10),
                 Math.floor(Math.random() * 10 + 5),
-                Math.floor(Math.random() * 10 + 5),
+                0,
                 getColor(),
                 true
             );
@@ -57,7 +57,7 @@ export function initBackground(ctx: CanvasRenderingContext2D, currentBackgroundM
                 RandomUtil.randInt(-10, 10),
                 RandomUtil.randInt(-10, 10),
                 Math.floor(Math.random() * 10 + 5),
-                Math.floor(Math.random() * 10 + 5),
+                0,
                 getColor(),
                 true
             );
