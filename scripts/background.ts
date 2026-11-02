@@ -111,10 +111,10 @@ export function drawBackground(canvas: HTMLCanvasElement, ctx: CanvasRenderingCo
         backgroundManager.drawAll(getPrimaryColor(), getSecondaryColor());
     } else if (currentBackgroundMode === BackgroundMode.RandomConstellations) {
         backgroundManager.drawAllLines(getSecondaryColor());
-        backgroundManager.drawAll(getPrimaryColor(), null);
+        backgroundManager.drawAll(getPrimaryColor());
     } else if (currentBackgroundMode === BackgroundMode.ShimmeringStars) {
         backgroundManager.drawAll(getPrimaryColor(), getSecondaryColor());
     } else if (currentBackgroundMode === BackgroundMode.ParticleCollisions) {
-        backgroundManager.drawAll(getPrimaryColor(), null, true);
+        backgroundManager.drawAll(getPrimaryColor(), getSecondaryColor(), true);
     }
 }

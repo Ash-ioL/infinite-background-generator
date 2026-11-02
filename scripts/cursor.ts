@@ -160,7 +160,7 @@ export function initCursor(ctx: CanvasRenderingContext2D, currentCursorMode: Cur
 export function drawCursor() {
     if (currentCursorMode == CursorMode.Constellations) {
         cursorManager.drawAllLines(getSecondaryColor());
-        cursorManager.drawAll(getPrimaryColor());
+        cursorManager.drawAll(getPrimaryColor(), getSecondaryColor());
     } else {
         cursorManager.drawAll(getPrimaryColor());
     }

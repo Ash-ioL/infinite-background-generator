@@ -138,7 +138,7 @@ export function initCursor(ctx, currentCursorMode) {
 export function drawCursor() {
     if (currentCursorMode == CursorMode.Constellations) {
         cursorManager.drawAllLines(getSecondaryColor());
-        cursorManager.drawAll(getPrimaryColor());
+        cursorManager.drawAll(getPrimaryColor(), getSecondaryColor());
     }
     else {
         cursorManager.drawAll(getPrimaryColor());
