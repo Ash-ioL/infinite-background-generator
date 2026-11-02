@@ -47,25 +47,14 @@ export default class ParticleManager {
                         const dist = Math.sqrt(dx * dx + dy * dy);
                         if (dist === 0) continue;
                         if (dist < dot1.rad + dot2.rad) {
-                            let overlap = dot1.rad + dot2.rad - dist;
-                            let newDx = Math.abs(dx * (overlap / dist));
-                            let newDy = Math.abs(dy * (overlap / dist));
+                            const overlap = dot1.rad + dot2.rad - dist;
+                            const separationX = (dx / dist) * (overlap / 2);
+                            const separationY = (dy / dist) * (overlap / 2);
 
-                            if (dot1.x > dot2.x) {
-                                dot1.x += newDx / 2;
-                                dot2.x -= newDx / 2;
-                            } else {
-                                dot1.x -= newDx / 2;
-                                dot2.x += newDx / 2;
-                            }
-
-                            if (dot1.y > dot2.y) {
-                                dot1.y += newDy / 2;
-                                dot2.y -= newDy / 2;
-                            } else {
-                                dot1.y -= newDy / 2;
-                                dot2.y += newDy / 2;
-                            }
+                            dot1.x += separationX;
+                            dot1.y += separationY;
+                            dot2.x -= separationX;
+                            dot2.y -= separationY;
 
                             let angle = Math.atan2(dy, dx);
 

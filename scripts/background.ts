@@ -78,7 +78,7 @@ export function initBackground(ctx: CanvasRenderingContext2D, currentBackgroundM
         for (let i: number = 0; i < numCircles; i++) {
             const coords = RandomUtil.windowPosition();
             let particle: Particle = new Particle(
-                ctx, coords[0]!, coords[1]!, RandomUtil.randInt(-5, 5), RandomUtil.randInt(-5, 5), Math.floor(Math.random() * 5 + 15), 0, true
+                ctx, coords[0]!, coords[1]!, RandomUtil.randInt(-25, 25), RandomUtil.randInt(-25, 25), Math.floor(Math.random() * 5 + 15), 0, true
             );
             backgroundManager.add(particle);
         }

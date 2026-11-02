@@ -78,7 +78,7 @@ export function readBackground() {
         newBackgroundMode = BackgroundMode.RandomConstellations;
     } else if (curVal === "shimmering-stars") {
         newBackgroundMode = BackgroundMode.ShimmeringStars;
-    } else if (curVal == "paricle-collisions") {
+    } else if (curVal == "particle-collisions") {
         newBackgroundMode = BackgroundMode.ParticleCollisions;  
     } else {
         newBackgroundMode = BackgroundMode.None;
