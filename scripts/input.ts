@@ -76,6 +76,8 @@ export function readBackground() {
         newBackgroundMode = BackgroundMode.Particles;
     } else if (curVal === "random-constellations") {
         newBackgroundMode = BackgroundMode.RandomConstellations;
+    } else if (curVal === "shimmering-stars") {
+        newBackgroundMode = BackgroundMode.ShimmeringStars;
     }
 
     resetBackgroundAndCursor(newBackgroundMode, currentCursorMode);

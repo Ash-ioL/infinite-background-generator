@@ -16,7 +16,8 @@ declare enum BackgroundMode {
     Checkerboard = "checkerboard",
     RandomDots = "random-dots",
     Particles = "particles",
-    RandomConstellations = "random-constellations"
+    RandomConstellations = "random-constellations",
+    ShimmeringStars = "shimmering-stars"
 }
 export declare let currentCursorMode: CursorMode;
 export declare let currentBackgroundMode: BackgroundMode;

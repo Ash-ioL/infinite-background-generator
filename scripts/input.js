@@ -80,6 +80,9 @@ export function readBackground() {
     else if (curVal === "random-constellations") {
         newBackgroundMode = BackgroundMode.RandomConstellations;
     }
+    else if (curVal === "shimmering-stars") {
+        newBackgroundMode = BackgroundMode.ShimmeringStars;
+    }
     resetBackgroundAndCursor(newBackgroundMode, currentCursorMode);
 }
 // primaryColor!.addEventListener("input", (event) => {

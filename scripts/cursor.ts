@@ -100,7 +100,7 @@ export function initCursor(ctx: CanvasRenderingContext2D, currentCursorMode: Cur
                 if (MouseUtil.x() === undefined || MouseUtil.y() === undefined) return;
                 const vx = Math.random() * 30 * (Math.random() < 0.5 ? -1 : 1);
                 const vy = Math.random() * 30 * (Math.random() < 0.5 ? -1 : 1);
-                const dot = new Particle(ctx, MouseUtil.x()!, MouseUtil.y()!, vx, vy, RandomUtil.randInt(10, 15), 0, false);
+                const dot = new Particle(ctx, MouseUtil.x()!, MouseUtil.y()!, vx, vy, RandomUtil.randInt(10, 15), -2, false);
                 cursorManager.add(dot);
             },
             hold() {
@@ -121,7 +121,7 @@ export function initCursor(ctx: CanvasRenderingContext2D, currentCursorMode: Cur
             },
             move() {
                 if (MouseUtil.x() === undefined || MouseUtil.y() === undefined) return;
-                const dot = new Particle(ctx, MouseUtil.x()!, MouseUtil.y()!, vx, vy, RandomUtil.randInt(10, 15), 0, false);
+                const dot = new Particle(ctx, MouseUtil.x()!, MouseUtil.y()!, vx, vy, RandomUtil.randInt(10, 15), -0.5, false);
                 cursorManager.add(dot);
             },
             hold() {
@@ -142,7 +142,7 @@ export function initCursor(ctx: CanvasRenderingContext2D, currentCursorMode: Cur
                 if (MouseUtil.x() === undefined || MouseUtil.y() === undefined) return;
                 const vx = Math.random() * 50 * (Math.random() < 0.5 ? -1 : 1);
                 const vy = Math.random() * 50 * (Math.random() < 0.5 ? -1 : 1);
-                const dot = new Particle(ctx, MouseUtil.x()!, MouseUtil.y()!, vx, vy, RandomUtil.randInt(10, 15), 0, false);
+                const dot = new Particle(ctx, MouseUtil.x()!, MouseUtil.y()!, vx, vy, RandomUtil.randInt(10, 15), -5, false);
                 cursorManager.add(dot);
             },
             hold() {

@@ -57,6 +57,23 @@ export function initBackground(ctx: CanvasRenderingContext2D, currentBackgroundM
             );
             backgroundManager.add(particle);
         }
+    } else if (currentBackgroundMode === BackgroundMode.ShimmeringStars) {
+        for (let i: number = 0; i < numCircles; i++) {
+            const coords = RandomUtil.windowPosition();
+            let particle: Particle = new Particle(
+                ctx,
+                coords[0]!,
+                coords[1]!,
+                RandomUtil.randInt(-0.1, 0.1),
+                RandomUtil.randInt(-0.1, 0.1),
+                Math.floor(Math.random() * 3 + 2),
+                0,
+                true,
+                RandomUtil.randInt(1, 5) / 100,
+                Math.random() * Math.PI * 2
+            );
+            backgroundManager.add(particle);
+        }
     }
 }
 
@@ -87,5 +104,7 @@ export function drawBackground(canvas: HTMLCanvasElement, ctx: CanvasRenderingCo
     } else if (currentBackgroundMode === BackgroundMode.RandomConstellations) {
         backgroundManager.drawAllLines(getSecondaryColor());
         backgroundManager.drawAll(getPrimaryColor(), null);
+    } else if (currentBackgroundMode === BackgroundMode.ShimmeringStars) {
+        backgroundManager.drawAll(getPrimaryColor(), getSecondaryColor());
     }
 }
