@@ -22,7 +22,6 @@ export function initBackground(ctx: CanvasRenderingContext2D, currentBackgroundM
                     0,
                     Math.floor(Math.random() * 10 + 5),
                     0,
-                    getColor(),
                     false
                 );
                 backgroundManager.add(particle);
@@ -39,7 +38,6 @@ export function initBackground(ctx: CanvasRenderingContext2D, currentBackgroundM
                 RandomUtil.randInt(-10, 10),
                 Math.floor(Math.random() * 10 + 5),
                 0,
-                getColor(),
                 true
             );
             backgroundManager.add(particle);
@@ -55,7 +53,6 @@ export function initBackground(ctx: CanvasRenderingContext2D, currentBackgroundM
                 RandomUtil.randInt(-10, 10),
                 Math.floor(Math.random() * 10 + 5),
                 0,
-                getColor(),
                 true
             );
             backgroundManager.add(particle);
@@ -84,11 +81,11 @@ export function drawBackground(canvas: HTMLCanvasElement, ctx: CanvasRenderingCo
             outerToggle = !outerToggle;
         }
     } else if (currentBackgroundMode === BackgroundMode.RandomDots) {
-        backgroundManager.drawAll();
+        backgroundManager.drawAll(getPrimaryColor(), getSecondaryColor());
     } else if (currentBackgroundMode === BackgroundMode.Particles) {
-        backgroundManager.drawAll();
+        backgroundManager.drawAll(getPrimaryColor(), getSecondaryColor());
     } else if (currentBackgroundMode === BackgroundMode.RandomConstellations) {
-        backgroundManager.drawAll(getPrimaryColor());
         backgroundManager.drawAllLines(getSecondaryColor());
+        backgroundManager.drawAll(getPrimaryColor(), null);
     }
 }

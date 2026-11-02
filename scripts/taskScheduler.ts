@@ -26,7 +26,6 @@ export class task_scheduler {
         curLoop.after?.();
         requestAnimationFrame(() => task_scheduler.mainLoop());
     }
-    
 }
 
 export function setMainLoop(newLoop: LoopSet) {

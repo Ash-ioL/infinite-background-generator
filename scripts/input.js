@@ -82,12 +82,12 @@ export function readBackground() {
     }
     resetBackgroundAndCursor(newBackgroundMode, currentCursorMode);
 }
-primaryColor.addEventListener("input", (event) => {
-    resetBackgroundAndCursor(currentBackgroundMode, currentCursorMode);
-});
-secondaryColor.addEventListener("input", (event) => {
-    resetBackgroundAndCursor(currentBackgroundMode, currentCursorMode);
-});
+// primaryColor!.addEventListener("input", (event) => {
+//     resetBackgroundAndCursor(currentBackgroundMode, currentCursorMode);
+// });
+// secondaryColor!.addEventListener("input", (event) => {
+//     resetBackgroundAndCursor(currentBackgroundMode, currentCursorMode);
+// });
 backgroundColor.addEventListener("input", (event) => {
     setBackgroundColor(backgroundColor.value);
 });
@@ -105,11 +105,15 @@ export function getPrimaryColor() {
 export function getSecondaryColor() {
     return secondaryColor.value;
 }
+export function getBackgroundColor() {
+    return backgroundColor.value;
+}
 export function resetBackgroundAndCursor(newBackgroundMode, newCursorMode) {
     DrawUtil.clearScreen(ctx);
     resetForeverEvent();
     resetMouseEvents();
     setCurrentModes(newCursorMode, newBackgroundMode);
+    setBackgroundColor(getBackgroundColor());
     initCursor(ctx, newCursorMode);
     initBackground(ctx, newBackgroundMode);
 }

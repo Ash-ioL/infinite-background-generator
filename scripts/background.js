@@ -11,7 +11,7 @@ export function initBackground(ctx, currentBackgroundMode) {
         for (let i = 0; i < numCircles; i++) {
             for (let i = 0; i < numCircles; i++) {
                 const coords = RandomUtil.windowPosition();
-                let particle = new Particle(ctx, coords[0], coords[1], 0, 0, Math.floor(Math.random() * 10 + 5), 0, getColor(), false);
+                let particle = new Particle(ctx, coords[0], coords[1], 0, 0, Math.floor(Math.random() * 10 + 5), 0, false);
                 backgroundManager.add(particle);
             }
         }
@@ -19,14 +19,14 @@ export function initBackground(ctx, currentBackgroundMode) {
     else if (currentBackgroundMode === BackgroundMode.Particles) {
         for (let i = 0; i < numCircles; i++) {
             const coords = RandomUtil.windowPosition();
-            let particle = new Particle(ctx, coords[0], coords[1], RandomUtil.randInt(-10, 10), RandomUtil.randInt(-10, 10), Math.floor(Math.random() * 10 + 5), 0, getColor(), true);
+            let particle = new Particle(ctx, coords[0], coords[1], RandomUtil.randInt(-10, 10), RandomUtil.randInt(-10, 10), Math.floor(Math.random() * 10 + 5), 0, true);
             backgroundManager.add(particle);
         }
     }
     else if (currentBackgroundMode === BackgroundMode.RandomConstellations) {
         for (let i = 0; i < numCircles; i++) {
             const coords = RandomUtil.windowPosition();
-            let particle = new Particle(ctx, coords[0], coords[1], RandomUtil.randInt(-10, 10), RandomUtil.randInt(-10, 10), Math.floor(Math.random() * 10 + 5), 0, getColor(), true);
+            let particle = new Particle(ctx, coords[0], coords[1], RandomUtil.randInt(-10, 10), RandomUtil.randInt(-10, 10), Math.floor(Math.random() * 10 + 5), 0, true);
             backgroundManager.add(particle);
         }
     }
@@ -57,14 +57,14 @@ export function drawBackground(canvas, ctx, currentBackgroundMode) {
         }
     }
     else if (currentBackgroundMode === BackgroundMode.RandomDots) {
-        backgroundManager.drawAll();
+        backgroundManager.drawAll(getPrimaryColor(), getSecondaryColor());
     }
     else if (currentBackgroundMode === BackgroundMode.Particles) {
-        backgroundManager.drawAll();
+        backgroundManager.drawAll(getPrimaryColor(), getSecondaryColor());
     }
     else if (currentBackgroundMode === BackgroundMode.RandomConstellations) {
-        backgroundManager.drawAll(getPrimaryColor());
         backgroundManager.drawAllLines(getSecondaryColor());
+        backgroundManager.drawAll(getPrimaryColor(), null);
     }
 }
 //# sourceMappingURL=background.js.map

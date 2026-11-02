@@ -18,7 +18,7 @@ export function initCursor(ctx, currentCursorMode) {
     else if (currentCursorMode === CursorMode.ClickDots) {
         const newMouseEvents = {
             click() {
-                const dot = new Particle(ctx, MouseUtil.x(), MouseUtil.y(), 0, 0, RandomUtil.randInt(10, 15), 0, getColor(), false);
+                const dot = new Particle(ctx, MouseUtil.x(), MouseUtil.y(), 0, 0, RandomUtil.randInt(10, 15), 0, false);
                 cursorManager.add(dot);
             },
             move() {
@@ -33,13 +33,13 @@ export function initCursor(ctx, currentCursorMode) {
     else if (currentCursorMode === CursorMode.HoldDots) {
         const newMouseEvents = {
             click() {
-                const dot = new Particle(ctx, MouseUtil.x(), MouseUtil.y(), 0, 0, RandomUtil.randInt(10, 15), 0, getColor(), false);
+                const dot = new Particle(ctx, MouseUtil.x(), MouseUtil.y(), 0, 0, RandomUtil.randInt(10, 15), 0, false);
                 cursorManager.add(dot);
             },
             move() {
             },
             hold() {
-                const dot = new Particle(ctx, MouseUtil.x(), MouseUtil.y(), 0, 0, RandomUtil.randInt(10, 15), 0, getColor(), false);
+                const dot = new Particle(ctx, MouseUtil.x(), MouseUtil.y(), 0, 0, RandomUtil.randInt(10, 15), 0, false);
                 cursorManager.add(dot);
             },
             scroll() { },
@@ -69,7 +69,7 @@ export function initCursor(ctx, currentCursorMode) {
                 let rad = startRad + (diff / 2) * dScroll;
                 if (MouseUtil.x() !== undefined && MouseUtil.y() !== undefined) {
                     cursorManager.clearAll();
-                    const dot = new Particle(ctx, MouseUtil.x(), MouseUtil.y(), 0, 0, rad, 0, getPrimaryColor(), false);
+                    const dot = new Particle(ctx, MouseUtil.x(), MouseUtil.y(), 0, 0, rad, 0, false);
                     cursorManager.add(dot);
                 }
             }
@@ -86,7 +86,7 @@ export function initCursor(ctx, currentCursorMode) {
                     return;
                 const vx = Math.random() * 30 * (Math.random() < 0.5 ? -1 : 1);
                 const vy = Math.random() * 30 * (Math.random() < 0.5 ? -1 : 1);
-                const dot = new Particle(ctx, MouseUtil.x(), MouseUtil.y(), vx, vy, RandomUtil.randInt(10, 15), 0, getColor(), false);
+                const dot = new Particle(ctx, MouseUtil.x(), MouseUtil.y(), vx, vy, RandomUtil.randInt(10, 15), 0, false);
                 cursorManager.add(dot);
             },
             hold() {
@@ -105,7 +105,7 @@ export function initCursor(ctx, currentCursorMode) {
             move() {
                 if (MouseUtil.x() === undefined || MouseUtil.y() === undefined)
                     return;
-                const dot = new Particle(ctx, MouseUtil.x(), MouseUtil.y(), vx, vy, RandomUtil.randInt(10, 15), 0, getColor(), false);
+                const dot = new Particle(ctx, MouseUtil.x(), MouseUtil.y(), vx, vy, RandomUtil.randInt(10, 15), 0, false);
                 cursorManager.add(dot);
             },
             hold() {
@@ -124,7 +124,7 @@ export function initCursor(ctx, currentCursorMode) {
                     return;
                 const vx = Math.random() * 50 * (Math.random() < 0.5 ? -1 : 1);
                 const vy = Math.random() * 50 * (Math.random() < 0.5 ? -1 : 1);
-                const dot = new Particle(ctx, MouseUtil.x(), MouseUtil.y(), vx, vy, RandomUtil.randInt(10, 15), 0, getPrimaryColor(), false);
+                const dot = new Particle(ctx, MouseUtil.x(), MouseUtil.y(), vx, vy, RandomUtil.randInt(10, 15), 0, false);
                 cursorManager.add(dot);
             },
             hold() {
@@ -141,7 +141,7 @@ export function drawCursor() {
         cursorManager.drawAll(getPrimaryColor());
     }
     else {
-        cursorManager.drawAll();
+        cursorManager.drawAll(getPrimaryColor());
     }
 }
 export function switchCursor() {

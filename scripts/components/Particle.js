@@ -8,10 +8,9 @@ export default class Particle {
     vy;
     vSize;
     rad;
-    fillColor;
     prevTime = -1;
     bounce = true;
-    constructor(ctx, x, y, vx = 0, vy = 0, rad, vSize = 0, fillColor, bounce = true) {
+    constructor(ctx, x, y, vx = 0, vy = 0, rad, vSize = 0, bounce = true) {
         this.ctx = ctx;
         this.x = x;
         this.y = y;
@@ -19,7 +18,6 @@ export default class Particle {
         this.vy = vy;
         this.vSize = vSize;
         this.rad = rad;
-        this.fillColor = fillColor;
         this.bounce = bounce;
     }
     update() {
@@ -55,10 +53,15 @@ export default class Particle {
             }
         }
     }
-    draw(color = getColor()) {
+    draw(color = getColor(), strokeColor = getSecondaryColor()) {
         if (this.rad <= 0)
             return;
-        DrawUtil.drawCircle(this.ctx, this.x, this.y, this.rad, this.fillColor ?? color);
+        if (strokeColor === null) {
+            DrawUtil.drawCircle(this.ctx, this.x, this.y, this.rad, color);
+        }
+        else {
+            DrawUtil.drawCircle(this.ctx, this.x, this.y, this.rad, color, this.rad / 10, strokeColor);
+        }
     }
 }
 //# sourceMappingURL=Particle.js.map

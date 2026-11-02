@@ -30,7 +30,7 @@ export default class ParticleManager {
             dot.update();
         }
     }
-    drawAll(color = getColor()) {
+    drawAll(color = getColor(), strokeColor = getSecondaryColor()) {
         this.updateAll();
         for (let i = this.particleArray.length - 1; i >= 0; i--) {
             if (this.particleArray[i].rad <= 0) {
@@ -38,7 +38,7 @@ export default class ParticleManager {
             }
         }
         for (const dot of this.particleArray) {
-            dot.draw(color);
+            dot.draw(color, strokeColor);
         }
     }
     clearAll() {

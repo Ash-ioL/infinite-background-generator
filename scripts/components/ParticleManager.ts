@@ -37,7 +37,7 @@ export default class ParticleManager {
         }
     }
 
-    drawAll(color: string = getColor()) {
+    drawAll(color: string = getColor(), strokeColor: string | null = getSecondaryColor()) {
         this.updateAll();
         for (let i = this.particleArray.length - 1; i >= 0; i--) {
             if (this.particleArray[i]!.rad <= 0) {
@@ -45,7 +45,7 @@ export default class ParticleManager {
             }
         }
         for (const dot of this.particleArray) {
-            dot.draw(color);
+            dot.draw(color, strokeColor);
         }
     }
 

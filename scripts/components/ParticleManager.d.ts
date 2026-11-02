@@ -6,7 +6,7 @@ export default class ParticleManager {
     drawLine(i: number, j: number, color?: string): void;
     drawAllLines(color?: string): void;
     updateAll(): void;
-    drawAll(color?: string): void;
+    drawAll(color?: string, strokeColor?: string | null): void;
     clearAll(): void;
     add(dot: any): void;
 }

@@ -1,5 +1,6 @@
 import { getColor, getSecondaryColor } from "../input.js";
 import { DrawUtil } from "../util.js";
+import type { Supplier } from "./Supplier.js";
 
 export default class Particle {
     ctx: CanvasRenderingContext2D;
@@ -9,11 +10,10 @@ export default class Particle {
     vy: number;
     vSize: number;
     rad: number;
-    fillColor: string | null;
     prevTime: number = -1;
     bounce: boolean = true;
 
-    constructor(ctx: CanvasRenderingContext2D, x: number, y: number, vx: number = 0, vy: number = 0, rad: number, vSize: number = 0, fillColor: string | null, bounce: boolean = true) {
+    constructor(ctx: CanvasRenderingContext2D, x: number, y: number, vx: number = 0, vy: number = 0, rad: number, vSize: number = 0, bounce: boolean = true) {
         this.ctx = ctx;
         this.x = x;
         this.y = y;
@@ -21,7 +21,6 @@ export default class Particle {
         this.vy = vy;
         this.vSize = vSize;
         this.rad = rad;
-        this.fillColor = fillColor;
         this.bounce = bounce;
     }
 
@@ -63,9 +62,13 @@ export default class Particle {
             }
         }
     }
-
-    draw(color: string = getColor()) {
+    
+    draw(color: string = getColor(), strokeColor: string | null = getSecondaryColor()) {
         if (this.rad <= 0) return;
-        DrawUtil.drawCircle(this.ctx, this.x, this.y, this.rad, this.fillColor ?? color); 
+        if (strokeColor === null) {
+            DrawUtil.drawCircle(this.ctx, this.x, this.y, this.rad, color);
+        } else {
+            DrawUtil.drawCircle(this.ctx, this.x, this.y, this.rad, color, this.rad / 10, strokeColor); 
+        }
     }
 }
