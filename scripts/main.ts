@@ -39,7 +39,8 @@ enum BackgroundMode {
     RandomDots = "random-dots",
     Particles = "particles",
     RandomConstellations = "random-constellations",
-    ShimmeringStars = "shimmering-stars"
+    ShimmeringStars = "shimmering-stars",
+    ParticleCollisions = "particle-collisions"
 }
 
 export let currentCursorMode: CursorMode = CursorMode.Flashlight as CursorMode;

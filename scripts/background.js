@@ -37,6 +37,14 @@ export function initBackground(ctx, currentBackgroundMode) {
             backgroundManager.add(particle);
         }
     }
+    else if (currentBackgroundMode === BackgroundMode.ParticleCollisions) {
+        for (let i = 0; i < numCircles; i++) {
+            const coords = RandomUtil.windowPosition();
+            let particle = new Particle(ctx, coords[0], coords[1], RandomUtil.randInt(-5, 5), RandomUtil.randInt(-5, 5), Math.floor(Math.random() * 5 + 15), 0, true);
+            backgroundManager.add(particle);
+        }
+    }
+    // TODO: Strokewidth of the constellations in background is dependingo n the cursor ones or some reaons
 }
 export function drawBackground(canvas, ctx, currentBackgroundMode) {
     if (currentBackgroundMode === BackgroundMode.Primary) {
@@ -75,6 +83,9 @@ export function drawBackground(canvas, ctx, currentBackgroundMode) {
     }
     else if (currentBackgroundMode === BackgroundMode.ShimmeringStars) {
         backgroundManager.drawAll(getPrimaryColor(), getSecondaryColor());
+    }
+    else if (currentBackgroundMode === BackgroundMode.ParticleCollisions) {
+        backgroundManager.drawAll(getPrimaryColor(), null, true);
     }
 }
 //# sourceMappingURL=background.js.map

@@ -83,6 +83,12 @@ export function readBackground() {
     else if (curVal === "shimmering-stars") {
         newBackgroundMode = BackgroundMode.ShimmeringStars;
     }
+    else if (curVal == "paricle-collisions") {
+        newBackgroundMode = BackgroundMode.ParticleCollisions;
+    }
+    else {
+        newBackgroundMode = BackgroundMode.None;
+    }
     resetBackgroundAndCursor(newBackgroundMode, currentCursorMode);
 }
 // primaryColor!.addEventListener("input", (event) => {

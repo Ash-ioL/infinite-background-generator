@@ -50,7 +50,7 @@ export function readCursor() {
         newCursorMode = CursorMode.SlowDrift;
     } else if (curVal === "constellations") {
         newCursorMode = CursorMode.Constellations;
-    }
+    } 
 
     resetBackgroundAndCursor(currentBackgroundMode, newCursorMode);
 }
@@ -78,6 +78,8 @@ export function readBackground() {
         newBackgroundMode = BackgroundMode.RandomConstellations;
     } else if (curVal === "shimmering-stars") {
         newBackgroundMode = BackgroundMode.ShimmeringStars;
+    } else if (curVal == "paricle-collisions") {
+        newBackgroundMode = BackgroundMode.ParticleCollisions;  
     } else {
         newBackgroundMode = BackgroundMode.None;
     }

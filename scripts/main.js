@@ -29,6 +29,7 @@ var CursorMode;
 })(CursorMode || (CursorMode = {}));
 var BackgroundMode;
 (function (BackgroundMode) {
+    BackgroundMode["None"] = "none";
     BackgroundMode["Primary"] = "primary";
     BackgroundMode["Secondary"] = "secondary";
     BackgroundMode["Checkerboard"] = "checkerboard";
@@ -36,6 +37,7 @@ var BackgroundMode;
     BackgroundMode["Particles"] = "particles";
     BackgroundMode["RandomConstellations"] = "random-constellations";
     BackgroundMode["ShimmeringStars"] = "shimmering-stars";
+    BackgroundMode["ParticleCollisions"] = "particle-collisions";
 })(BackgroundMode || (BackgroundMode = {}));
 export let currentCursorMode = CursorMode.Flashlight;
 export let currentBackgroundMode = BackgroundMode.Particles;
