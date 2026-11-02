@@ -23,11 +23,6 @@ Scroll down to versions section for different instructions for different checkpo
 - CSS
 - TypeScript
 
-## Examples
-
-<img width="1440" height="671" alt="image" src="https://github.com/user-attachments/assets/ac4373b6-a2a3-4e50-9b2f-ee46b5c86411" />
-
-
 ## Versions
 
 ### W1: "HTML Canvas Whiteboard"
@@ -44,3 +39,36 @@ Simply open the website and mess around with the settings panel to the right. Tr
 - You can select cursors
 - Special events for different cursors (like when click, when held down, when scroll)
 - (Scrolling with the flashlight lets you control its size)
+
+**Examples:**
+
+<img width="1440" height="671" alt="image" src="https://github.com/user-attachments/assets/ac4373b6-a2a3-4e50-9b2f-ee46b5c86411" />
+
+### W2: "HTML Canvas Generative Art Experiment"
+
+**Demo Link:** [ash-iol.github.io/infinite-background-generator/w1](https://ash-iol.github.io/infinite-background-generator/w2)
+
+**How to test:**
+
+Simply open the website and mess around with the settings panel to the right. Try different configurations of cursor settings and background settings!
+
+**What works:**
+
+- You can select backgrounds
+- You can select cursors
+- Special events for different cursors (like when click, when held down, when scroll)
+- (Scrolling with the flashlight lets you control its size)
+
+**New changes from previous week:**
+
+- "Sticky Particle Collision" Background
+- Better flashlight
+- Cleaner UI
+- Constellation Effects
+- Better color customization
+
+**Examples:**
+
+<img width="1470" height="956" alt="image" src="https://github.com/user-attachments/assets/adbacdaa-25ef-4392-a9dd-9fb1a395742e" />
+
+
