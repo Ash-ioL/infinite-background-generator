@@ -36,9 +36,21 @@ export default class Particle {
         this.rad += this.vSize * seconds;
         if (this.bounce) {
             if (this.x < 0 + this.rad || this.x > window.innerWidth - this.rad) {
+                if (this.x < 0 + this.rad) {
+                    this.x = 0 + this.rad;
+                }
+                else if (this.x > window.innerWidth - this.rad) {
+                    this.x = window.innerWidth - this.rad;
+                }
                 this.vx *= -1;
             }
             if (this.y < 0 + this.rad || this.y > window.innerHeight - this.rad) {
+                if (this.y < 0 + this.rad) {
+                    this.y = 0 + this.rad;
+                }
+                else if (this.y > window.innerHeight - this.rad) {
+                    this.y = window.innerHeight - this.rad;
+                }
                 this.vy *= -1;
             }
         }

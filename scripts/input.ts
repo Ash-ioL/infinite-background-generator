@@ -77,6 +77,8 @@ export function readBackground() {
         newBackgroundMode = BackgroundMode.RandomDots;
     } else if (curVal === "particles") {
         newBackgroundMode = BackgroundMode.Particles;
+    } else if (curVal === "random-constellations") {
+        newBackgroundMode = BackgroundMode.RandomConstellations;
     }
 
     resetBackgroundAndCursor(newBackgroundMode, currentCursorMode);

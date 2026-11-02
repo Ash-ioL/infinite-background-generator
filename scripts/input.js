@@ -82,6 +82,9 @@ export function readBackground() {
     else if (curVal === "particles") {
         newBackgroundMode = BackgroundMode.Particles;
     }
+    else if (curVal === "random-constellations") {
+        newBackgroundMode = BackgroundMode.RandomConstellations;
+    }
     resetBackgroundAndCursor(newBackgroundMode, currentCursorMode);
 }
 primaryColor.addEventListener("input", (event) => {

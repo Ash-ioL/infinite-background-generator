@@ -26,9 +26,6 @@ export function initBackground(ctx: CanvasRenderingContext2D, currentBackgroundM
                     false
                 );
                 backgroundManager.add(particle);
-                console.log("bere add" + backgroundManager.particleArray.length);
-                backgroundManager.add(particle);
-                console.log("after add" + backgroundManager.particleArray.length);
             }
         }
     } else if (currentBackgroundMode === BackgroundMode.Particles) {

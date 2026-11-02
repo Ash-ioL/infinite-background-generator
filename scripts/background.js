@@ -13,16 +13,13 @@ export function initBackground(ctx, currentBackgroundMode) {
                 const coords = RandomUtil.windowPosition();
                 let particle = new Particle(ctx, coords[0], coords[1], 0, 0, Math.floor(Math.random() * 10 + 5), 0, getColor(), false);
                 backgroundManager.add(particle);
-                console.log("bere add" + backgroundManager.particleArray.length);
-                backgroundManager.add(particle);
-                console.log("after add" + backgroundManager.particleArray.length);
             }
         }
     }
     else if (currentBackgroundMode === BackgroundMode.Particles) {
         for (let i = 0; i < numCircles; i++) {
             const coords = RandomUtil.windowPosition();
-            let particle = new Particle(ctx, coords[0], coords[1], 0, 0, Math.floor(Math.random() * 10 + 5), 0, getColor(), true);
+            let particle = new Particle(ctx, coords[0], coords[1], RandomUtil.randInt(-10, 10), RandomUtil.randInt(-10, 10), Math.floor(Math.random() * 10 + 5), 0, getColor(), true);
             backgroundManager.add(particle);
         }
     }
