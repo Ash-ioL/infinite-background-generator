@@ -28,7 +28,7 @@ enum CursorMode {
     Flashlight = "flashlight",
     Expel = "expel",
     SlowDrift = "slow-drift",
-    Constellations = "constellations"
+    Constellations = "constellations",
 }
 
 enum BackgroundMode {
