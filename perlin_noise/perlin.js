@@ -70,9 +70,8 @@ function drawIslands() {
     console.log(grid);
 }
 function drawCaves() {
-    RNG.setSeed(201022);
     class TunnelCarver {
-        static splitChance = 0.01;
+        static splitChance = 0.001;
         direction;
         x;
         y;
@@ -88,8 +87,8 @@ function drawCaves() {
             return dist < this.rad;
         }
         update() {
-            let drdt = this.rad * 0.1;
-            let dddt = 0.2;
+            let drdt = this.rad * 0.1 + 0.5;
+            let dddt = 0.4;
             let minRad = 1;
             this.rad += (RNG.getRandom() * drdt) * (RNG.getRandom() < 0.5 ? 1 : -1);
             this.rad = Math.max(this.rad, minRad);
@@ -130,7 +129,7 @@ function drawCaves() {
         }
     }
     let grid = [];
-    let blockSize = 10;
+    let blockSize = 5;
     for (let i = 0; i < window.innerHeight; i += blockSize) {
         let row = [];
         for (let j = 0; j < window.innerWidth; j += blockSize) {
@@ -140,6 +139,7 @@ function drawCaves() {
     }
     let tunnels = [];
     let numTunnels = Math.floor(RNG.getRandom() * 10) + 1;
+    // RNG.getRandom();RNG.getRandom();RNG.getRandom();
     for (let i = 0; i < numTunnels; i++) {
         let outcome = Math.floor(RNG.getRandom() * 4);
         let dev = (RNG.getRandom() < 0.5 ? -1 : 1) * (RNG.getRandom() * Math.PI * 0.2);
@@ -147,22 +147,24 @@ function drawCaves() {
             tunnels.push(new TunnelCarver(0, Math.floor(RNG.getRandom() * grid.length), 5, 0 + dev));
         }
         else if (outcome == 1) {
-            tunnels.push(new TunnelCarver(Math.floor(RNG.getRandom() * grid[0].length), 0, 5, Math.PI / 2 + dev));
+            tunnels.push(new TunnelCarver(Math.floor(RNG.getRandom() * grid[0].length), 0, 5, Math.PI * 3 / 2 + dev));
         }
         else if (outcome == 2) {
             tunnels.push(new TunnelCarver(grid[0].length - 1, Math.floor(RNG.getRandom() * grid.length), 5, Math.PI + dev));
         }
         else {
-            tunnels.push(new TunnelCarver(Math.floor(RNG.getRandom() * grid[0].length), grid.length - 1, 5, Math.PI * 3 / 2 + dev));
+            tunnels.push(new TunnelCarver(Math.floor(RNG.getRandom() * grid[0].length), grid.length - 1, 5, Math.PI / 2 + dev));
         }
     }
+    let splits = 0;
     while (tunnels.length > 0) {
         let tunnel = tunnels.pop();
         while (true) {
             // flood fill the radius
             let pointers = [];
             let batch = [];
-            pointers.push([tunnel.y, tunnel.x]);
+            pointers.push([tunnel.y, tunnel.x, tunnel.direction]);
+            console.log([tunnel.x, tunnel.y, tunnel.direction]);
             if (!(tunnel.x < 0 || tunnel.y < 0 || tunnel.x >= grid[0].length || tunnel.y >= grid.length)) {
                 grid[tunnel.y][tunnel.x] = true;
             }
@@ -184,7 +186,8 @@ function drawCaves() {
             }
             // update
             tunnel.update();
-            if (RNG.getRandom() < TunnelCarver.splitChance) {
+            if (RNG.getRandom() < TunnelCarver.splitChance && splits < 100) {
+                splits += 1;
                 tunnels.push(new TunnelCarver(tunnel.x, tunnel.y, tunnel.rad, tunnel.direction));
             }
         }
