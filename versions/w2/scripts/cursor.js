@@ -54,7 +54,7 @@ export function initCursor(ctx, currentCursorMode) {
                 let maxRad = 500;
                 let minRad = 10;
                 let diff = maxRad - minRad;
-                let startRad = minRad + diff / 2;
+                let startRad = 100;
                 let scrollScale = 1000;
                 let dScroll = scrollY - cursorModeVars.prevScroll;
                 if (dScroll > scrollScale) {
