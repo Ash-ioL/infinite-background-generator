@@ -4,11 +4,6 @@ An procedural infinite random background generator using HTML Canvas.
 
 **Deployed at:** [ash-iol.github.io/infinite-background-generator/](https://ash-iol.github.io/infinite-background-generator/)
 
-## AI Usage Declaration
-
-- GitHub Copilot for autocompletions
-- GPT 6 Asta for debugging
-
 ## Desc
 
 Hi! This project stems from my interest to learn to use a modern rendering tool like HTML Canvas. I'm developing this as checkpoints of mini projects and eventually build up to an advanced stunning infinite background generator that can export backgrounds and implemented in other projects.
