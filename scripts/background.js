@@ -109,6 +109,7 @@ export function drawBackground(canvas, ctx, currentBackgroundMode) {
         drawIslands();
     }
     else if (currentBackgroundMode === BackgroundMode.PerlinNoise) {
+        RNG.setSeed(seed);
         drawRawPerlinGrid(perlinGrid);
     }
     else if (currentBackgroundMode === BackgroundMode.CaveCarving) {
@@ -116,6 +117,7 @@ export function drawBackground(canvas, ctx, currentBackgroundMode) {
         drawCaves();
     }
     else if (currentBackgroundMode === BackgroundMode.Map) {
+        RNG.setSeed(seed);
         drawMap(perlinGrid);
     }
 }

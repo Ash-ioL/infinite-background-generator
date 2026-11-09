@@ -135,11 +135,13 @@ export function drawBackground(canvas: HTMLCanvasElement, ctx: CanvasRenderingCo
         RNG.setSeed(seed);
         drawIslands();
     } else if (currentBackgroundMode === BackgroundMode.PerlinNoise) {
+        RNG.setSeed(seed);
         drawRawPerlinGrid(perlinGrid);
     } else if (currentBackgroundMode === BackgroundMode.CaveCarving) {
         RNG.setSeed(seed);
         drawCaves();
     } else if (currentBackgroundMode === BackgroundMode.Map) {
+        RNG.setSeed(seed);
         drawMap(perlinGrid);
     }
 }

@@ -103,7 +103,7 @@ function draw() {
 
 export function drawIslands() {
     let numIslands: number = 5
-    let blockSize = 1;
+    let blockSize = 5;
     let prob = 0.42;
     let cornerProb = 0.1;
     let grid: Array<Array<boolean>> = []
