@@ -1,5 +1,87 @@
 import { RNG } from "./rng.js";
 
+class Box {
+    cornerVectors: Array<Array<number>> = [];
+    width: number = 1;
+    
+    constructor(top?: Box | null, left?: Box | null) {
+        for (let i = 0; i < 4; i++) {
+            let rangle: number = RNG.getRandom() * 2 * Math.PI;
+            let vec: Array<number> = [Math.cos(rangle), Math.sin(rangle)];
+            this.cornerVectors.push(vec);
+        }
+        if (top) {
+            this.cornerVectors[0] = top.cornerVectors[2]!;
+            this.cornerVectors[1] = top.cornerVectors[3]!;
+        }
+        if (left) {
+            this.cornerVectors[0] = left.cornerVectors[1]!;
+            this.cornerVectors[2] = left.cornerVectors[3]!;
+        }
+    }
+
+    getNoise(x: number, y: number) {
+        let dotProducts: Array<number> = [];
+        for (let i = 0; i < 4; i++) {
+            let [xComponent, yComponent] = this.cornerVectors[i]!;
+            let distanceXComponent, distanceYComponent;
+            if (i == 0) {
+                distanceXComponent = x;
+                distanceYComponent = y;
+            } else if (i == 1) {
+                distanceXComponent = x - this.width;
+                distanceYComponent = y;
+            } else if (i == 2) {
+                distanceXComponent = x;
+                distanceYComponent = y - this.width;
+            } else {
+                distanceXComponent = x - this.width;
+                distanceYComponent = y - this.width; 
+            }
+            dotProducts.push(Box.getDotProduct(xComponent!, yComponent!, distanceXComponent, distanceYComponent));
+        }
+        let xWeight = Box.getWeight(x);
+        let yWeight = Box.getWeight(y);
+        let topLerp = Box.getLerp(dotProducts[0]!, dotProducts[1]!, xWeight); 
+        let bottomLerp = Box.getLerp(dotProducts[2]!, dotProducts[3]!, xWeight);
+        let totalValue = Box.getLerp(topLerp, bottomLerp, yWeight);
+        return totalValue;
+    }
+
+    static getWeight(dx: number) {
+        return 6 * Math.pow(dx, 5) - 15 * Math.pow(dx, 4) + 10 * Math.pow(dx, 3);
+    }
+    static getDotProduct(v1x: number, v1y: number, v2x: number, v2y: number) {
+        return v1x * v2x + v1y * v2y;
+    }
+    static getLerp(a: number, b: number, w: number) {
+        return a + w * (b - a);
+    }
+    static getGrid(width: number) {
+        let boxGrid: Array<Array<Box | null>> = [];
+        for (let i = 0; i < width; i++) {
+            let row: Array<Box | null> = [];
+            for (let j = 0; j < width; j++) {
+                row.push(null);
+            }
+            boxGrid.push(row);
+        }
+        boxGrid[0]![0] = new Box();
+        for (let j = 1; j < width; j++) {
+            boxGrid[0]![j] = new Box(null, boxGrid[0]![j-1]);
+        }
+        for (let i = 1; i < width; i++) {
+            boxGrid[i]![0] = new Box(boxGrid[i-1]![0]);
+        }
+        for (let i = 1; i < width; i++) {
+            for (let j = 1; j < width; j++) {
+                boxGrid[i]![j] = new Box(boxGrid[i-1]![j], boxGrid[i]![j-1]);
+            }
+        }
+        return boxGrid;
+    }
+}
+
 let canvas: HTMLCanvasElement = document.getElementsByTagName("canvas")[0] as HTMLCanvasElement;
 const ctx: CanvasRenderingContext2D = canvas.getContext("2d") as CanvasRenderingContext2D;
 canvas.height = window.innerHeight;
@@ -218,163 +300,31 @@ function drawCaves() {
 
 
 function singleBox() {
-    class Box {
-        cornerVectors: Array<Array<number>> = [];
-        width: number = 1;
-        
-        constructor() {
-            for (let i = 0; i < 4; i++) {
-                let rangle: number = RNG.getRandom() * 2 * Math.PI;
-                let vec: Array<number> = [Math.cos(rangle), Math.sin(rangle)];
-                this.cornerVectors.push(vec);
-            }
-        }
+    let box = new Box();
+    let imgData = ctx.createImageData(canvas.width, canvas.height);
+    let screenWidth = window.innerWidth;
+    let screenHeight = window.innerHeight;
 
-        getNoise(x: number, y: number) {
-            let dotProducts: Array<number> = [];
-            for (let i = 0; i < 4; i++) {
-                let [xComponent, yComponent] = this.cornerVectors[i]!;
-                let distanceXComponent, distanceYComponent;
-                if (i == 0) {
-                    distanceXComponent = x;
-                    distanceYComponent = y;
-                } else if (i == 1) {
-                    distanceXComponent = x - this.width;
-                    distanceYComponent = y;
-                } else if (i == 2) {
-                    distanceXComponent = x;
-                    distanceYComponent = y - this.width;
-                } else {
-                    distanceXComponent = x - this.width;
-                    distanceYComponent = y - this.width; 
-                }
-                dotProducts.push(Box.getDotProduct(xComponent!, yComponent!, distanceXComponent, distanceYComponent));
-            }
-            let xWeight = Box.getWeight(x);
-            let yWeight = Box.getWeight(y);
-            let topLerp = Box.getLerp(dotProducts[0]!, dotProducts[1]!, xWeight); 
-            let bottomLerp = Box.getLerp(dotProducts[2]!, dotProducts[3]!, xWeight);
-            let totalValue = Box.getLerp(topLerp, bottomLerp, yWeight);
-            return totalValue;
-        }
-
-        singleRender() {
-            let imgData = ctx.createImageData(canvas.width, canvas.height);
-            let screenWidth = window.innerWidth;
-            let screenHeight = window.innerHeight;
-
-            for (let i: number = 0; i < screenHeight; i++) {
-                for (let j = 0; j < screenWidth; j++) {
-                    let idx = (i * screenWidth + j) * 4;
-                    let x = j / (screenWidth);
-                    let y = i / (screenHeight);
-                    let val = (this.getNoise(x, y) + 0.7072) / 1.4144 * 255;
-                    imgData.data[idx] = val;
-                    imgData.data[idx+1] = val;
-                    imgData.data[idx+2] = val;
-                    imgData.data[idx+3] = 255;
-                }
-            }
-
-            ctx.putImageData(imgData, 0, 0);
-        }
-
-        static getWeight(dx: number) {
-            return 6 * Math.pow(dx, 5) - 15 * Math.pow(dx, 4) + 10 * Math.pow(dx, 3);
-        }
-        static getDotProduct(v1x: number, v1y: number, v2x: number, v2y: number) {
-            return v1x * v2x + v1y * v2y;
-        }
-        static getLerp(a: number, b: number, w: number) {
-            return a + w * (b - a);
+    for (let i: number = 0; i < screenHeight; i++) {
+        for (let j = 0; j < screenWidth; j++) {
+            let idx = (i * screenWidth + j) * 4;
+            let x = j / (screenWidth);
+            let y = i / (screenHeight);
+            let val = (box.getNoise(x, y) + 0.7072) / 1.4144 * 255;
+            imgData.data[idx] = val;
+            imgData.data[idx+1] = val;
+            imgData.data[idx+2] = val;
+            imgData.data[idx+3] = 255;
         }
     }
-    
-    let box: Box = new Box();
-    box.singleRender();
+
+    ctx.putImageData(imgData, 0, 0);
 }
-//singleBox();
+singleBox();
 
 function oneOctave() {
-    class Box {
-        cornerVectors: Array<Array<number>> = [];
-        width: number = 1;
-        
-        constructor(top?: Box | null, left?: Box | null) {
-            for (let i = 0; i < 4; i++) {
-                let rangle: number = RNG.getRandom() * 2 * Math.PI;
-                let vec: Array<number> = [Math.cos(rangle), Math.sin(rangle)];
-                this.cornerVectors.push(vec);
-            }
-            if (top) {
-                this.cornerVectors[0] = top.cornerVectors[2]!;
-                this.cornerVectors[1] = top.cornerVectors[3]!;
-            }
-            if (left) {
-                this.cornerVectors[0] = left.cornerVectors[1]!;
-                this.cornerVectors[2] = left.cornerVectors[3]!;
-            }
-        }
-
-        getNoise(x: number, y: number) {
-            let dotProducts: Array<number> = [];
-            for (let i = 0; i < 4; i++) {
-                let [xComponent, yComponent] = this.cornerVectors[i]!;
-                let distanceXComponent, distanceYComponent;
-                if (i == 0) {
-                    distanceXComponent = x;
-                    distanceYComponent = y;
-                } else if (i == 1) {
-                    distanceXComponent = x - this.width;
-                    distanceYComponent = y;
-                } else if (i == 2) {
-                    distanceXComponent = x;
-                    distanceYComponent = y - this.width;
-                } else {
-                    distanceXComponent = x - this.width;
-                    distanceYComponent = y - this.width; 
-                }
-                dotProducts.push(Box.getDotProduct(xComponent!, yComponent!, distanceXComponent, distanceYComponent));
-            }
-            let xWeight = Box.getWeight(x);
-            let yWeight = Box.getWeight(y);
-            let topLerp = Box.getLerp(dotProducts[0]!, dotProducts[1]!, xWeight); 
-            let bottomLerp = Box.getLerp(dotProducts[2]!, dotProducts[3]!, xWeight);
-            let totalValue = Box.getLerp(topLerp, bottomLerp, yWeight);
-            return totalValue;
-        }
-
-        static getWeight(dx: number) {
-            return 6 * Math.pow(dx, 5) - 15 * Math.pow(dx, 4) + 10 * Math.pow(dx, 3);
-        }
-        static getDotProduct(v1x: number, v1y: number, v2x: number, v2y: number) {
-            return v1x * v2x + v1y * v2y;
-        }
-        static getLerp(a: number, b: number, w: number) {
-            return a + w * (b - a);
-        }
-    } 
-    let boxGrid: Array<Array<Box | null>> = [];
-    for (let i = 0; i < 10; i++) {
-        let row: Array<Box | null> = [];
-        for (let j = 0; j < 10; j++) {
-            row.push(null);
-        }
-        boxGrid.push(row);
-    }
-    boxGrid[0]![0] = new Box();
-    for (let j = 1; j < 10; j++) {
-        boxGrid[0]![j] = new Box(null, boxGrid[0]![j-1]);
-    }
-    for (let i = 1; i < 10; i++) {
-        boxGrid[i]![0] = new Box(boxGrid[i-1]![0]);
-    }
-    for (let i = 1; i < 10; i++) {
-        for (let j = 1; j < 10; j++) {
-            boxGrid[i]![j] = new Box(boxGrid[i-1]![j], boxGrid[i]![j-1]);
-        }
-    }
     let imgData: ImageData = ctx.createImageData(window.innerWidth, window.innerHeight);
+    let boxGrid = Box.getGrid(10);
     for (let i = 0; i < window.innerHeight; i++) {
         for (let j = 0; j < window.innerWidth; j++) {
             let idx = (window.innerWidth * i + j) * 4;
@@ -392,87 +342,6 @@ function oneOctave() {
 //oneOctave();
 
 function fullPerlinNoise(octaves: number) {
-    class Box {
-        cornerVectors: Array<Array<number>> = [];
-        width: number = 1;
-        
-        constructor(top?: Box | null, left?: Box | null) {
-            for (let i = 0; i < 4; i++) {
-                let rangle: number = RNG.getRandom() * 2 * Math.PI;
-                let vec: Array<number> = [Math.cos(rangle), Math.sin(rangle)];
-                this.cornerVectors.push(vec);
-            }
-            if (top) {
-                this.cornerVectors[0] = top.cornerVectors[2]!;
-                this.cornerVectors[1] = top.cornerVectors[3]!;
-            }
-            if (left) {
-                this.cornerVectors[0] = left.cornerVectors[1]!;
-                this.cornerVectors[2] = left.cornerVectors[3]!;
-            }
-        }
-
-        getNoise(x: number, y: number) {
-            let dotProducts: Array<number> = [];
-            for (let i = 0; i < 4; i++) {
-                let [xComponent, yComponent] = this.cornerVectors[i]!;
-                let distanceXComponent, distanceYComponent;
-                if (i == 0) {
-                    distanceXComponent = x;
-                    distanceYComponent = y;
-                } else if (i == 1) {
-                    distanceXComponent = x - this.width;
-                    distanceYComponent = y;
-                } else if (i == 2) {
-                    distanceXComponent = x;
-                    distanceYComponent = y - this.width;
-                } else {
-                    distanceXComponent = x - this.width;
-                    distanceYComponent = y - this.width; 
-                }
-                dotProducts.push(Box.getDotProduct(xComponent!, yComponent!, distanceXComponent, distanceYComponent));
-            }
-            let xWeight = Box.getWeight(x);
-            let yWeight = Box.getWeight(y);
-            let topLerp = Box.getLerp(dotProducts[0]!, dotProducts[1]!, xWeight); 
-            let bottomLerp = Box.getLerp(dotProducts[2]!, dotProducts[3]!, xWeight);
-            let totalValue = Box.getLerp(topLerp, bottomLerp, yWeight);
-            return totalValue;
-        }
-
-        static getWeight(dx: number) {
-            return 6 * Math.pow(dx, 5) - 15 * Math.pow(dx, 4) + 10 * Math.pow(dx, 3);
-        }
-        static getDotProduct(v1x: number, v1y: number, v2x: number, v2y: number) {
-            return v1x * v2x + v1y * v2y;
-        }
-        static getLerp(a: number, b: number, w: number) {
-            return a + w * (b - a);
-        }
-        static getGrid(width: number) {
-            let boxGrid: Array<Array<Box | null>> = [];
-            for (let i = 0; i < width; i++) {
-                let row: Array<Box | null> = [];
-                for (let j = 0; j < width; j++) {
-                    row.push(null);
-                }
-                boxGrid.push(row);
-            }
-            boxGrid[0]![0] = new Box();
-            for (let j = 1; j < width; j++) {
-                boxGrid[0]![j] = new Box(null, boxGrid[0]![j-1]);
-            }
-            for (let i = 1; i < width; i++) {
-                boxGrid[i]![0] = new Box(boxGrid[i-1]![0]);
-            }
-            for (let i = 1; i < width; i++) {
-                for (let j = 1; j < width; j++) {
-                    boxGrid[i]![j] = new Box(boxGrid[i-1]![j], boxGrid[i]![j-1]);
-                }
-            }
-            return boxGrid;
-        }
-    } 
     
     let imgData: ImageData = ctx.createImageData(window.innerWidth, window.innerHeight);
     let tempData: Array<number> = new Array(window.innerHeight * window.innerWidth * 4).fill(0);
@@ -502,14 +371,14 @@ function fullPerlinNoise(octaves: number) {
             imgData.data[i] = 255;
         }
     }
-
+    
     ctx.putImageData(imgData, 0, 0);
 }
 
-fullPerlinNoise(4);
+//fullPerlinNoise(4);
 
 function drawIslandsWithFlowers() {
-
+    
 }
 //oneOctave();
 //drawIslands();
