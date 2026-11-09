@@ -49,7 +49,7 @@ class Box {
     }
 
     static getWeight(dx: number) {
-        return 6 * Math.pow(dx, 5) - 15 * Math.pow(dx, 4) + 10 * Math.pow(dx, 3);
+        return dx;//6 * Math.pow(dx, 5) - 15 * Math.pow(dx, 4) + 10 * Math.pow(dx, 3);
     }
     static getDotProduct(v1x: number, v1y: number, v2x: number, v2y: number) {
         return v1x * v2x + v1y * v2y;
@@ -87,15 +87,17 @@ const ctx: CanvasRenderingContext2D = canvas.getContext("2d") as CanvasRendering
 canvas.height = window.innerHeight;
 canvas.width = window.innerWidth;
 
+draw();
+
 window.addEventListener("resize", () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-    //drawIslands();
-    //drawCaves();
+    draw();
 });
 
 function draw() {
-
+    RNG.setSeed();
+    fullPerlinNoise(1);
 }
 
 function drawIslands() {
@@ -320,7 +322,7 @@ function singleBox() {
 
     ctx.putImageData(imgData, 0, 0);
 }
-singleBox();
+//singleBox();
 
 function oneOctave() {
     let imgData: ImageData = ctx.createImageData(window.innerWidth, window.innerHeight);

@@ -6,7 +6,7 @@ export class RNG {
         return RNG.seed / 2147483647;
     }
     static setSeed(seed) {
-        RNG.seed = seed;
+        RNG.seed = seed ?? 99;
     }
 }
 //# sourceMappingURL=rng.js.map

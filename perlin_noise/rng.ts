@@ -5,7 +5,7 @@ export class RNG {
         RNG.seed = (seed * 1103515245 + 12345) % (2147483647);
         return RNG.seed / 2147483647;
     }
-    static setSeed(seed: number) {
-        RNG.seed = seed;
+    static setSeed(seed?: number) {
+        RNG.seed = seed ?? 99;
     }
 }
