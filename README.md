@@ -46,7 +46,7 @@ Simply open the website and mess around with the settings panel to the right. Tr
 
 ### W2: "HTML Canvas Generative Art Experiment"
 
-**Demo Link:** [ash-iol.github.io/infinite-background-generator/w1](https://ash-iol.github.io/infinite-background-generator/versions/w2)
+**Demo Link:** [ash-iol.github.io/infinite-background-generator/versions/w2](https://ash-iol.github.io/infinite-background-generator/versions/w2)
 
 **How to test:**
 
@@ -71,4 +71,32 @@ Simply open the website and mess around with the settings panel to the right. Tr
 
 <img width="1470" height="956" alt="image" src="https://github.com/user-attachments/assets/adbacdaa-25ef-4392-a9dd-9fb1a395742e" />
 
+### W3: "Perlin Noise"
 
+**Demo Link:** [ash-iol.github.io/infinite-background-generator/versions/w3](https://ash-iol.github.io/infinite-background-generator/versions/w3)
+
+**Update overview:**
+
+This update focuses on random generation and implements a from-scratch perlin noise algorithm.
+
+**How to test:**
+
+Simply open the website and mess around with the settings panel to the right. Try different configurations of cursor settings and background settings!
+
+**What works:**
+
+- You can select backgrounds
+- You can select cursors
+- Special events for different cursors (like when click, when held down, when scroll)
+- (Scrolling with the flashlight lets you control its size)
+
+**New changes from previous week:**
+
+- BFS Island (A BFS floodfill algorithm with randomness)
+- Caves (Another BFS that carves caves)
+- Perlin Noise (A image of randomly generated perlin noise of octave 4)
+- Map (A randomly generated map created using perlin noise).
+
+**Examples:**
+
+<img width="1470" height="956" alt="image" src="https://github.com/user-attachments/assets/616c478d-3e17-4cd4-a7ae-bf88515b2d32" />
