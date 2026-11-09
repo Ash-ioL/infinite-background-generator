@@ -217,7 +217,7 @@ function drawCaves() {
 }
 
 
-function gradient_noise() {
+function singleBox() {
     class Box {
         cornerVectors: Array<Array<number>> = [];
         width: number = 1;
@@ -258,6 +258,27 @@ function gradient_noise() {
             return totalValue;
         }
 
+        singleRender() {
+            let imgData = ctx.createImageData(canvas.width, canvas.height);
+            let screenWidth = window.innerWidth;
+            let screenHeight = window.innerHeight;
+
+            for (let i: number = 0; i < screenHeight; i++) {
+                for (let j = 0; j < screenWidth; j++) {
+                    let idx = (i * screenWidth + j) * 4;
+                    let x = j / (screenWidth);
+                    let y = i / (screenHeight);
+                    let val = (this.getNoise(x, y) + 0.7072) / 1.4144 * 255;
+                    imgData.data[idx] = val;
+                    imgData.data[idx+1] = val;
+                    imgData.data[idx+2] = val;
+                    imgData.data[idx+3] = 255;
+                }
+            }
+
+            ctx.putImageData(imgData, 0, 0);
+        }
+
         static getWeight(dx: number) {
             return 6 * Math.pow(dx, 5) - 15 * Math.pow(dx, 4) + 10 * Math.pow(dx, 3);
         }
@@ -268,8 +289,10 @@ function gradient_noise() {
             return a + w * (b - a);
         }
     }   
-    
+    let box: Box = new Box();
+    box.singleRender();
 }
+singleBox();
 //drawIslands();
 //drawCaves();
 
