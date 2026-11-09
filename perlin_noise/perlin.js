@@ -48,7 +48,7 @@ class Box {
         return totalValue;
     }
     static getWeight(dx) {
-        return dx; //6 * Math.pow(dx, 5) - 15 * Math.pow(dx, 4) + 10 * Math.pow(dx, 3);
+        return 6 * Math.pow(dx, 5) - 15 * Math.pow(dx, 4) + 10 * Math.pow(dx, 3);
     }
     static getDotProduct(v1x, v1y, v2x, v2y) {
         return v1x * v2x + v1y * v2y;
@@ -92,7 +92,8 @@ window.addEventListener("resize", () => {
 });
 function draw() {
     RNG.setSeed();
-    fullPerlinNoise(1);
+    //fullPerlinNoise(1);
+    drawMap();
 }
 function drawIslands() {
     let numIslands = 5;
@@ -354,8 +355,100 @@ function fullPerlinNoise(octaves) {
     }
     ctx.putImageData(imgData, 0, 0);
 }
+function getPerlinGrid(octaves) {
+    let width = window.innerWidth;
+    let height = window.innerHeight;
+    let tempData = new Array(height * width).fill(0);
+    let grid = new Array(height * width).fill(0);
+    let totalRange = 0;
+    for (let o = 0; o < octaves; o++) {
+        let boxGrid = Box.getGrid(10 * Math.pow(2, o));
+        for (let i = 0; i < window.innerHeight; i++) {
+            for (let j = 0; j < window.innerWidth; j++) {
+                let idx = (window.innerWidth * i + j);
+                let x = Math.max(0, Math.min(10 * Math.pow(2, o) - 0.0001, (j / window.innerWidth) * (10 * Math.pow(2, o))));
+                let y = Math.max(0, Math.min(10 * Math.pow(2, o) - 0.0001, (i / window.innerHeight) * (10 * Math.pow(2, o))));
+                let val = boxGrid[Math.floor(y)][Math.floor(x)].getNoise(x % 1, y % 1) / (Math.pow(2, o));
+                tempData[idx] += val;
+            }
+        }
+        totalRange += 1.4144 / Math.pow(2, o);
+    }
+    for (let i = 0; i < window.innerHeight * window.innerWidth; i++) {
+        grid[i] = Math.max(0, Math.min(1, (tempData[i] / (totalRange) + 0.5)));
+    }
+    let newGrid = [];
+    for (let i = 0; i < height; i++) {
+        let row = [];
+        for (let j = 0; j < width; j++) {
+            row.push(grid[i * width + j]);
+        }
+        newGrid.push(row);
+    }
+    console.log("total range" + totalRange);
+    return newGrid;
+}
+getPerlinGrid(4);
+function drawGrid() {
+}
 //fullPerlinNoise(4);
-function drawIslandsWithFlowers() {
+function drawMap() {
+    let grid = getPerlinGrid(4);
+    let height = grid.length;
+    let width = grid[0].length;
+    let imgData = ctx.createImageData(width, height);
+    for (let i = 0; i < height; i++) {
+        for (let j = 0; j < width; j++) {
+            let idx = (i * width + j) * 4;
+            let elevation = grid[i][j];
+            let r = 0, g = 0, b = 0;
+            if (elevation < 0.43) {
+                r = 25;
+                g = 60;
+                b = 160;
+            }
+            else if (elevation < 0.48) {
+                r = 45;
+                g = 140;
+                b = 210;
+            }
+            else if (elevation < 0.52) {
+                r = 225;
+                g = 205;
+                b = 145;
+            }
+            else if (elevation < 0.70) {
+                r = 55;
+                g = 145;
+                b = 65;
+                // if (elevation > 85) {
+                //     let randNum = Math.floor(RNG.getRandom() * 3);
+                //     if (randNum === 0) {
+                //         r = 255; g = 0; b = 0;
+                //     } else if (randNum === 1) {
+                //         r = 0; g = 255; b = 0;
+                //     } else {
+                //         r = 0; g = 0; b = 255;
+                //     }
+                // }
+            }
+            else if (elevation < 0.80) {
+                r = 121;
+                g = 121;
+                b = 121;
+            }
+            else {
+                r = 255;
+                g = 255;
+                b = 255;
+            }
+            imgData.data[idx] = r;
+            imgData.data[idx + 1] = g;
+            imgData.data[idx + 2] = b;
+            imgData.data[idx + 3] = 255;
+        }
+    }
+    ctx.putImageData(imgData, 0, 0);
 }
 //oneOctave();
 //drawIslands();
