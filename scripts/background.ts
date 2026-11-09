@@ -3,10 +3,14 @@ import { ColorUtil, DrawUtil, MouseUtil, RandomUtil } from "./util.js";
 import { getColor, getPrimaryColor, getSecondaryColor } from "./input.js";
 import Particle from "./components/Particle.js";
 import ParticleManager from "./components/ParticleManager.js";
+import { getPerlinGrid, drawMap, drawCaves, drawIslands, drawRawPerlinGrid } from "../perlin_noise/perlin.js";
 
 let numCircles: number = 50;
 
 let backgroundManager = new ParticleManager(getCtx());
+
+let perlinGrid: Array<Array<number>>;
+let seed: number = Math.floor(Math.random() * 1000);
 
 export function initBackground(ctx: CanvasRenderingContext2D, currentBackgroundMode: BackgroundMode) {
     backgroundManager.clearAll();
@@ -82,6 +86,16 @@ export function initBackground(ctx: CanvasRenderingContext2D, currentBackgroundM
             );
             backgroundManager.add(particle);
         }
+    } else if (currentBackgroundMode === BackgroundMode.BFSIslands) {
+        seed = Math.floor(Math.random() * 1000);
+    } else if (currentBackgroundMode === BackgroundMode.PerlinNoise) {
+        seed = Math.floor(Math.random() * 1000);
+        perlinGrid = getPerlinGrid(4);
+    } else if (currentBackgroundMode === BackgroundMode.CaveCarving) {
+        seed = Math.floor(Math.random() * 1000);
+    } else if (currentBackgroundMode === BackgroundMode.Map) {
+        seed = Math.floor(Math.random() * 1000);
+        perlinGrid = getPerlinGrid(4);
     }
 }
 
@@ -116,5 +130,13 @@ export function drawBackground(canvas: HTMLCanvasElement, ctx: CanvasRenderingCo
         backgroundManager.drawAll(getPrimaryColor(), getSecondaryColor());
     } else if (currentBackgroundMode === BackgroundMode.ParticleCollisions) {
         backgroundManager.drawAll(getPrimaryColor(), getSecondaryColor(), true);
+    } else if (currentBackgroundMode === BackgroundMode.BFSIslands) {
+        drawIslands();
+    } else if (currentBackgroundMode === BackgroundMode.PerlinNoise) {
+        drawRawPerlinGrid(perlinGrid);
+    } else if (currentBackgroundMode === BackgroundMode.CaveCarving) {
+        drawCaves();
+    } else if (currentBackgroundMode === BackgroundMode.Map) {
+        drawMap(perlinGrid);
     }
 }

@@ -19,7 +19,11 @@ declare enum BackgroundMode {
     Particles = "particles",
     RandomConstellations = "random-constellations",
     ShimmeringStars = "shimmering-stars",
-    ParticleCollisions = "particle-collisions"
+    ParticleCollisions = "particle-collisions",
+    BFSIslands = "bfs-islands",
+    PerlinNoise = "perlin-noise",
+    CaveCarving = "cave-carving",
+    Map = "map"
 }
 export declare let currentCursorMode: CursorMode;
 export declare let currentBackgroundMode: BackgroundMode;

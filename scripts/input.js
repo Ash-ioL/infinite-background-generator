@@ -86,6 +86,18 @@ export function readBackground() {
     else if (curVal == "particle-collisions") {
         newBackgroundMode = BackgroundMode.ParticleCollisions;
     }
+    else if (curVal == "bfs-islands") {
+        newBackgroundMode = BackgroundMode.BFSIslands;
+    }
+    else if (curVal == "perlin-noise") {
+        newBackgroundMode = BackgroundMode.PerlinNoise;
+    }
+    else if (curVal == "cave-carving") {
+        newBackgroundMode = BackgroundMode.CaveCarving;
+    }
+    else if (curVal == "map") {
+        newBackgroundMode = BackgroundMode.Map;
+    }
     else {
         newBackgroundMode = BackgroundMode.None;
     }

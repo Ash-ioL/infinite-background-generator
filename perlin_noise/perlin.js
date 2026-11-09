@@ -93,9 +93,9 @@ window.addEventListener("resize", () => {
 function draw() {
     RNG.setSeed();
     //fullPerlinNoise(1);
-    drawMap();
+    drawRawPerlinGrid(getPerlinGrid(1));
 }
-function drawIslands() {
+export function drawIslands() {
     let numIslands = 5;
     let blockSize = 1;
     let prob = 0.42;
@@ -153,7 +153,7 @@ function drawIslands() {
     }
     console.log(grid);
 }
-function drawCaves() {
+export function drawCaves() {
     class TunnelCarver {
         static splitChance = 0.001;
         direction;
@@ -355,7 +355,22 @@ function fullPerlinNoise(octaves) {
     }
     ctx.putImageData(imgData, 0, 0);
 }
-function getPerlinGrid(octaves) {
+export function drawRawPerlinGrid(perlinGrid) {
+    let width = perlinGrid[0].length;
+    let height = perlinGrid.length;
+    let imgData = ctx.createImageData(width, height);
+    for (let i = 0; i < height; i++) {
+        for (let j = 0; j < width; j++) {
+            let idx = (i * width + j) * 4;
+            imgData.data[idx] = perlinGrid[i][j] * 255;
+            imgData.data[idx + 1] = perlinGrid[i][j] * 255;
+            imgData.data[idx + 2] = perlinGrid[i][j] * 255;
+            imgData.data[idx + 3] = 255;
+        }
+    }
+    ctx.putImageData(imgData, 0, 0);
+}
+export function getPerlinGrid(octaves) {
     let width = window.innerWidth;
     let height = window.innerHeight;
     let tempData = new Array(height * width).fill(0);
@@ -392,8 +407,8 @@ getPerlinGrid(4);
 function drawGrid() {
 }
 //fullPerlinNoise(4);
-function drawMap() {
-    let grid = getPerlinGrid(4);
+export function drawMap(perlinGrid) {
+    let grid = perlinGrid ?? getPerlinGrid(4);
     let height = grid.length;
     let width = grid[0].length;
     let imgData = ctx.createImageData(width, height);
