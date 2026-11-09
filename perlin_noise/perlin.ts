@@ -288,11 +288,108 @@ function singleBox() {
         static getLerp(a: number, b: number, w: number) {
             return a + w * (b - a);
         }
-    }   
+    }
+    
     let box: Box = new Box();
     box.singleRender();
 }
-singleBox();
+//singleBox();
+
+function boxGrid() {
+    class Box {
+        cornerVectors: Array<Array<number>> = [];
+        width: number = 1;
+        
+        constructor(top?: Box | null, left?: Box | null) {
+            for (let i = 0; i < 4; i++) {
+                let rangle: number = RNG.getRandom() * 2 * Math.PI;
+                let vec: Array<number> = [Math.cos(rangle), Math.sin(rangle)];
+                this.cornerVectors.push(vec);
+            }
+            if (top) {
+                this.cornerVectors[0] = top.cornerVectors[2]!;
+                this.cornerVectors[1] = top.cornerVectors[2]!;
+            }
+            if (left) {
+                this.cornerVectors[0] = left.cornerVectors[1]!;
+                this.cornerVectors[2] = left.cornerVectors[3]!;
+            }
+        }
+
+        getNoise(x: number, y: number) {
+            let dotProducts: Array<number> = [];
+            for (let i = 0; i < 4; i++) {
+                let [xComponent, yComponent] = this.cornerVectors[i]!;
+                let distanceXComponent, distanceYComponent;
+                if (i == 0) {
+                    distanceXComponent = x;
+                    distanceYComponent = y;
+                } else if (i == 1) {
+                    distanceXComponent = x - this.width;
+                    distanceYComponent = y;
+                } else if (i == 2) {
+                    distanceXComponent = x;
+                    distanceYComponent = y - this.width;
+                } else {
+                    distanceXComponent = x - this.width;
+                    distanceYComponent = y - this.width; 
+                }
+                dotProducts.push(Box.getDotProduct(xComponent!, yComponent!, distanceXComponent, distanceYComponent));
+            }
+            let xWeight = Box.getWeight(x);
+            let yWeight = Box.getWeight(y);
+            let topLerp = Box.getLerp(dotProducts[0]!, dotProducts[1]!, xWeight); 
+            let bottomLerp = Box.getLerp(dotProducts[2]!, dotProducts[3]!, xWeight);
+            let totalValue = Box.getLerp(topLerp, bottomLerp, yWeight);
+            return totalValue;
+        }
+
+        static getWeight(dx: number) {
+            return 6 * Math.pow(dx, 5) - 15 * Math.pow(dx, 4) + 10 * Math.pow(dx, 3);
+        }
+        static getDotProduct(v1x: number, v1y: number, v2x: number, v2y: number) {
+            return v1x * v2x + v1y * v2y;
+        }
+        static getLerp(a: number, b: number, w: number) {
+            return a + w * (b - a);
+        }
+    } 
+    let boxGrid: Array<Array<Box | null>> = [];
+    for (let i = 0; i < 10; i++) {
+        let row: Array<Box | null> = [];
+        for (let j = 0; j < 10; j++) {
+            row.push(null);
+        }
+        boxGrid.push(row);
+    }
+    boxGrid[0]![0] = new Box();
+    for (let i = 1; i < 10; i++) {
+        boxGrid[0]![i] = new Box(null, boxGrid[0]![i-1]);
+    }
+    for (let j = 1; j < 10; j++) {
+        boxGrid[j]![0] = new Box(boxGrid[j-1]![0]);
+    }
+    for (let i = 1; i < 10; i++) {
+        for (let j = 1; j < 10; j++) {
+            boxGrid[i]![j] = new Box(boxGrid[i-1]![j], boxGrid[i]![j-1]);
+        }
+    }
+    let imgData: ImageData = ctx.createImageData(window.innerWidth, window.innerHeight);
+    for (let i = 0; i < window.innerHeight; i++) {
+        for (let j = 0; j < window.innerWidth; j++) {
+            let idx = (window.innerWidth * i + j) * 4;
+            let x = (i / window.innerHeight) * 10;
+            let y = (j / window.innerWidth) * 10;
+            let val = boxGrid[Math.floor(x)]![Math.floor(y)]!.getNoise(x % 1, y % 1);
+            imgData.data[idx] = Math.max(0, Math.min(255, (val + 0.5) * 255));
+            imgData.data[idx+1] = Math.max(0, Math.min(255, (val + 0.5) * 255));
+            imgData.data[idx+2] = Math.max(0, Math.min(255, (val + 0.5) * 255));
+            imgData.data[idx+3] = 255;
+        }
+    }
+    ctx.putImageData(imgData, 0, 0);
+}
+boxGrid();
 //drawIslands();
 //drawCaves();
 
