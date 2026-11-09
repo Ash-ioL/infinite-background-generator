@@ -4,6 +4,7 @@ import { getColor, getPrimaryColor, getSecondaryColor } from "./input.js";
 import Particle from "./components/Particle.js";
 import ParticleManager from "./components/ParticleManager.js";
 import { getPerlinGrid, drawMap, drawCaves, drawIslands, drawRawPerlinGrid } from "../perlin_noise/perlin.js";
+import { RNG } from "../perlin_noise/rng.js";
 
 let numCircles: number = 50;
 
@@ -131,10 +132,12 @@ export function drawBackground(canvas: HTMLCanvasElement, ctx: CanvasRenderingCo
     } else if (currentBackgroundMode === BackgroundMode.ParticleCollisions) {
         backgroundManager.drawAll(getPrimaryColor(), getSecondaryColor(), true);
     } else if (currentBackgroundMode === BackgroundMode.BFSIslands) {
+        RNG.setSeed(seed);
         drawIslands();
     } else if (currentBackgroundMode === BackgroundMode.PerlinNoise) {
         drawRawPerlinGrid(perlinGrid);
     } else if (currentBackgroundMode === BackgroundMode.CaveCarving) {
+        RNG.setSeed(seed);
         drawCaves();
     } else if (currentBackgroundMode === BackgroundMode.Map) {
         drawMap(perlinGrid);
