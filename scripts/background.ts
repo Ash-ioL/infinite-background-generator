@@ -4,7 +4,7 @@ import { getColor, getPrimaryColor, getSecondaryColor } from "./input.js";
 import Particle from "./components/Particle.js";
 import ParticleManager from "./components/ParticleManager.js";
 import { getPerlinGrid, drawMap, drawCaves, drawIslands, drawRawPerlinGrid } from "./procedural/perlin.js";
-import { RNG } from "./procedural/rng.js";
+import { RNG } from "./util.js";
 
 let numCircles: number = 50;
 
