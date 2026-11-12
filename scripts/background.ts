@@ -3,8 +3,8 @@ import { ColorUtil, DrawUtil, MouseUtil, RandomUtil } from "./util.js";
 import { getColor, getPrimaryColor, getSecondaryColor } from "./input.js";
 import Particle from "./components/Particle.js";
 import ParticleManager from "./components/ParticleManager.js";
-import { getPerlinGrid, drawMap, drawCaves, drawIslands, drawRawPerlinGrid } from "../perlin_noise/perlin.js";
-import { RNG } from "../perlin_noise/rng.js";
+import { getPerlinGrid, drawMap, drawCaves, drawIslands, drawRawPerlinGrid } from "./procedural/perlin.js";
+import { RNG } from "./procedural/rng.js";
 
 let numCircles: number = 50;
 

@@ -1,4 +1,4 @@
-import { RNG } from "./rng.js";
+import { RNG } from "../util.js";
 
 class Box {
     cornerVectors: Array<Array<number>> = [];
