@@ -1,5 +1,5 @@
 import { RNG } from "../util.js";
-import { Box } from "../components/Box.js";
+import { PerlinBox } from "../components/Box.js";
 
 let canvas: HTMLCanvasElement = document.getElementsByTagName("canvas")[0] as HTMLCanvasElement;
 const ctx: CanvasRenderingContext2D = canvas.getContext("2d") as CanvasRenderingContext2D;
@@ -222,7 +222,7 @@ export function drawCaves() {
 
 
 function singleBox() {
-    let box = new Box();
+    let box = new PerlinBox();
     let imgData = ctx.createImageData(canvas.width, canvas.height);
     let screenWidth = window.innerWidth;
     let screenHeight = window.innerHeight;
@@ -246,7 +246,7 @@ function singleBox() {
 
 function oneOctave() {
     let imgData: ImageData = ctx.createImageData(window.innerWidth, window.innerHeight);
-    let boxGrid = Box.getGrid(10);
+    let boxGrid = PerlinBox.getGrid(10);
     for (let i = 0; i < window.innerHeight; i++) {
         for (let j = 0; j < window.innerWidth; j++) {
             let idx = (window.innerWidth * i + j) * 4;
@@ -271,7 +271,7 @@ function fullPerlinNoise(octaves: number) {
     let totalRange = 0;
 
     for (let o = 0; o < octaves; o++) {
-        let boxGrid = Box.getGrid(10 * Math.pow(2, o));
+        let boxGrid = PerlinBox.getGrid(10 * Math.pow(2, o));
         for (let i = 0; i < window.innerHeight; i++) {
             for (let j = 0; j < window.innerWidth; j++) {
                 let idx = (window.innerWidth * i + j) * 4;
@@ -325,7 +325,7 @@ export function getPerlinGrid(octaves: number) {
     let totalRange = 0;
 
     for (let o = 0; o < octaves; o++) {
-        let boxGrid = Box.getGrid(10 * Math.pow(2, o));
+        let boxGrid = PerlinBox.getGrid(10 * Math.pow(2, o));
         for (let i = 0; i < window.innerHeight; i++) {
             for (let j = 0; j < window.innerWidth; j++) {
                 let idx = (window.innerWidth * i + j);

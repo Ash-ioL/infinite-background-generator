@@ -1,10 +1,10 @@
 import { RNG } from "../util.js";
 
-export class Box {
+export class PerlinBox {
     cornerVectors: Array<Array<number>> = [];
     width: number = 1;
     
-    constructor(top?: Box | null, left?: Box | null) {
+    constructor(top?: PerlinBox | null, left?: PerlinBox | null) {
         for (let i = 0; i < 4; i++) {
             let rangle: number = RNG.getRandom() * 2 * Math.PI;
             let vec: Array<number> = [Math.cos(rangle), Math.sin(rangle)];
@@ -38,13 +38,13 @@ export class Box {
                 distanceXComponent = x - this.width;
                 distanceYComponent = y - this.width; 
             }
-            dotProducts.push(Box.getDotProduct(xComponent!, yComponent!, distanceXComponent, distanceYComponent));
+            dotProducts.push(PerlinBox.getDotProduct(xComponent!, yComponent!, distanceXComponent, distanceYComponent));
         }
-        let xWeight = Box.getWeight(x);
-        let yWeight = Box.getWeight(y);
-        let topLerp = Box.getLerp(dotProducts[0]!, dotProducts[1]!, xWeight); 
-        let bottomLerp = Box.getLerp(dotProducts[2]!, dotProducts[3]!, xWeight);
-        let totalValue = Box.getLerp(topLerp, bottomLerp, yWeight);
+        let xWeight = PerlinBox.getWeight(x);
+        let yWeight = PerlinBox.getWeight(y);
+        let topLerp = PerlinBox.getLerp(dotProducts[0]!, dotProducts[1]!, xWeight); 
+        let bottomLerp = PerlinBox.getLerp(dotProducts[2]!, dotProducts[3]!, xWeight);
+        let totalValue = PerlinBox.getLerp(topLerp, bottomLerp, yWeight);
         return totalValue;
     }
 
@@ -58,24 +58,24 @@ export class Box {
         return a + w * (b - a);
     }
     static getGrid(width: number) {
-        let boxGrid: Array<Array<Box | null>> = [];
+        let boxGrid: Array<Array<PerlinBox | null>> = [];
         for (let i = 0; i < width; i++) {
-            let row: Array<Box | null> = [];
+            let row: Array<PerlinBox | null> = [];
             for (let j = 0; j < width; j++) {
                 row.push(null);
             }
             boxGrid.push(row);
         }
-        boxGrid[0]![0] = new Box();
+        boxGrid[0]![0] = new PerlinBox();
         for (let j = 1; j < width; j++) {
-            boxGrid[0]![j] = new Box(null, boxGrid[0]![j-1]);
+            boxGrid[0]![j] = new PerlinBox(null, boxGrid[0]![j-1]);
         }
         for (let i = 1; i < width; i++) {
-            boxGrid[i]![0] = new Box(boxGrid[i-1]![0]);
+            boxGrid[i]![0] = new PerlinBox(boxGrid[i-1]![0]);
         }
         for (let i = 1; i < width; i++) {
             for (let j = 1; j < width; j++) {
-                boxGrid[i]![j] = new Box(boxGrid[i-1]![j], boxGrid[i]![j-1]);
+                boxGrid[i]![j] = new PerlinBox(boxGrid[i-1]![j], boxGrid[i]![j-1]);
             }
         }
         return boxGrid;
