@@ -34,23 +34,26 @@ function requestFrame() {
         for (let x = 0; x < width; x++) {
             let c = toComplex(x, y, width, height);
             let prev = [0, 0];
+            let exitIter = -1;
             for (let i = 0; i < k; i++) {
                 prev = nextTerm(prev, c);
                 if (prev[0] * prev[0] + prev[1] * prev[1] > 4) { // dis is cuz if a point is over 2 units away fromt he origin then its mathematically impossible to not be infnity
                     prev = [Infinity, Infinity];
+                    exitIter = i;
                     break;
                 }
             }
             let r, g, b;
             if (prev[0] == Infinity) {
-                r = 0;
-                g = 0;
-                b = 0;
+                let ratio = exitIter / k;
+                r = Math.floor(9 * (1 - ratio) * ratio * ratio * ratio * 255);
+                g = Math.floor(15 * (1 - ratio) * (1 - ratio) * ratio * ratio * 255);
+                b = Math.floor(8.5 * (1 - ratio) * (1 - ratio) * (1 - ratio) * ratio * 255);
             }
             else {
                 r = 0;
-                g = 125;
-                b = 125;
+                g = 0;
+                b = 0;
             }
             let idx = (y * width + x) * 4;
             data.data[idx] = r;
