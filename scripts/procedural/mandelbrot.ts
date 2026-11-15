@@ -7,6 +7,7 @@ canvas.height = window.innerHeight;
 window.addEventListener("resize", () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+    draw();
 });
 
 let center: Array<number> = [0, 0];
@@ -14,7 +15,7 @@ let stepSize = 20;
 let zoom = 1;
 let k = 50;
 
-let color: Array<Array<number>> = new Array<Array<number>>(k).fill([0, 0, 0]);
+let color: Array<Array<number>> = Array.from({ length: k }, () => [0, 0, 0]);
 
 for (let i = 0; i < k; i++) {
     let ratio = i / k;
@@ -36,7 +37,7 @@ function nextTerm(val: Array<number>, iVal: Array<number>): Array<number> {
 
 function toComplex(x: number, y: number, width: number, height: number): Array<number> {
     return [
-        (x - (width - 2) + center[0]!) * zoom/1000, 
+        (x - (width / 2) + center[0]!) * zoom/1000, 
         (y - (height / 2) + center[1]!) * zoom/1000
     ];
 }
@@ -89,12 +90,7 @@ function draw() {
     ctx.putImageData(requestFrame(), 0, 0);
 }
 
-function loop() {
-    draw()
-    requestAnimationFrame(() => loop());
-}
-
-loop();
+draw();
 
 window.addEventListener("keydown", (e) => {
     if (e.key === "w") center[1]! -= stepSize / zoom; 
@@ -103,4 +99,5 @@ window.addEventListener("keydown", (e) => {
     if (e.key === "d") center[0]! += stepSize / zoom;
     if (e.key === "e") zoom *= 0.99;
     if (e.key === "q") zoom *= 1.01;
+    draw();
 });

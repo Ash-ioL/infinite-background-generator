@@ -5,7 +5,7 @@
  */
 import { BridcidentBox, PoissonBox } from "../components/PoissonBox.js";
 import { RNG } from "../util.js";
-let canvas = document.getElementById("canvas");
+let canvas = document.getElementById("whiteboard");
 let ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;

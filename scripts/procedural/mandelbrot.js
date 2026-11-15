@@ -1,15 +1,23 @@
-let canvas = document.getElementById("canvas");
+let canvas = document.getElementById("whiteboard");
 let ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 window.addEventListener("resize", () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+    draw();
 });
 let center = [0, 0];
 let stepSize = 20;
 let zoom = 1;
 let k = 50;
+let color = Array.from({ length: k }, () => [0, 0, 0]);
+for (let i = 0; i < k; i++) {
+    let ratio = i / k;
+    color[i][0] = Math.floor(9 * (1 - ratio) * ratio * ratio * ratio * 255);
+    color[i][1] = Math.floor(15 * (1 - ratio) * (1 - ratio) * ratio * ratio * 255);
+    color[i][2] = Math.floor(8.5 * (1 - ratio) * (1 - ratio) * (1 - ratio) * ratio * 255);
+}
 function nextTerm(val, iVal) {
     // val ** 2 + ival
     let valVal = val[0];
@@ -22,7 +30,7 @@ function nextTerm(val, iVal) {
 }
 function toComplex(x, y, width, height) {
     return [
-        (x - (width - 2) + center[0]) * zoom / 1000,
+        (x - (width / 2) + center[0]) * zoom / 1000,
         (y - (height / 2) + center[1]) * zoom / 1000
     ];
 }
@@ -45,10 +53,9 @@ function requestFrame() {
             }
             let r, g, b;
             if (prev[0] == Infinity) {
-                let ratio = exitIter / k;
-                r = Math.floor(9 * (1 - ratio) * ratio * ratio * ratio * 255);
-                g = Math.floor(15 * (1 - ratio) * (1 - ratio) * ratio * ratio * 255);
-                b = Math.floor(8.5 * (1 - ratio) * (1 - ratio) * (1 - ratio) * ratio * 255);
+                r = color[exitIter][0];
+                g = color[exitIter][1];
+                b = color[exitIter][2];
             }
             else {
                 r = 0;
@@ -67,11 +74,7 @@ function requestFrame() {
 function draw() {
     ctx.putImageData(requestFrame(), 0, 0);
 }
-function loop() {
-    draw();
-    requestAnimationFrame(() => loop());
-}
-loop();
+draw();
 window.addEventListener("keydown", (e) => {
     if (e.key === "w")
         center[1] -= stepSize / zoom;
@@ -85,6 +88,7 @@ window.addEventListener("keydown", (e) => {
         zoom *= 0.99;
     if (e.key === "q")
         zoom *= 1.01;
+    draw();
 });
 export {};
 //# sourceMappingURL=mandelbrot.js.map
