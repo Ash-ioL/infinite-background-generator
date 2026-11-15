@@ -99,7 +99,7 @@ function getPoints(): Array<Array<number>> {
     let activeWave: Array<Array<number>> = [];
     let nextWave: Array<Array<number>> = [];
 
-    let width = 100;
+    let width = 200; // unit is boxes
     let grid: Array<Array<PoissonBox>> = [];
     for (let i = 0; i < width; i++) {
         let row: Array<PoissonBox> = [];
@@ -156,7 +156,7 @@ function getPoints(): Array<Array<number>> {
 }
 
 
-function drawPoints(points: Array<Array<number>>, rad: number) {
+function drawPoints(points: Array<Array<number>>, rad: number, color: string = "black") {
     let width = window.innerWidth;
     let height = window.innerHeight;
     let basis = Math.max(width, height);
@@ -168,4 +168,4 @@ function drawPoints(points: Array<Array<number>>, rad: number) {
     }
 }
 
-drawPoints(getPoints(), 3);
+drawPoints(getPoints(), 1);

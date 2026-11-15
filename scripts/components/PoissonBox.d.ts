@@ -8,6 +8,7 @@ export declare class PoissonBox {
     constructor(top: PoissonBox | null, right: PoissonBox | null, bottom: PoissonBox | null, left: PoissonBox | null);
     hasPoint(): boolean;
     addPoint(x: number, y: number): void;
+    private getNeighbor;
     getNearestDistance(x: number, y: number): number;
     tryPoint(x: number, y: number): boolean;
 }

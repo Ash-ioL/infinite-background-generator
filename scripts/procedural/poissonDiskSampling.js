@@ -80,7 +80,7 @@ function getPoints() {
     let points = [];
     let activeWave = [];
     let nextWave = [];
-    let width = 100;
+    let width = 200; // unit is boxes
     let grid = [];
     for (let i = 0; i < width; i++) {
         let row = [];
@@ -126,7 +126,7 @@ function getPoints() {
     }
     return points;
 }
-function drawPoints(points, rad) {
+function drawPoints(points, rad, color = "black") {
     let width = window.innerWidth;
     let height = window.innerHeight;
     let basis = Math.max(width, height);
@@ -137,5 +137,5 @@ function drawPoints(points, rad) {
         ctx.fill();
     }
 }
-drawPoints(getPoints(), 3);
+drawPoints(getPoints(), 1);
 //# sourceMappingURL=poissonDiskSampling.js.map
