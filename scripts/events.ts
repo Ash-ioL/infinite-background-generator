@@ -5,6 +5,10 @@ export interface MouseEvents {
     scroll(): void;
 }
 
+export interface KeyboardEvents {
+    keyPressses(e: Event): void;
+}
+
 export interface ForeverEvent {
     run(): void;
 }
@@ -22,6 +26,12 @@ let currentMouseEvents: MouseEvents = {
     scroll() {
 
     },
+}
+
+let currentKeyboardEvents: KeyboardEvents = {
+    keyPressses(e: Event) {
+
+    }
 }
 
 let currentForeverEvent: ForeverEvent = {
@@ -75,6 +85,10 @@ function recordWheel() {
 export function setMouseEvents(newMouseEvents: MouseEvents) {
     currentMouseEvents = newMouseEvents;
 }
+
+export function setKeyboardEvents(newKeyboardEvents: KeyboardEvents) {
+    currentKeyboardEvents = newKeyboardEvents;
+}
 export function resetMouseEvents() {
     currentMouseEvents = {
         click() {
@@ -92,12 +106,22 @@ export function resetMouseEvents() {
     }
 }
 
+export function resetKeyboardEvents() {
+    currentKeyboardEvents = {
+        keyPressses(e) {
+            
+        },
+    }
+}
+
 export function setForeverEvent(newForeverEvent: ForeverEvent) {
     currentForeverEvent = newForeverEvent;
 }
+
 export function resetForeverEvent() {
     currentForeverEvent = {
         run() {},
     }
 }
+
 import { MouseUtil } from "./util.js";

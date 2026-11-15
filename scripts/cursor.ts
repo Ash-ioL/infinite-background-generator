@@ -1,6 +1,6 @@
 import { CursorMode, ctx, currentCursorMode, getCtx, getParticleManager } from "./main.js";
 import { ColorUtil, DrawUtil, RandomUtil, MouseUtil} from "./util.js";
-import { setForeverEvent, setMouseEvents, resetForeverEvent, resetMouseEvents, isMouseDown } from "./events.js";
+import { setForeverEvent, setMouseEvents, resetForeverEvent, resetMouseEvents, isMouseDown, resetKeyboardEvents } from "./events.js";
 import { scrollY } from "./events.js";
 import type { ForeverEvent, MouseEvents } from "./events.js";
 import { getColor, getPrimaryColor, getSecondaryColor } from "./input.js";
@@ -87,7 +87,6 @@ export function initCursor(ctx: CanvasRenderingContext2D, currentCursorMode: Cur
                 }
             }
         }
-        resetMouseEvents();
         setForeverEvent (
             newForeverEvent
         );
@@ -111,7 +110,6 @@ export function initCursor(ctx: CanvasRenderingContext2D, currentCursorMode: Cur
         setMouseEvents(
             newMouseEvents
         );
-        resetForeverEvent();
     } else if (currentCursorMode === CursorMode.SlowDrift) {
         const vx = Math.random() * 10 * (Math.random() < 0.5 ? -1 : 1);
         const vy = Math.random() * 10 * (Math.random() < 0.5 ? -1 : 1);
@@ -132,7 +130,6 @@ export function initCursor(ctx: CanvasRenderingContext2D, currentCursorMode: Cur
         setMouseEvents(
             newMouseEvents
         );
-        resetForeverEvent();
     } else if (currentCursorMode === CursorMode.Constellations) {
         const newMouseEvents: MouseEvents = {
             click() {
@@ -153,7 +150,6 @@ export function initCursor(ctx: CanvasRenderingContext2D, currentCursorMode: Cur
         setMouseEvents(
             newMouseEvents
         );
-        resetForeverEvent();   
     }
 }
 

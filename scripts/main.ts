@@ -1,7 +1,7 @@
 import { drawBackground } from "./background.js";
 import ParticleManager from "./components/ParticleManager.js";
 import { drawCursor } from "./cursor.js";
-import { initMouseEvents, mouseTasks } from "./events.js";
+import { initMouseEvents, mouseTasks, resetForeverEvent, resetKeyboardEvents, resetMouseEvents } from "./events.js";
 import { readBackground, readCursor, resetBackgroundAndCursor } from "./input.js";
 import { setMainLoop, type LoopSet } from "./taskScheduler.js";
 import { DrawUtil } from "./util.js";
@@ -44,7 +44,10 @@ enum BackgroundMode {
     BFSIslands = "bfs-islands",
     PerlinNoise = "perlin-noise",
     CaveCarving = "cave-carving",
-    Map = "map"
+    Map = "map",
+    Bridson = "bridson",
+    Bridcident = "bridcident",
+    Mandelbrot = "mandelbrot",
 }
 
 export let currentCursorMode: CursorMode = CursorMode.Flashlight as CursorMode;

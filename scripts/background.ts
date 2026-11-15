@@ -5,6 +5,8 @@ import Particle from "./components/Particle.js";
 import ParticleManager from "./components/ParticleManager.js";
 import { getPerlinGrid, drawMap, drawCaves, drawIslands, drawRawPerlinGrid } from "./procedural/perlin.js";
 import { RNG } from "./util.js";
+import type { KeyboardEvents } from "./events.js";
+import { setKeyboardEvents } from "./events.js";
 
 let numCircles: number = 50;
 
@@ -12,6 +14,12 @@ let backgroundManager = new ParticleManager(getCtx());
 
 let perlinGrid: Array<Array<number>>;
 let seed: number = Math.floor(Math.random() * 1000);
+let mandelbrotVars = {
+    center: [0, 0],
+    stepSize: 0.05,
+    zoom: 2.25,
+    k: 50,
+}
 
 export function initBackground(ctx: CanvasRenderingContext2D, currentBackgroundMode: BackgroundMode) {
     backgroundManager.clearAll();
@@ -97,6 +105,22 @@ export function initBackground(ctx: CanvasRenderingContext2D, currentBackgroundM
     } else if (currentBackgroundMode === BackgroundMode.Map) {
         seed = Math.floor(Math.random() * 1000);
         perlinGrid = getPerlinGrid(4);
+    } else if (currentBackgroundMode === BackgroundMode.Mandelbrot) {
+
+        const newKeyboardEvents: KeyboardEvents = {
+            keyPressses(e: KeyboardEvent) {
+                if (e.key === "w") mandelbrotVars.center[1]! -= mandelbrotVars.stepSize / mandelbrotVars.zoom; 
+                if (e.key === "a") mandelbrotVars.center[0]! -= mandelbrotVars.stepSize / mandelbrotVars.zoom;
+                if (e.key === "s") mandelbrotVars.center[1]! += mandelbrotVars.stepSize / mandelbrotVars.zoom;
+                if (e.key === "d") mandelbrotVars.center[0]! += mandelbrotVars.stepSize / mandelbrotVars.zoom;
+                if (e.key === "e") mandelbrotVars.zoom *= 0.99;
+                if (e.key === "q") mandelbrotVars.zoom *= 1.01;
+                
+            }
+        }
+        setKeyboardEvents(
+            newKeyboardEvents
+        );
     }
 }
 

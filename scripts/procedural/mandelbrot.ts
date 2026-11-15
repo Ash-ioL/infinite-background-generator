@@ -24,30 +24,21 @@ for (let i = 0; i < k; i++) {
     color[i]![2] = Math.floor(8.5 * (1 - ratio) * (1 - ratio) * (1 - ratio) * ratio * 255);
 }
 
-function nextTerm(val: Array<number>, iVal: Array<number>): Array<number> {
-    // val ** 2 + ival
-    let valVal: number = val[0]!;
-    let valIVal: number = val[1]!;
-    let iValVal: number = iVal[0]!;
-    let iValIVal: number = iVal[1]!;
-    let resVal = valVal * valVal - valIVal * valIVal + iValVal;
-    let resIVal = valVal * valIVal * 2 + iValIVal;
-    return [resVal, resIVal];
-}
-
-function toComplex(x: number, y: number, width: number, height: number): Array<number> {
-    return [
-        (x - (width / 2) + center[0]!) * zoom/1000, 
-        (y - (height / 2) + center[1]!) * zoom/1000
-    ];
-}
-
-function requestFrame(): ImageData {
+function requestFrame(brotVars: Object | null = null): ImageData {
     let width = window.innerWidth;
     let height = window.innerHeight;
 
     let data: ImageData = ctx.createImageData(width, height);
-    
+
+    if (brotVars === null) {
+        brotVars = {
+            center: center,
+            stepSize: stepSize,
+            zoom: zoom,
+            k: k,
+        }
+    }
+
     for (let y = 0; y < height; y++) {
         for (let x = 0; x < width; x++) {
             let c0 = (x - (width / 2)) * zoom/1000 + center[0]!;
