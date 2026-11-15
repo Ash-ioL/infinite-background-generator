@@ -1,5 +1,5 @@
 import { RNG } from "../util.js";
-import { PerlinBox } from "../components/Box.js";
+import { PerlinBox } from "../components/PerlinBox.js";
 
 let canvas: HTMLCanvasElement = document.getElementsByTagName("canvas")[0] as HTMLCanvasElement;
 const ctx: CanvasRenderingContext2D = canvas.getContext("2d") as CanvasRenderingContext2D;

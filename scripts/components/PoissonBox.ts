@@ -1,7 +1,7 @@
 import { RNG } from "../util.js";
 
 export class PoissonBox {
-    width: number = 0.70710678;
+    width: number = 1;
     top: PoissonBox | null;
     right: PoissonBox | null;
     bottom: PoissonBox | null;
@@ -53,7 +53,7 @@ export class PoissonBox {
 
     tryPoint(x: number, y: number): boolean {
         let distance: number = this.getNearestDistance(x, y);
-        if (distance === Infinity || distance > 1) {
+        if (distance === Infinity || distance > this.width * Math.SQRT2) {
             this.addPoint(x, y);
             return true;
         }
