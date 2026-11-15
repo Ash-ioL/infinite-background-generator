@@ -40,19 +40,31 @@ function requestFrame() {
     let data = ctx.createImageData(width, height);
     for (let y = 0; y < height; y++) {
         for (let x = 0; x < width; x++) {
-            let c = toComplex(x, y, width, height);
-            let prev = [0, 0];
+            let c0 = (x - (width / 2)) * zoom / 1000 + center[0];
+            let c1 = (y - (height / 2)) * zoom / 1000 + center[1];
+            let prev0 = 0;
+            let prev1 = 0;
             let exitIter = -1;
             for (let i = 0; i < k; i++) {
-                prev = nextTerm(prev, c);
-                if (prev[0] * prev[0] + prev[1] * prev[1] > 4) { // dis is cuz if a point is over 2 units away fromt he origin then its mathematically impossible to not be infnity
-                    prev = [Infinity, Infinity];
+                //nextterm
+                let valVal = prev0;
+                let valIVal = prev1;
+                let iValVal = c0;
+                let iValIVal = c1;
+                let resVal = valVal * valVal - valIVal * valIVal + iValVal;
+                let resIVal = valVal * valIVal * 2 + iValIVal;
+                prev0 = resVal;
+                prev1 = resIVal;
+                //nextterm
+                if (prev0 * prev0 + prev1 * prev1 > 4) { // dis is cuz if a point is over 2 units away fromt he origin then its mathematically impossible to not be infnity
+                    prev0 = Infinity;
+                    prev1 = Infinity;
                     exitIter = i;
                     break;
                 }
             }
             let r, g, b;
-            if (prev[0] == Infinity) {
+            if (prev0 == Infinity) {
                 r = color[exitIter][0];
                 g = color[exitIter][1];
                 b = color[exitIter][2];

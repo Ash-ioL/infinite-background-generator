@@ -50,8 +50,8 @@ function requestFrame(): ImageData {
     
     for (let y = 0; y < height; y++) {
         for (let x = 0; x < width; x++) {
-            let c0 = (x - (width / 2) + center[0]!) * zoom/1000;
-            let c1 = (y - (height / 2) + center[1]!) * zoom/1000;
+            let c0 = (x - (width / 2)) * zoom/1000 + center[0]!;
+            let c1 = (y - (height / 2)) * zoom/1000 + center[1]!;
             let prev0 = 0;
             let prev1 = 0;
             
