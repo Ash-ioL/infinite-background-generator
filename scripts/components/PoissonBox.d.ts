@@ -11,4 +11,7 @@ export declare class PoissonBox {
     getNearestDistance(x: number, y: number): number;
     tryPoint(x: number, y: number): boolean;
 }
+export declare class BridcidentBox extends PoissonBox {
+    getNearestDistance(x: number, y: number): number;
+}
 //# sourceMappingURL=PoissonBox.d.ts.map

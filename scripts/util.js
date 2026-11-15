@@ -1,4 +1,3 @@
-import { resetBackground } from "./main.js";
 export class ColorUtil {
     static getRandomHex() {
         const randR = Math.floor(Math.random() * 256);
