@@ -5,11 +5,11 @@ canvas.height = window.innerHeight;
 window.addEventListener("resize", () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-    draw();
+    redraw = true;
 });
 let center = [0, 0];
-let stepSize = 20;
-let zoom = 1;
+let stepSize = 0.05;
+let zoom = 2.25;
 let k = 50;
 let color = Array.from({ length: k }, () => [0, 0, 0]);
 for (let i = 0; i < k; i++) {
@@ -57,14 +57,12 @@ function requestFrame() {
                 prev1 = resIVal;
                 //nextterm
                 if (prev0 * prev0 + prev1 * prev1 > 4) { // dis is cuz if a point is over 2 units away fromt he origin then its mathematically impossible to not be infnity
-                    prev0 = Infinity;
-                    prev1 = Infinity;
                     exitIter = i;
                     break;
                 }
             }
             let r, g, b;
-            if (prev0 == Infinity) {
+            if (exitIter != -1) {
                 r = color[exitIter][0];
                 g = color[exitIter][1];
                 b = color[exitIter][2];
@@ -86,7 +84,17 @@ function requestFrame() {
 function draw() {
     ctx.putImageData(requestFrame(), 0, 0);
 }
-draw();
+let redraw = true;
+function loop() {
+    if (redraw) {
+        draw();
+        redraw = false;
+    }
+    requestAnimationFrame(() => {
+        loop();
+    });
+}
+loop();
 window.addEventListener("keydown", (e) => {
     if (e.key === "w")
         center[1] -= stepSize / zoom;
@@ -100,7 +108,7 @@ window.addEventListener("keydown", (e) => {
         zoom *= 0.99;
     if (e.key === "q")
         zoom *= 1.01;
-    draw();
+    redraw = true;
 });
 export {};
 //# sourceMappingURL=mandelbrot.js.map
