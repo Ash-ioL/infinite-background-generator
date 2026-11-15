@@ -4,10 +4,21 @@
  * Cells with width 1/sqrt2
  */
 
-import { PoissonBox } from "../components/PoissonBox";
+import { PoissonBox } from "../components/PoissonBox.js";
 import { RNG } from "../util.js";
 
-function getNewPoint(x: number, y: number, vec: Array<number>): Array<number> {
+let canvas: HTMLCanvasElement = document.getElementsByName("canvas")[0] as HTMLCanvasElement;
+let ctx: CanvasRenderingContext2D = canvas.getContext('2d') as CanvasRenderingContext2D;
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+window.addEventListener("resize", () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+});
+
+function getNewPoint(x: number, y: number, vec: Array<number>): Array<number> { // bruh i forgot i made this so i didn't use it lol
     let mag: number = vec[0]!;
     let theta: number = vec[1]!;
     let xOff: number = mag * Math.cos(theta);
@@ -74,5 +85,24 @@ function getPoints(): Array<Array<number>> { // make in square thingie.... but d
         }
     }
 
+    for (let i = 0; i < points.length; i++) {
+        points[i]![0]! /= width;
+        points[i]![1]! /= width;
+    }
+
     return points;
 }
+
+function drawPoints(points: Array<Array<number>>) {
+    let width = window.innerWidth;
+    let height = window.innerHeight;
+    let basis = Math.max(width, height);
+
+    for (const [x, y] of points) {
+        ctx.beginPath();
+        ctx.arc(x! * basis, y! * basis, 3, 0, Math.PI * 2);
+        ctx.fill();
+    }
+}
+
+drawPoints(getPoints());

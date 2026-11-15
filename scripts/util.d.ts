@@ -13,6 +13,12 @@ export declare class RandomUtil {
     static windowPosition(leftPadding?: number, rightPadding?: number, topPadding?: number, bottomPadding?: number): number[];
     static randInt(start: number, end: number): number;
 }
+export declare class RNG {
+    static seed: number;
+    static initSeed: number;
+    static getRandom(seed?: number): number;
+    static setSeed(seed?: number): void;
+}
 export declare class MouseUtil {
     #private;
     static initMouseListener(): void;
