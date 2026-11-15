@@ -7,7 +7,7 @@
 import { BridcidentBox, PoissonBox } from "../components/PoissonBox.js";
 import { RNG } from "../util.js";
 
-let canvas: HTMLCanvasElement = document.getElementById("canvas") as HTMLCanvasElement;
+let canvas: HTMLCanvasElement = document.getElementById("whiteboard") as HTMLCanvasElement;
 let ctx: CanvasRenderingContext2D = canvas.getContext('2d') as CanvasRenderingContext2D;
 
 canvas.width = window.innerWidth;

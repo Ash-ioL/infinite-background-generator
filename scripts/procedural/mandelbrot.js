@@ -7,7 +7,7 @@ window.addEventListener("resize", () => {
     canvas.height = window.innerHeight;
 });
 let center = [0, 0];
-let stepSize = 5;
+let stepSize = 20;
 let zoom = 1;
 let k = 50;
 function nextTerm(val, iVal) {
@@ -75,15 +75,15 @@ loop();
 window.addEventListener("keydown", (e) => {
     if (e.key === "w")
         center[1] -= stepSize / zoom;
-    else if (e.key === "a")
+    if (e.key === "a")
         center[0] -= stepSize / zoom;
-    else if (e.key === "s")
+    if (e.key === "s")
         center[1] += stepSize / zoom;
-    else if (e.key === "d")
+    if (e.key === "d")
         center[0] += stepSize / zoom;
-    else if (e.key === "e")
+    if (e.key === "e")
         zoom *= 0.99;
-    else if (e.key === "q")
+    if (e.key === "q")
         zoom *= 1.01;
 });
 export {};

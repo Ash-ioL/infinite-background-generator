@@ -1,4 +1,4 @@
-let canvas: HTMLCanvasElement = document.getElementById("canvas") as HTMLCanvasElement;
+let canvas: HTMLCanvasElement = document.getElementById("whiteboard") as HTMLCanvasElement;
 let ctx: CanvasRenderingContext2D = canvas.getContext('2d') as CanvasRenderingContext2D;
 
 canvas.width = window.innerWidth;
@@ -10,10 +10,18 @@ window.addEventListener("resize", () => {
 });
 
 let center: Array<number> = [0, 0];
-let stepSize = 5;
+let stepSize = 20;
 let zoom = 1;
 let k = 50;
 
+let color: Array<Array<number>> = new Array<Array<number>>(k).fill([0, 0, 0]);
+
+for (let i = 0; i < k; i++) {
+    let ratio = i / k;
+    color[i]![0] = Math.floor(9 * (1 - ratio) * ratio * ratio * ratio * 255);
+    color[i]![1] = Math.floor(15 * (1 - ratio) * (1 - ratio) * ratio * ratio * 255);
+    color[i]![2] = Math.floor(8.5 * (1 - ratio) * (1 - ratio) * (1 - ratio) * ratio * 255);
+}
 
 function nextTerm(val: Array<number>, iVal: Array<number>): Array<number> {
     // val ** 2 + ival
@@ -56,10 +64,9 @@ function requestFrame(): ImageData {
             let r : number, g: number, b: number;
 
             if (prev[0] == Infinity) {
-                let ratio = exitIter / k;
-                r = Math.floor(9 * (1 - ratio) * ratio * ratio * ratio * 255);
-                g = Math.floor(15 * (1 - ratio) * (1 - ratio) * ratio * ratio * 255);
-                b = Math.floor(8.5 * (1 - ratio) * (1 - ratio) * (1 - ratio) * ratio * 255);
+                r = color[exitIter]![0]!;
+                g = color[exitIter]![1]!;
+                b = color[exitIter]![2]!;
             } else {
                 r = 0;
                 g = 0;
@@ -91,9 +98,9 @@ loop();
 
 window.addEventListener("keydown", (e) => {
     if (e.key === "w") center[1]! -= stepSize / zoom; 
-    else if (e.key === "a") center[0]! -= stepSize / zoom;
-    else if (e.key === "s") center[1]! += stepSize / zoom;
-    else if (e.key === "d") center[0]! += stepSize / zoom;
-    else if (e.key === "e") zoom *= 0.99;
-    else if (e.key === "q") zoom *= 1.01;
+    if (e.key === "a") center[0]! -= stepSize / zoom;
+    if (e.key === "s") center[1]! += stepSize / zoom;
+    if (e.key === "d") center[0]! += stepSize / zoom;
+    if (e.key === "e") zoom *= 0.99;
+    if (e.key === "q") zoom *= 1.01;
 });

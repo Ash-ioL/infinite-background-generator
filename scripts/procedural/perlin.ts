@@ -1,7 +1,7 @@
 import { RNG } from "../util.js";
 import { PerlinBox } from "../components/PerlinBox.js";
 
-let canvas: HTMLCanvasElement = document.getElementsByTagName("canvas")[0] as HTMLCanvasElement;
+let canvas: HTMLCanvasElement = document.getElementById("whiteboard") as HTMLCanvasElement;
 const ctx: CanvasRenderingContext2D = canvas.getContext("2d") as CanvasRenderingContext2D;
 canvas.height = window.innerHeight;
 canvas.width = window.innerWidth;
