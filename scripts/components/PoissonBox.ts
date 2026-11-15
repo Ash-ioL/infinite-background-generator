@@ -1,5 +1,6 @@
 import { RNG } from "../util.js";
 
+
 export class PoissonBox {
     width: number = 1;
     top: PoissonBox | null;
@@ -64,10 +65,117 @@ export class PoissonBox {
                         let startCoord: Array<number> = this.bottom!.bottom!.left!.left!.coord!;
                         xStart = startCoord![0]!;
                         yStart = startCoord![1]!;
+                    } else if (i == -1 && j == -2) {
+                        let startCoord: Array<number> = this.bottom!.bottom!.left!.coord!;
+                        xStart = startCoord![0]!;
+                        yStart = startCoord![1]!;
+                    } else if (i == 0 && j == -2) {
+                        let startCoord: Array<number> = this.bottom!.bottom!.coord!;
+                        xStart = startCoord![0]!;
+                        yStart = startCoord![1]!;
+                    } else if (i == 1 && j == -2) {
+                        let startCoord: Array<number> = this.bottom!.bottom!.right!.coord!;
+                        xStart = startCoord![0]!;
+                        yStart = startCoord![1]!;
+                    } else if (i == 2 && j == -2) {
+                        let startCoord: Array<number> = this.bottom!.bottom!.right!.right!.coord!;
+                        xStart = startCoord![0]!;
+                        yStart = startCoord![1]!;
+                    } 
+                    
+                    else if (i == -2 && j == -1) {
+                        let startCoord: Array<number> = this.bottom!.left!.left!.coord!;
+                        xStart = startCoord![0]!;
+                        yStart = startCoord![1]!;
+                    } else if (i == -1 && j == -1) {
+                        let startCoord: Array<number> = this.bottom!.left!.coord!;
+                        xStart = startCoord![0]!;
+                        yStart = startCoord![1]!;
+                    } else if (i == 0 && j == -1) {
+                        let startCoord: Array<number> = this.bottom!.coord!;
+                        xStart = startCoord![0]!;
+                        yStart = startCoord![1]!;
+                    } else if (i == 1 && j == -1) {
+                        let startCoord: Array<number> = this.bottom!.right!.coord!;
+                        xStart = startCoord![0]!;
+                        yStart = startCoord![1]!;
+                    } else if (i == 2 && j == -1) {
+                        let startCoord: Array<number> = this.bottom!.right!.right!.coord!;
+                        xStart = startCoord![0]!;
+                        yStart = startCoord![1]!;
+                    }
+
+                    else if (i == -2 && j == 0) {
+                        let startCoord: Array<number> = this.left!.left!.coord!;
+                        xStart = startCoord![0]!;
+                        yStart = startCoord![1]!;
+                    } else if (i == -1 && j == 0) {
+                        let startCoord: Array<number> = this.left!.coord!;
+                        xStart = startCoord![0]!;
+                        yStart = startCoord![1]!;
+                    } else if (i == 1 && j == 0) {
+                        let startCoord: Array<number> = this.right!.coord!;
+                        xStart = startCoord![0]!;
+                        yStart = startCoord![1]!;
+                    } else if (i == 2 && j == 0) {
+                        let startCoord: Array<number> = this.right!.right!.coord!;
+                        xStart = startCoord![0]!;
+                        yStart = startCoord![1]!;
+                    }
+
+                    else if (i == -2 && j == 1) {
+                        let startCoord: Array<number> = this.top!.left!.left!.coord!;
+                        xStart = startCoord![0]!;
+                        yStart = startCoord![1]!;
+                    } else if (i == -1 && j == 1) {
+                        let startCoord: Array<number> = this.top!.left!.coord!;
+                        xStart = startCoord![0]!;
+                        yStart = startCoord![1]!;
+                    } else if (i == 0 && j == 1) {
+                        let startCoord: Array<number> = this.top!.coord!;
+                        xStart = startCoord![0]!;
+                        yStart = startCoord![1]!;
+                    } else if (i == 1 && j == 1) {
+                        let startCoord: Array<number> = this.top!.right!.coord!;
+                        xStart = startCoord![0]!;
+                        yStart = startCoord![1]!;
+                    } else if (i == 2 && j == 1) {
+                        let startCoord: Array<number> = this.top!.right!.right!.coord!;
+                        xStart = startCoord![0]!;
+                        yStart = startCoord![1]!;
+                    }
+
+                    else if (i == -2 && j == 2) {
+                        let startCoord: Array<number> = this.top!.top!.left!.left!.coord!;
+                        xStart = startCoord![0]!;
+                        yStart = startCoord![1]!;
+                    } else if (i == -1 && j == 2) {
+                        let startCoord: Array<number> = this.top!.top!.left!.coord!;
+                        xStart = startCoord![0]!;
+                        yStart = startCoord![1]!;
+                    } else if (i == 0 && j == 2) {
+                        let startCoord: Array<number> = this.top!.top!.coord!;
+                        xStart = startCoord![0]!;
+                        yStart = startCoord![1]!;
+                    } else if (i == 1 && j == 2) {
+                        let startCoord: Array<number> = this.top!.top!.right!.coord!;
+                        xStart = startCoord![0]!;
+                        yStart = startCoord![1]!;
+                    } else if (i == 2 && j == 2) {
+                        let startCoord: Array<number> = this.top!.top!.right!.right!.coord!;
+                        xStart = startCoord![0]!;
+                        yStart = startCoord![1]!;
                     }
                 } catch {
-                        continue;
-                    }
+                    continue;
+                }
+
+                let xDist = Math.abs(x - (xStart! + xOff));
+                let yDist = Math.abs(x - (yStart! + yOff));
+
+                let hypot = Math.sqrt(Math.pow(xDist, 2) + Math.pow(yDist, 2));
+
+                current = Math.min(current, hypot);
             }
         }
         //checking diagonals and like a 9 other boxes T_T

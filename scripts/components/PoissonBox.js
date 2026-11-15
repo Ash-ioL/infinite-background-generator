@@ -44,6 +44,146 @@ export class PoissonBox {
             let hypot = Math.sqrt(Math.pow(xDist, 2) + Math.pow(yDist, 2));
             current = Math.min(current, hypot);
         }
+        for (let i = -2; i < 3; i++) {
+            for (let j = -2; j < 3; j++) {
+                if (i == 0 && j == 0)
+                    continue;
+                let xOff = i;
+                let yOff = j;
+                let xStart;
+                let yStart;
+                try {
+                    if (i == -2 && j == -2) {
+                        let startCoord = this.bottom.bottom.left.left.coord;
+                        xStart = startCoord[0];
+                        yStart = startCoord[1];
+                    }
+                    else if (i == -1 && j == -2) {
+                        let startCoord = this.bottom.bottom.left.coord;
+                        xStart = startCoord[0];
+                        yStart = startCoord[1];
+                    }
+                    else if (i == 0 && j == -2) {
+                        let startCoord = this.bottom.bottom.coord;
+                        xStart = startCoord[0];
+                        yStart = startCoord[1];
+                    }
+                    else if (i == 1 && j == -2) {
+                        let startCoord = this.bottom.bottom.right.coord;
+                        xStart = startCoord[0];
+                        yStart = startCoord[1];
+                    }
+                    else if (i == 2 && j == -2) {
+                        let startCoord = this.bottom.bottom.right.right.coord;
+                        xStart = startCoord[0];
+                        yStart = startCoord[1];
+                    }
+                    else if (i == -2 && j == -1) {
+                        let startCoord = this.bottom.left.left.coord;
+                        xStart = startCoord[0];
+                        yStart = startCoord[1];
+                    }
+                    else if (i == -1 && j == -1) {
+                        let startCoord = this.bottom.left.coord;
+                        xStart = startCoord[0];
+                        yStart = startCoord[1];
+                    }
+                    else if (i == 0 && j == -1) {
+                        let startCoord = this.bottom.coord;
+                        xStart = startCoord[0];
+                        yStart = startCoord[1];
+                    }
+                    else if (i == 1 && j == -1) {
+                        let startCoord = this.bottom.right.coord;
+                        xStart = startCoord[0];
+                        yStart = startCoord[1];
+                    }
+                    else if (i == 2 && j == -1) {
+                        let startCoord = this.bottom.right.right.coord;
+                        xStart = startCoord[0];
+                        yStart = startCoord[1];
+                    }
+                    else if (i == -2 && j == 0) {
+                        let startCoord = this.left.left.coord;
+                        xStart = startCoord[0];
+                        yStart = startCoord[1];
+                    }
+                    else if (i == -1 && j == 0) {
+                        let startCoord = this.left.coord;
+                        xStart = startCoord[0];
+                        yStart = startCoord[1];
+                    }
+                    else if (i == 1 && j == 0) {
+                        let startCoord = this.right.coord;
+                        xStart = startCoord[0];
+                        yStart = startCoord[1];
+                    }
+                    else if (i == 2 && j == 0) {
+                        let startCoord = this.right.right.coord;
+                        xStart = startCoord[0];
+                        yStart = startCoord[1];
+                    }
+                    else if (i == -2 && j == 1) {
+                        let startCoord = this.top.left.left.coord;
+                        xStart = startCoord[0];
+                        yStart = startCoord[1];
+                    }
+                    else if (i == -1 && j == 1) {
+                        let startCoord = this.top.left.coord;
+                        xStart = startCoord[0];
+                        yStart = startCoord[1];
+                    }
+                    else if (i == 0 && j == 1) {
+                        let startCoord = this.top.coord;
+                        xStart = startCoord[0];
+                        yStart = startCoord[1];
+                    }
+                    else if (i == 1 && j == 1) {
+                        let startCoord = this.top.right.coord;
+                        xStart = startCoord[0];
+                        yStart = startCoord[1];
+                    }
+                    else if (i == 2 && j == 1) {
+                        let startCoord = this.top.right.right.coord;
+                        xStart = startCoord[0];
+                        yStart = startCoord[1];
+                    }
+                    else if (i == -2 && j == 2) {
+                        let startCoord = this.top.top.left.left.coord;
+                        xStart = startCoord[0];
+                        yStart = startCoord[1];
+                    }
+                    else if (i == -1 && j == 2) {
+                        let startCoord = this.top.top.left.coord;
+                        xStart = startCoord[0];
+                        yStart = startCoord[1];
+                    }
+                    else if (i == 0 && j == 2) {
+                        let startCoord = this.top.top.coord;
+                        xStart = startCoord[0];
+                        yStart = startCoord[1];
+                    }
+                    else if (i == 1 && j == 2) {
+                        let startCoord = this.top.top.right.coord;
+                        xStart = startCoord[0];
+                        yStart = startCoord[1];
+                    }
+                    else if (i == 2 && j == 2) {
+                        let startCoord = this.top.top.right.right.coord;
+                        xStart = startCoord[0];
+                        yStart = startCoord[1];
+                    }
+                }
+                catch {
+                    continue;
+                }
+                let xDist = Math.abs(x - (xStart + xOff));
+                let yDist = Math.abs(x - (yStart + yOff));
+                let hypot = Math.sqrt(Math.pow(xDist, 2) + Math.pow(yDist, 2));
+                current = Math.min(current, hypot);
+            }
+        }
+        //checking diagonals and like a 9 other boxes T_T
         return current;
     }
     tryPoint(x, y) {
