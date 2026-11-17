@@ -23,7 +23,10 @@ declare enum BackgroundMode {
     BFSIslands = "bfs-islands",
     PerlinNoise = "perlin-noise",
     CaveCarving = "cave-carving",
-    Map = "map"
+    Map = "map",
+    Bridson = "bridson",
+    Bridcident = "bridcident",
+    Mandelbrot = "mandelbrot"
 }
 export declare let currentCursorMode: CursorMode;
 export declare let currentBackgroundMode: BackgroundMode;

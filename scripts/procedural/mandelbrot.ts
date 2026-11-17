@@ -24,7 +24,14 @@ for (let i = 0; i < k; i++) {
     color[i]![2] = Math.floor(8.5 * (1 - ratio) * (1 - ratio) * (1 - ratio) * ratio * 255);
 }
 
-function requestFrame(brotVars: Object | null = null): ImageData {
+export interface BrotVars {
+    zoom: number,
+    k: number,
+    center: number[],
+    stepSize: number,
+}
+
+export function requestFrame(brotVars: BrotVars | null = null): ImageData {
     let width = window.innerWidth;
     let height = window.innerHeight;
 
@@ -41,8 +48,8 @@ function requestFrame(brotVars: Object | null = null): ImageData {
 
     for (let y = 0; y < height; y++) {
         for (let x = 0; x < width; x++) {
-            let c0 = (x - (width / 2)) * zoom/1000 + center[0]!;
-            let c1 = (y - (height / 2)) * zoom/1000 + center[1]!;
+            let c0 = (x - (width / 2)) * brotVars.zoom/1000 + brotVars.center[0]!;
+            let c1 = (y - (height / 2)) * brotVars.zoom/1000 + brotVars.center[1]!;
             let prev0 = 0;
             let prev1 = 0;
             

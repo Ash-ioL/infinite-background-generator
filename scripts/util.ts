@@ -159,5 +159,3 @@ export class MouseUtil {
     }
 }
 MouseUtil.initMouseListener();
-
-

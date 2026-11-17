@@ -8,6 +8,10 @@ let currentMouseEvents = {
     scroll() {
     },
 };
+let currentKeyboardEvents = {
+    keyPressses(e) {
+    }
+};
 let currentForeverEvent = {
     run() {
     },
@@ -51,6 +55,9 @@ function recordWheel() {
 export function setMouseEvents(newMouseEvents) {
     currentMouseEvents = newMouseEvents;
 }
+export function setKeyboardEvents(newKeyboardEvents) {
+    currentKeyboardEvents = newKeyboardEvents;
+}
 export function resetMouseEvents() {
     currentMouseEvents = {
         click() {
@@ -60,6 +67,12 @@ export function resetMouseEvents() {
         hold() {
         },
         scroll() {
+        },
+    };
+}
+export function resetKeyboardEvents() {
+    currentKeyboardEvents = {
+        keyPressses(e) {
         },
     };
 }

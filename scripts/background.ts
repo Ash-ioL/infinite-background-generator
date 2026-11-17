@@ -7,6 +7,7 @@ import { getPerlinGrid, drawMap, drawCaves, drawIslands, drawRawPerlinGrid } fro
 import { RNG } from "./util.js";
 import type { KeyboardEvents } from "./events.js";
 import { setKeyboardEvents } from "./events.js";
+import { requestFrame, type BrotVars } from "./procedural/mandelbrot.js";
 
 let numCircles: number = 50;
 
@@ -14,7 +15,7 @@ let backgroundManager = new ParticleManager(getCtx());
 
 let perlinGrid: Array<Array<number>>;
 let seed: number = Math.floor(Math.random() * 1000);
-let mandelbrotVars = {
+let mandelbrotVars: BrotVars = {
     center: [0, 0],
     stepSize: 0.05,
     zoom: 2.25,
@@ -115,7 +116,6 @@ export function initBackground(ctx: CanvasRenderingContext2D, currentBackgroundM
                 if (e.key === "d") mandelbrotVars.center[0]! += mandelbrotVars.stepSize / mandelbrotVars.zoom;
                 if (e.key === "e") mandelbrotVars.zoom *= 0.99;
                 if (e.key === "q") mandelbrotVars.zoom *= 1.01;
-                
             }
         }
         setKeyboardEvents(
@@ -167,5 +167,7 @@ export function drawBackground(canvas: HTMLCanvasElement, ctx: CanvasRenderingCo
     } else if (currentBackgroundMode === BackgroundMode.Map) {
         RNG.setSeed(seed);
         drawMap(perlinGrid);
+    } else if (currentBackgroundMode === BackgroundMode.Mandelbrot) {
+        ctx.putImageData(requestFrame(), 0, 0);
     }
 }

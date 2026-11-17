@@ -1,9 +1,9 @@
 import { DrawUtil } from "./util.js";
-import { ctx, canvas, currentBackgroundMode, currentCursorMode } from "./main.js";
+import { ctx, canvas, currentBackgroundMode, currentCursorMode, resetBackground } from "./main.js";
 import { BackgroundMode, CursorMode, setCurrentModes } from "./main.js";
 import { drawBackground, initBackground } from "./background.js";
 import { drawCursor, initCursor } from "./cursor.js";
-import { resetForeverEvent, resetMouseEvents } from "./events.js";
+import { resetForeverEvent, resetMouseEvents, resetKeyboardEvents } from "./events.js";
 let sidePanel = document.getElementById("side-panel");
 let arrow = document.getElementById("arrow");
 arrow.addEventListener("click", () => {
@@ -98,6 +98,15 @@ export function readBackground() {
     else if (curVal == "map") {
         newBackgroundMode = BackgroundMode.Map;
     }
+    else if (curVal == "mandelbrot") {
+        newBackgroundMode = BackgroundMode.Mandelbrot;
+    }
+    else if (curVal == "bridcident") {
+        newBackgroundMode = BackgroundMode.Bridcident;
+    }
+    else if (curVal == "bridson") {
+        newBackgroundMode = BackgroundMode.Bridson;
+    }
     else {
         newBackgroundMode = BackgroundMode.None;
     }
@@ -133,6 +142,7 @@ export function resetBackgroundAndCursor(newBackgroundMode, newCursorMode) {
     DrawUtil.clearScreen(ctx);
     resetForeverEvent();
     resetMouseEvents();
+    resetKeyboardEvents();
     setCurrentModes(newCursorMode, newBackgroundMode);
     setBackgroundColor(getBackgroundColor());
     initCursor(ctx, newCursorMode);

@@ -18,30 +18,22 @@ for (let i = 0; i < k; i++) {
     color[i][1] = Math.floor(15 * (1 - ratio) * (1 - ratio) * ratio * ratio * 255);
     color[i][2] = Math.floor(8.5 * (1 - ratio) * (1 - ratio) * (1 - ratio) * ratio * 255);
 }
-function nextTerm(val, iVal) {
-    // val ** 2 + ival
-    let valVal = val[0];
-    let valIVal = val[1];
-    let iValVal = iVal[0];
-    let iValIVal = iVal[1];
-    let resVal = valVal * valVal - valIVal * valIVal + iValVal;
-    let resIVal = valVal * valIVal * 2 + iValIVal;
-    return [resVal, resIVal];
-}
-function toComplex(x, y, width, height) {
-    return [
-        (x - (width / 2) + center[0]) * zoom / 1000,
-        (y - (height / 2) + center[1]) * zoom / 1000
-    ];
-}
-function requestFrame() {
+export function requestFrame(brotVars = null) {
     let width = window.innerWidth;
     let height = window.innerHeight;
     let data = ctx.createImageData(width, height);
+    if (brotVars === null) {
+        brotVars = {
+            center: center,
+            stepSize: stepSize,
+            zoom: zoom,
+            k: k,
+        };
+    }
     for (let y = 0; y < height; y++) {
         for (let x = 0; x < width; x++) {
-            let c0 = (x - (width / 2)) * zoom / 1000 + center[0];
-            let c1 = (y - (height / 2)) * zoom / 1000 + center[1];
+            let c0 = (x - (width / 2)) * brotVars.zoom / 1000 + brotVars.center[0];
+            let c1 = (y - (height / 2)) * brotVars.zoom / 1000 + brotVars.center[1];
             let prev0 = 0;
             let prev1 = 0;
             let exitIter = -1;
@@ -110,5 +102,4 @@ window.addEventListener("keydown", (e) => {
         zoom *= 1.01;
     redraw = true;
 });
-export {};
 //# sourceMappingURL=mandelbrot.js.map

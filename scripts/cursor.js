@@ -1,6 +1,6 @@
 import { CursorMode, ctx, currentCursorMode, getCtx, getParticleManager } from "./main.js";
 import { ColorUtil, DrawUtil, RandomUtil, MouseUtil } from "./util.js";
-import { setForeverEvent, setMouseEvents, resetForeverEvent, resetMouseEvents, isMouseDown } from "./events.js";
+import { setForeverEvent, setMouseEvents, resetForeverEvent, resetMouseEvents, isMouseDown, resetKeyboardEvents } from "./events.js";
 import { scrollY } from "./events.js";
 import { getColor, getPrimaryColor, getSecondaryColor } from "./input.js";
 import Particle from "./components/Particle.js";
@@ -74,7 +74,6 @@ export function initCursor(ctx, currentCursorMode) {
                 }
             }
         };
-        resetMouseEvents();
         setForeverEvent(newForeverEvent);
     }
     else if (currentCursorMode === CursorMode.Expel) {
@@ -94,7 +93,6 @@ export function initCursor(ctx, currentCursorMode) {
             scroll() { },
         };
         setMouseEvents(newMouseEvents);
-        resetForeverEvent();
     }
     else if (currentCursorMode === CursorMode.SlowDrift) {
         const vx = Math.random() * 10 * (Math.random() < 0.5 ? -1 : 1);
@@ -113,7 +111,6 @@ export function initCursor(ctx, currentCursorMode) {
             scroll() { },
         };
         setMouseEvents(newMouseEvents);
-        resetForeverEvent();
     }
     else if (currentCursorMode === CursorMode.Constellations) {
         const newMouseEvents = {
@@ -132,7 +129,6 @@ export function initCursor(ctx, currentCursorMode) {
             scroll() { },
         };
         setMouseEvents(newMouseEvents);
-        resetForeverEvent();
     }
 }
 export function drawCursor() {

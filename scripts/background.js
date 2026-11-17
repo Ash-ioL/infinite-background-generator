@@ -5,10 +5,18 @@ import Particle from "./components/Particle.js";
 import ParticleManager from "./components/ParticleManager.js";
 import { getPerlinGrid, drawMap, drawCaves, drawIslands, drawRawPerlinGrid } from "./procedural/perlin.js";
 import { RNG } from "./util.js";
+import { setKeyboardEvents } from "./events.js";
+import { requestFrame } from "./procedural/mandelbrot.js";
 let numCircles = 50;
 let backgroundManager = new ParticleManager(getCtx());
 let perlinGrid;
 let seed = Math.floor(Math.random() * 1000);
+let mandelbrotVars = {
+    center: [0, 0],
+    stepSize: 0.05,
+    zoom: 2.25,
+    k: 50,
+};
 export function initBackground(ctx, currentBackgroundMode) {
     backgroundManager.clearAll();
     if (currentBackgroundMode === BackgroundMode.RandomDots) {
@@ -61,6 +69,25 @@ export function initBackground(ctx, currentBackgroundMode) {
     else if (currentBackgroundMode === BackgroundMode.Map) {
         seed = Math.floor(Math.random() * 1000);
         perlinGrid = getPerlinGrid(4);
+    }
+    else if (currentBackgroundMode === BackgroundMode.Mandelbrot) {
+        const newKeyboardEvents = {
+            keyPressses(e) {
+                if (e.key === "w")
+                    mandelbrotVars.center[1] -= mandelbrotVars.stepSize / mandelbrotVars.zoom;
+                if (e.key === "a")
+                    mandelbrotVars.center[0] -= mandelbrotVars.stepSize / mandelbrotVars.zoom;
+                if (e.key === "s")
+                    mandelbrotVars.center[1] += mandelbrotVars.stepSize / mandelbrotVars.zoom;
+                if (e.key === "d")
+                    mandelbrotVars.center[0] += mandelbrotVars.stepSize / mandelbrotVars.zoom;
+                if (e.key === "e")
+                    mandelbrotVars.zoom *= 0.99;
+                if (e.key === "q")
+                    mandelbrotVars.zoom *= 1.01;
+            }
+        };
+        setKeyboardEvents(newKeyboardEvents);
     }
 }
 export function drawBackground(canvas, ctx, currentBackgroundMode) {
@@ -119,6 +146,9 @@ export function drawBackground(canvas, ctx, currentBackgroundMode) {
     else if (currentBackgroundMode === BackgroundMode.Map) {
         RNG.setSeed(seed);
         drawMap(perlinGrid);
+    }
+    else if (currentBackgroundMode === BackgroundMode.Mandelbrot) {
+        ctx.putImageData(requestFrame(), 0, 0);
     }
 }
 //# sourceMappingURL=background.js.map

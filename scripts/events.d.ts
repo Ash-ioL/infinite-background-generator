@@ -4,6 +4,9 @@ export interface MouseEvents {
     hold(): void;
     scroll(): void;
 }
+export interface KeyboardEvents {
+    keyPressses(e: Event): void;
+}
 export interface ForeverEvent {
     run(): void;
 }
@@ -12,7 +15,9 @@ export declare function isMouseDown(): boolean;
 export declare function initMouseEvents(canvas: HTMLCanvasElement): void;
 export declare function mouseTasks(): void;
 export declare function setMouseEvents(newMouseEvents: MouseEvents): void;
+export declare function setKeyboardEvents(newKeyboardEvents: KeyboardEvents): void;
 export declare function resetMouseEvents(): void;
+export declare function resetKeyboardEvents(): void;
 export declare function setForeverEvent(newForeverEvent: ForeverEvent): void;
 export declare function resetForeverEvent(): void;
 //# sourceMappingURL=events.d.ts.map
