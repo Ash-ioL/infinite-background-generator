@@ -95,3 +95,32 @@ Simply open the website and mess around with the settings panel to the right. Tr
 **Examples:**
 
 <img width="1470" height="956" alt="image" src="https://github.com/user-attachments/assets/616c478d-3e17-4cd4-a7ae-bf88515b2d32" />
+
+### W4: "Algorithmic Generation Playground"
+
+**Demo Link:** [ash-iol.github.io/infinite-background-generator/versions/w3](https://ash-iol.github.io/infinite-background-generator/versions/w3)
+
+**Update overview:**
+
+This update adds 3 new algorithms: the Mandelbrot set, Bridson's algorithm, and one I invented: Bridcident Algorithm
+
+**How to test:**
+
+Simply open the website and mess around with the settings panel to the right. Try different configurations of cursor settings and background settings! To test what this specific update adds: try the Mandelbrot Fractal, Brison's Algorthm, and Bridcident Algorthm backgrounds.
+
+**What works:**
+
+- You can select backgrounds
+- You can select cursors
+- Special events for different cursors (like when click, when held down, when scroll)
+- (Scrolling with the flashlight lets you control its size)
+- Mandelbrot set allows pannigng and zooming with wasdqe
+
+**New changes from previous week:**
+
+- Mandelbrot Fractal, Bridson's Algorithm, Bridcident Algorithm
+
+**Examples:**
+
+<img width="1466" height="920" alt="image" src="https://github.com/user-attachments/assets/fb7370ef-1834-4c7e-8bdc-148b0fbef2db" />
+
