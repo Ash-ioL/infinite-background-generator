@@ -22,7 +22,7 @@ Scroll down to versions section for different instructions for different checkpo
 
 ### W1: "HTML Canvas Whiteboard"
 
-**Demo Link:** [ash-iol.github.io/infinite-background-generator/w1](https://ash-iol.github.io/infinite-background-generator/versions/w1)
+**Demo Link:** [ash-iol.github.io/infinite-background-generator/versions/w1](https://ash-iol.github.io/infinite-background-generator/versions/w1)
 
 **How to test:**
 
@@ -98,7 +98,7 @@ Simply open the website and mess around with the settings panel to the right. Tr
 
 ### W4: "Algorithmic Generation Playground"
 
-**Demo Link:** [ash-iol.github.io/infinite-background-generator/versions/w3](https://ash-iol.github.io/infinite-background-generator/versions/w3)
+**Demo Link:** [ash-iol.github.io/infinite-background-generator/versions/w4](https://ash-iol.github.io/infinite-background-generator/versions/w4)
 
 **Update overview:**
 
