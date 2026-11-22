@@ -23,7 +23,7 @@ function getNewPoint(x, y, vec) {
 function getRandomVector() {
     return [RNG.getRandom() * Math.SQRT2 + Math.SQRT2, RNG.getRandom() * Math.PI * 2];
 }
-function getBridcidentPoints() {
+export function getBridcidentPoints() {
     let k = 50;
     let points = [];
     let activeWave = [];
@@ -75,7 +75,7 @@ function getBridcidentPoints() {
     }
     return points;
 }
-function getPoints() {
+export function getPoints() {
     let k = 50;
     let points = [];
     let activeWave = [];
@@ -126,11 +126,12 @@ function getPoints() {
     }
     return points;
 }
-function drawPoints(points, rad, color = "black") {
+export function drawPoints(points, rad, color = "black") {
     let width = window.innerWidth;
     let height = window.innerHeight;
     let basis = Math.max(width, height);
     console.log(points);
+    ctx.fillStyle = color;
     for (const [x, y] of points) {
         ctx.beginPath();
         ctx.arc(x * basis, y * basis, rad, 0, Math.PI * 2);

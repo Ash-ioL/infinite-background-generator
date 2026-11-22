@@ -11,20 +11,24 @@ arrow.addEventListener("click", () => {
 });
 // readColor();
 // readBackground();
-let cursorSelect = document.getElementById("cursor");
-let backgroundSelect = document.getElementById("background");
+let cursorRadios = Array.from(document.getElementById("cursor-radios").querySelectorAll('input[type="radio"]'));
+let backgroundRadios = Array.from(document.getElementById("background-radios").querySelectorAll('input[type="radio"]'));
 let primaryColor = document.getElementById("primary-color");
 let secondaryColor = document.getElementById("secondary-color");
 let backgroundColor = document.getElementById("background-color");
-cursorSelect.addEventListener("change", () => {
-    readCursor();
+cursorRadios.forEach(radio => {
+    radio.addEventListener("change", () => {
+        readCursor();
+    });
 });
-backgroundSelect.addEventListener("change", () => {
-    readBackground();
+backgroundRadios.forEach(radio => {
+    radio.addEventListener("change", () => {
+        readBackground();
+    });
 });
 export function readCursor() {
     let newCursorMode = CursorMode.None;
-    let curVal = cursorSelect.value;
+    let curVal = cursorRadios.find(radio => radio.checked).getAttribute("value");
     if (curVal === "none") {
         // Nothing
     }
@@ -55,7 +59,7 @@ export function readCursor() {
 }
 export function readBackground() {
     let newBackgroundMode = BackgroundMode.Primary;
-    let curVal = backgroundSelect.value;
+    let curVal = backgroundRadios.find(radio => radio.checked).getAttribute("value");
     if (curVal === "random") {
         const enumValues = Object.values(BackgroundMode);
         const randomIndex = Math.floor(Math.random() * enumValues.length);

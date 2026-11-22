@@ -30,16 +30,16 @@ function getRandomVector(): Array<number> {
     return [RNG.getRandom()*Math.SQRT2 + Math.SQRT2, RNG.getRandom() * Math.PI * 2];
 }
 
-function getBridcidentPoints(): Array<Array<number>> {
+export function getBridcidentPoints(): Array<Array<number>> {
     let k = 50;
     let points: Array<Array<number>> = [];
     let activeWave: Array<Array<number>> = [];
     let nextWave: Array<Array<number>> = [];
 
     let width = 100;
-    let grid: Array<Array<PoissonBox>> = [];
+    let grid: Array<Array<BridcidentBox>> = [];
     for (let i = 0; i < width; i++) {
-        let row: Array<PoissonBox> = [];
+        let row: Array<BridcidentBox> = [];
         for (let j = 0; j < width; j++) {
             let newThingie = new BridcidentBox(
                 i > 0 ? grid[i-1]![j]! : null,
@@ -93,7 +93,7 @@ function getBridcidentPoints(): Array<Array<number>> {
     return points;
 }
 
-function getPoints(): Array<Array<number>> {
+export function getPoints(): Array<Array<number>> {
     let k = 50;
     let points: Array<Array<number>> = [];
     let activeWave: Array<Array<number>> = [];
@@ -156,11 +156,12 @@ function getPoints(): Array<Array<number>> {
 }
 
 
-function drawPoints(points: Array<Array<number>>, rad: number, color: string = "black") {
+export function drawPoints(points: Array<Array<number>>, rad: number, color: string = "black") {
     let width = window.innerWidth;
     let height = window.innerHeight;
     let basis = Math.max(width, height);
     console.log(points);
+    ctx.fillStyle = color;
     for (const [x, y] of points) {
         ctx.beginPath();
         ctx.arc(x! * basis, y! * basis, rad, 0, Math.PI * 2);

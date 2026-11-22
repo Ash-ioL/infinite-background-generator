@@ -7,6 +7,7 @@ import { getPerlinGrid, drawMap, drawCaves, drawIslands, drawRawPerlinGrid } fro
 import { RNG } from "./util.js";
 import { setKeyboardEvents } from "./events.js";
 import { requestFrame } from "./procedural/mandelbrot.js";
+import { drawPoints, getBridcidentPoints, getPoints } from "./procedural/poissonDiskSampling.js";
 let numCircles = 50;
 let backgroundManager = new ParticleManager(getCtx());
 let perlinGrid;
@@ -17,6 +18,7 @@ let mandelbrotVars = {
     zoom: 2.25,
     k: 50,
 };
+let bridsonPoints = [];
 export function initBackground(ctx, currentBackgroundMode) {
     backgroundManager.clearAll();
     if (currentBackgroundMode === BackgroundMode.RandomDots) {
@@ -89,6 +91,16 @@ export function initBackground(ctx, currentBackgroundMode) {
         };
         setKeyboardEvents(newKeyboardEvents);
     }
+    else if (currentBackgroundMode === BackgroundMode.Bridson) {
+        seed = Math.floor(Math.random() * 1000);
+        RNG.setSeed(seed);
+        bridsonPoints = getPoints();
+    }
+    else if (currentBackgroundMode === BackgroundMode.Bridcident) {
+        seed = Math.floor(Math.random() * 1000);
+        RNG.setSeed(seed);
+        bridsonPoints = getBridcidentPoints();
+    }
 }
 export function drawBackground(canvas, ctx, currentBackgroundMode) {
     if (currentBackgroundMode === BackgroundMode.Primary) {
@@ -149,6 +161,9 @@ export function drawBackground(canvas, ctx, currentBackgroundMode) {
     }
     else if (currentBackgroundMode === BackgroundMode.Mandelbrot) {
         ctx.putImageData(requestFrame(), 0, 0);
+    }
+    else if (currentBackgroundMode === BackgroundMode.Bridson || currentBackgroundMode === BackgroundMode.Bridcident) {
+        drawPoints(bridsonPoints, 1, getPrimaryColor());
     }
 }
 //# sourceMappingURL=background.js.map

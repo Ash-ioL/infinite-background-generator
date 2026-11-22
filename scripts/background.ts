@@ -8,6 +8,7 @@ import { RNG } from "./util.js";
 import type { KeyboardEvents } from "./events.js";
 import { setKeyboardEvents } from "./events.js";
 import { requestFrame, type BrotVars } from "./procedural/mandelbrot.js";
+import { drawPoints, getBridcidentPoints, getPoints } from "./procedural/poissonDiskSampling.js";
 
 let numCircles: number = 50;
 
@@ -21,6 +22,7 @@ let mandelbrotVars: BrotVars = {
     zoom: 2.25,
     k: 50,
 }
+let bridsonPoints: Array<Array<number>> = [];
 
 export function initBackground(ctx: CanvasRenderingContext2D, currentBackgroundMode: BackgroundMode) {
     backgroundManager.clearAll();
@@ -121,6 +123,14 @@ export function initBackground(ctx: CanvasRenderingContext2D, currentBackgroundM
         setKeyboardEvents(
             newKeyboardEvents
         );
+    } else if (currentBackgroundMode === BackgroundMode.Bridson) {
+        seed = Math.floor(Math.random() * 1000);
+        RNG.setSeed(seed);
+        bridsonPoints = getPoints();
+    } else if (currentBackgroundMode === BackgroundMode.Bridcident) {
+        seed = Math.floor(Math.random() * 1000);
+        RNG.setSeed(seed);
+        bridsonPoints = getBridcidentPoints();
     }
 }
 
@@ -169,5 +179,7 @@ export function drawBackground(canvas: HTMLCanvasElement, ctx: CanvasRenderingCo
         drawMap(perlinGrid);
     } else if (currentBackgroundMode === BackgroundMode.Mandelbrot) {
         ctx.putImageData(requestFrame(), 0, 0);
-    }
+    } else if (currentBackgroundMode === BackgroundMode.Bridson || currentBackgroundMode === BackgroundMode.Bridcident) {
+        drawPoints(bridsonPoints, 1, getPrimaryColor());
+    } 
 }
