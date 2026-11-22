@@ -101,7 +101,7 @@ export class MouseUtil {
     static #speed: number = 0; // pixels per second
     static #prevTime: number = Date.now() / 1000;
     static #idleTimeout: number | undefined = undefined;
-
+    
     static initMouseListener() {
         window.addEventListener("mousemove", (event) => {
             if (MouseUtil.#idleTimeout !== undefined) {
