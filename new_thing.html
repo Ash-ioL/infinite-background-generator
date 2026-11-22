@@ -12,91 +12,99 @@
     <div id="side-panel">
         <div id="arrow"></div>
         <div id="inner">
-            <label>Select Cursor Mode:</label>
+            <label class="main-header">Select Cursor Mode:</label>
+
             <div class="radio-group">
-                <label class="radio-option">
-                    <input type="radio" name="cursor" value="none"> None
-                </label>
-                <label class="radio-option">
-                    <input type="radio" name="cursor" value="random"> Random
-                </label>
-                <label class="radio-option">
-                    <input type="radio" name="cursor" value="click-dots"> Click Circles
-                </label>
-                <label class="radio-option">
-                    <input type="radio" name="cursor" value="hold-dots"> Hold Circles
-                </label>
-                <label class="radio-option">
-                    <input type="radio" name="cursor" value="flashlight"> Flashlight
-                </label>
-                <label class="radio-option">
-                    <input type="radio" name="cursor" value="expel"> Expel
-                </label>
-                <label class="radio-option">
-                    <input type="radio" name="cursor" value="slow-drift"> Slow Drift
-                </label>
-                <label class="radio-option">
-                    <input type="radio" name="cursor" value="constellations"> Constellations
-                </label>
+                <input type="search" id="cursor-search" placeholder="Search cursors...">
+                <div class="selections">
+                    <label class="radio-option">
+                        <input type="radio" name="cursor" value="none"> None
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="cursor" value="random"> Random
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="cursor" value="click-dots"> Click Circles
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="cursor" value="hold-dots"> Hold Circles
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="cursor" value="flashlight"> Flashlight
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="cursor" value="expel"> Expel
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="cursor" value="slow-drift"> Slow Drift
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="cursor" value="constellations"> Constellations
+                    </label>
+                </div>
             </div>
 
-            <label>Select Background:</label>
-            <input type="search" id="background-search" placeholder="Search backgrounds...">
+            
+            <label class="main-header">Select Background:</label>
+            
             <div class="radio-group">
-                <label class="radio-option">
-                    <input type="radio" name="background" value="none"> None
-                </label>
-                <label class="radio-option">
-                    <input type="radio" name="background" value="random"> Random
-                </label>
-                <label class="radio-option">
-                    <input type="radio" name="background" value="primary"> Primary
-                </label>
-                <label class="radio-option">
-                    <input type="radio" name="background" value="secondary"> Secondary
-                </label>
-                <label class="radio-option">
-                    <input type="radio" name="background" value="checkerboard"> Checkerboard
-                </label>
-                <label class="radio-option">
-                    <input type="radio" name="background" value="random-dots"> Random Dots
-                </label>
-                <label class="radio-option">
-                    <input type="radio" name="background" value="particles"> Particles
-                </label>
-                <label class="radio-option">
-                    <input type="radio" name="background" value="random-constellations"> Random Constellations
-                </label>
-                <label class="radio-option">
-                    <input type="radio" name="background" value="shimmering-stars"> Shimmering Stars
-                </label>
-                <label class="radio-option">
-                    <input type="radio" name="background" value="particle-collisions"> Sticky Particle Collisions
-                </label>
-                <label class="radio-option">
-                    <input type="radio" name="background" value="bfs-islands"> BFS Islands
-                </label>
-                <label class="radio-option">
-                    <input type="radio" name="background" value="cave-carving"> Cave Carving
-                </label>
-                <label class="radio-option">
-                    <input type="radio" name="background" value="perlin-noise"> Perlin Noise
-                </label>
-                <label class="radio-option">
-                    <input type="radio" name="background" value="map"> Map
-                </label>
-                <label class="radio-option">
-                    <input type="radio" name="background" value="bridcident"> Bridcident Algorithm
-                </label>
-                <label class="radio-option">
-                    <input type="radio" name="background" value="bridson"> Bridson's Algorithm
-                </label>
-                <label class="radio-option">
-                    <input type="radio" name="background" value="mandelbrot"> Mandelbrot Fractal
-                </label>
+                <input type="search" id="background-search" placeholder="Search backgrounds...">
+                <div class="selections">
+                    <label class="radio-option">
+                        <input type="radio" name="background" value="none"> None
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="background" value="random"> Random
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="background" value="primary"> Primary
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="background" value="secondary"> Secondary
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="background" value="checkerboard"> Checkerboard
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="background" value="random-dots"> Random Dots
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="background" value="particles"> Particles
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="background" value="random-constellations"> Random Constellations
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="background" value="shimmering-stars"> Shimmering Stars
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="background" value="particle-collisions"> Sticky Particle Collisions
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="background" value="bfs-islands"> BFS Islands
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="background" value="cave-carving"> Cave Carving
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="background" value="perlin-noise"> Perlin Noise
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="background" value="map"> Map
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="background" value="bridcident"> Bridcident Algorithm
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="background" value="bridson"> Bridson's Algorithm
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="background" value="mandelbrot"> Mandelbrot Fractal
+                    </label>
+                </div>
             </div>
 
-            <label>Select Colors:</label>
+            <label class="main-header">Select Colors:</label>
             <div id="colors">
                 <div class="color-option">
                     <label for="primary-color">Primary</label>
@@ -115,5 +123,6 @@
     </div>
     <script type="module" src="./scripts/main.js"></script>
     <script type="module" src="./scripts/input.js"></script>
+    <script type="module" src="./scripts/search.js"></script>
 </body>
 </html>
