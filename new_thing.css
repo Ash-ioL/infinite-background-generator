@@ -27,11 +27,11 @@ body {
     display: flex;
     flex-direction: row;
     gap: 1vw;
-    align-items: safe center;
+    align-items: center;
     transition: all 0.3s ease;
     padding-left: 10px;
-    padding-right: 20px;
-    overflow-y: hidden;
+    padding-right: 0px;
+    overflow-y: auto;
     overflow-x: hidden;
     box-sizing: border-box;
 }
@@ -76,7 +76,12 @@ body {
     gap: 1.5vh;
     width: 100%;
     min-width: 0;
+    min-height: 0;
+    max-height: 100%;
     overflow-y: auto;
+    padding-right: 20px;
+    scrollbar-width: thin; 
+    scrollbar-color: #ffffff #010101; 
 }
 
 #inner select {
@@ -96,6 +101,14 @@ body {
     &:hover {
         border-color: rgba(255, 255, 255, 0.400);
     }
+}
+
+span#title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 5vh 0;
+    
 }
 
 .main-header {
