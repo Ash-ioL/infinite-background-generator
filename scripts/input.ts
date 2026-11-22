@@ -94,8 +94,6 @@ export function readBackground() {
         newBackgroundMode = BackgroundMode.Map;
     } else if (curVal == "mandelbrot") {
         newBackgroundMode = BackgroundMode.Mandelbrot;
-    } else if (curVal == "bridcident") {
-        newBackgroundMode = BackgroundMode.Bridcident;
     } else if (curVal == "bridson") {
         newBackgroundMode = BackgroundMode.Bridson;
     } else {

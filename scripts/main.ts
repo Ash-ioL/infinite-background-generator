@@ -46,7 +46,6 @@ enum BackgroundMode {
     CaveCarving = "cave-carving",
     Map = "map",
     Bridson = "bridson",
-    Bridcident = "bridcident",
     Mandelbrot = "mandelbrot",
 }
 
