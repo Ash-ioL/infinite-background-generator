@@ -5,6 +5,7 @@ import { setForeverEvent, setMouseEvents, resetForeverEvent, resetMouseEvents, i
 import { scrollY } from "./events.js";
 import type { ForeverEvent, MouseEvents } from "./events.js";
 import { getColor, getPrimaryColor, getSecondaryColor } from "./input.js";
+import { startLoading, stopLoading } from "./loading.js";
 
 export interface LoopSet {
     before?(): void;
@@ -18,17 +19,30 @@ let curLoop: LoopSet = {
     cursor() {},
 }
 
+let animId: number | null = null;
+
 export class task_scheduler {
     static mainLoop() {
-        curLoop.before?.();
         curLoop.background();
         curLoop.cursor();
         curLoop.after?.();
-        requestAnimationFrame(() => task_scheduler.mainLoop());
+        animId = requestAnimationFrame(() => task_scheduler.mainLoop());
     }
 }
 
 export function setMainLoop(newLoop: LoopSet) {
+    if (animId !== null) {
+        cancelAnimationFrame(animId);
+    }
+
     curLoop = newLoop;
-    requestAnimationFrame(() => task_scheduler.mainLoop());
+    startLoading();
+
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            curLoop.before?.();
+            stopLoading();
+            task_scheduler.mainLoop();
+        });
+    });
 }

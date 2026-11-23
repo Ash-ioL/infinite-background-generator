@@ -16,6 +16,8 @@ let backgroundRadios = Array.from(document.getElementById("background-radios").q
 let primaryColor = document.getElementById("primary-color");
 let secondaryColor = document.getElementById("secondary-color");
 let backgroundColor = document.getElementById("background-color");
+cursorRadios[0].checked = true;
+backgroundRadios[0].checked = true;
 cursorRadios.forEach(radio => {
     radio.addEventListener("change", () => {
         readCursor();
@@ -104,9 +106,6 @@ export function readBackground() {
     }
     else if (curVal == "mandelbrot") {
         newBackgroundMode = BackgroundMode.Mandelbrot;
-    }
-    else if (curVal == "bridcident") {
-        newBackgroundMode = BackgroundMode.Bridcident;
     }
     else if (curVal == "bridson") {
         newBackgroundMode = BackgroundMode.Bridson;

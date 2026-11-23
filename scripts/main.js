@@ -43,7 +43,6 @@ var BackgroundMode;
     BackgroundMode["CaveCarving"] = "cave-carving";
     BackgroundMode["Map"] = "map";
     BackgroundMode["Bridson"] = "bridson";
-    BackgroundMode["Bridcident"] = "bridcident";
     BackgroundMode["Mandelbrot"] = "mandelbrot";
 })(BackgroundMode || (BackgroundMode = {}));
 export let currentCursorMode = CursorMode.Flashlight;

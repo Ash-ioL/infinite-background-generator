@@ -21,6 +21,9 @@ let primaryColor: HTMLInputElement = document.getElementById("primary-color") as
 let secondaryColor: HTMLInputElement = document.getElementById("secondary-color") as HTMLInputElement;
 let backgroundColor: HTMLInputElement = document.getElementById("background-color") as HTMLInputElement;
 
+(cursorRadios[0] as HTMLInputElement)!.checked = true;
+(backgroundRadios[0] as HTMLInputElement)!.checked = true;
+
 cursorRadios.forEach(radio => {
     radio.addEventListener("change", () => {
         readCursor();
