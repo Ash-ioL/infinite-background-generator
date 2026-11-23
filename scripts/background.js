@@ -9,7 +9,7 @@ import { setKeyboardEvents } from "./events.js";
 import { requestFrame } from "./algorithms/mandelbrot.js";
 import { drawPoints, getPoints } from "./algorithms/poissonDiskSampling.js";
 import { drawGrid, updateGridIfTime } from "./algorithms/conways.js";
-import { drawMaze, getMaze } from "./algorithms/maze.js";
+import { drawMaze, makeMaze, clearVisited, setMode, traverseIfTime, putInitPointer } from "./algorithms/maze.js";
 let numCircles = 50;
 let backgroundManager = new ParticleManager(getCtx());
 let perlinGrid;
@@ -22,6 +22,7 @@ let mandelbrotVars = {
 };
 let bridsonPoints = [];
 let maze = [];
+let isTraversingMaze = false;
 export function initBackground(ctx, currentBackgroundMode) {
     backgroundManager.clearAll();
     if (currentBackgroundMode === BackgroundMode.RandomDots) {
@@ -105,7 +106,31 @@ export function initBackground(ctx, currentBackgroundMode) {
     }
     else if (currentBackgroundMode === BackgroundMode.Maze) {
         seed = Math.floor(Math.random() * 1000);
-        maze = getMaze();
+        makeMaze();
+        const newKeyboardEvents = {
+            keyPressses(e) {
+                if (e.key === "b") {
+                    clearVisited();
+                    setMode("BFS");
+                    putInitPointer();
+                    isTraversingMaze = true;
+                    console.log("BFS");
+                }
+                if (e.key === "d") {
+                    clearVisited();
+                    setMode("DFS");
+                    putInitPointer();
+                    isTraversingMaze = true;
+                    console.log("DFS");
+                }
+                if (e.key === "r") {
+                    clearVisited();
+                    isTraversingMaze = false;
+                    console.log("Reset Pointers");
+                }
+            }
+        };
+        setKeyboardEvents(newKeyboardEvents);
     }
 }
 export function drawBackground(canvas, ctx, currentBackgroundMode) {
@@ -176,7 +201,13 @@ export function drawBackground(canvas, ctx, currentBackgroundMode) {
     }
     else if (currentBackgroundMode === BackgroundMode.Maze) {
         RNG.setSeed(seed);
-        drawMaze(canvas, ctx, maze, getPrimaryColor());
+        drawMaze(canvas, ctx, getPrimaryColor(), getSecondaryColor());
+        if (isTraversingMaze) {
+            if (traverseIfTime()) {
+                isTraversingMaze = false;
+            }
+        }
+        console.log(isTraversingMaze);
     }
 }
 //# sourceMappingURL=background.js.map

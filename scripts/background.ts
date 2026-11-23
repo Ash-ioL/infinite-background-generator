@@ -10,7 +10,7 @@ import { setKeyboardEvents } from "./events.js";
 import { requestFrame, type BrotVars } from "./algorithms/mandelbrot.js";
 import { drawPoints, getPoints } from "./algorithms/poissonDiskSampling.js";
 import { drawGrid, updateGridIfTime } from "./algorithms/conways.js";
-import { drawMaze, getMaze } from "./algorithms/maze.js";
+import { drawMaze, makeMaze, clearVisited, setMode, traverseIfTime, putInitPointer } from "./algorithms/maze.js";
 import type { MazeBox } from "./components/MazeBox.js";
 
 let numCircles: number = 50;
@@ -27,6 +27,7 @@ let mandelbrotVars: BrotVars = {
 }
 let bridsonPoints: Array<Array<number>> = [];
 let maze: Array<Array<MazeBox>> = [];
+let isTraversingMaze: boolean = false;
 
 export function initBackground(ctx: CanvasRenderingContext2D, currentBackgroundMode: BackgroundMode) {
     backgroundManager.clearAll();
@@ -136,7 +137,33 @@ export function initBackground(ctx: CanvasRenderingContext2D, currentBackgroundM
         seed = Math.floor(Math.random() * 1000);
     } else if (currentBackgroundMode === BackgroundMode.Maze) {
         seed = Math.floor(Math.random() * 1000);
-        maze = getMaze();
+        makeMaze();
+        const newKeyboardEvents: KeyboardEvents = {
+            keyPressses(e: KeyboardEvent) {
+                if (e.key === "b") {
+                    clearVisited();
+                    setMode("BFS");
+                    putInitPointer();
+                    isTraversingMaze = true;
+                    console.log("BFS");
+                }
+                if (e.key === "d") {
+                    clearVisited();
+                    setMode("DFS");
+                    putInitPointer();
+                    isTraversingMaze = true;
+                    console.log("DFS");
+                }
+                if (e.key === "r"){
+                    clearVisited();
+                    isTraversingMaze = false;
+                    console.log("Reset Pointers");
+                }
+            }
+        }
+        setKeyboardEvents(
+            newKeyboardEvents
+        );
     }
 }
 
@@ -191,6 +218,12 @@ export function drawBackground(canvas: HTMLCanvasElement, ctx: CanvasRenderingCo
         drawGrid(canvas, ctx, getPrimaryColor(), getSecondaryColor());
     } else if (currentBackgroundMode === BackgroundMode.Maze) {
         RNG.setSeed(seed);
-        drawMaze(canvas, ctx, maze, getPrimaryColor());
+        drawMaze(canvas, ctx, getPrimaryColor(), getSecondaryColor());
+        if (isTraversingMaze) {
+            if (traverseIfTime()) {
+                isTraversingMaze = false;
+            }
+        }
+        console.log(isTraversingMaze);
     }
 }

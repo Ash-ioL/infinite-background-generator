@@ -16,8 +16,11 @@ import { MazeBox } from "../components/MazeBox.js";
 const grid: Array<Array<MazeBox>> = [];
 const visited: Array<Array<boolean>> = [];
 const pointers: Deque<number> = new Deque<number>();
+let mode = "DFS";
 
 let mazeSize = 50;
+let prevTime = -1;
+let interval = 100;
 
 function expandIdx(i: number) {
     return [i / mazeSize, i % mazeSize];
@@ -28,7 +31,7 @@ function compressIdx(i: number, j: number) {
     return i * mazeSize + j;
 }
 
-function getMaze(): Array<Array<MazeBox>> {
+function makeMaze(): Array<Array<MazeBox>> {
     grid.length = 0;
     visited.length = 0;
     for (let i = 0; i < mazeSize; i++) {
@@ -40,16 +43,21 @@ function getMaze(): Array<Array<MazeBox>> {
         }
     }
     dfs(...randPoint());
-    clearVisted();
+    clearVisited();
     return grid;
 }
 
-function clearVisted() {
+function clearVisited() {
     for (let i = 0; i < mazeSize; i++) {
         for (let j = 0; j < mazeSize; j++) {
             visited[i]![j]! = false;
         }
     }
+}
+
+function putInitPointer() {
+    pointers.push(0);
+    visited[0]![0]! = true;
 }
 
 function randPoint(): [number, number] {
@@ -90,7 +98,53 @@ function dfs(i: number, j: number) {
     }
 }
 
-function drawMaze(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D, grid: Array<Array<MazeBox>>, primaryColor = "white") {
+function findEnd(): boolean {
+    console.log(visited);
+    if (pointers.isEmpty()) return true;
+    const idx = pointers.pop()!;
+    const [i, j] = expandIdx(idx);
+    const directions = [
+        [0, 1], 
+        [1, 0], 
+        [0, -1],
+        [-1, 0],
+    ];
+    for (const [di, dj] of directions) {
+        const ni = i! + di!;
+        const nj = j! + dj!;
+        if (ni === mazeSize - 1 && nj === mazeSize - 1) {
+            visited[ni]![nj]! = true;
+            return true;
+        }
+        if (ni >= 0 && ni < mazeSize && nj >= 0 && nj < mazeSize && !visited[ni]![nj]!) {
+            if (
+                (j!+1 < mazeSize && di === 0 && dj === 1 && !grid[i!]![j!+1]!.left) ||
+                (i!+1 < mazeSize && di === 1 && dj === 0 && !grid[i!+1]![j!]!.top) ||
+                (di === 0 && dj === -1 && !grid[i!]![j!]!.left) ||
+                (di === -1 && dj === 0 && !grid[i!]![j!]!.top)
+            ) {
+                visited[ni]![nj]! = true;
+                if (mode === "DFS") {
+                    pointers.push(compressIdx(ni, nj));
+                } else if (mode === "BFS") {
+                    pointers.pushleft(compressIdx(ni, nj));
+                }
+            }
+        }
+    }
+    return false;
+}
+
+function traverseIfTime() {
+    const currentTime = Date.now();
+    if (currentTime - prevTime >= interval) {
+        prevTime = currentTime;
+        return findEnd();
+    }
+    return false;
+}
+
+function drawMaze(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D, primaryColor = "white", secondaryColor = "white") {
     const w = Math.min(canvas.width, canvas.height);
     const cellSize = w / mazeSize;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -112,8 +166,27 @@ function drawMaze(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D, grid
                 ctx.lineTo(x, y + cellSize);
                 ctx.stroke();
             }
+            if (visited[i]![j]! || (i === 0 && j === 0) || (i === mazeSize - 1 && j === mazeSize - 1)) {
+                ctx.fillStyle = secondaryColor;
+                if (i === 0 && j === 0) {
+                    ctx.fillStyle = "green";
+                } else if (i === mazeSize - 1 && j === mazeSize - 1) {
+                    ctx.fillStyle = "red";
+                }
+                ctx.fillRect(x, y, cellSize, cellSize);
+            }
         }
     }
+    ctx.moveTo(0, mazeSize * cellSize);
+    ctx.lineTo(mazeSize * cellSize, mazeSize * cellSize);
+    ctx.stroke();
+    ctx.moveTo(mazeSize * cellSize, 0);
+    ctx.lineTo(mazeSize * cellSize, mazeSize * cellSize);
+    ctx.stroke();
 }
 
-export { getMaze, drawMaze };
+function setMode(modeStr: string) {
+    mode = modeStr;
+}
+
+export { makeMaze, drawMaze, traverseIfTime, setMode, clearVisited, putInitPointer };
