@@ -3,6 +3,7 @@ let isLoading = false;
 // Rules:
 // No neigbhors, dead, 1 neigthbor, dead, 2 neighbors, alive
 // 3 live neighbors cause a new cell to be born
+// 4 r more neighbors = deadd
 // 128, 64, 32, 16, 8, 4, 2, 1
 let grid = [0, 0, 0, 0, 0, 0, 0, 0];
 let nextGrid = [0, 0, 0, 0, 0, 0, 0, 0];
@@ -11,7 +12,7 @@ let prevUpdates = 0;
 let updateStreak = 1;
 function initGrid() {
     for (let i = 0; i < grid.length; i++) {
-        grid[i] = Math.floor(Math.random() * 256);
+        grid[i] = Math.floor(Math.random() * 256) & Math.floor(Math.random() * 256) & Math.floor(Math.random() * 256);
     }
     clearNextGrid();
 }
