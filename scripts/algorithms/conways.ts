@@ -1,3 +1,5 @@
+import { RNG } from "../util.js";
+
 let isLoading = false;
 
 // Conways game of life
@@ -17,7 +19,7 @@ let updateStreak = 1;
 
 function initGrid() {
     for (let i = 0; i < grid.length; i++) {
-        grid[i] = Math.floor(Math.random() * 256) & Math.floor(Math.random() * 256) & Math.floor(Math.random() * 256);
+        grid[i] = Math.floor(RNG.getRandom() * 256) & Math.floor(RNG.getRandom() * 256) & Math.floor(RNG.getRandom() * 256);
     }
     clearNextGrid();
 }
@@ -74,7 +76,7 @@ function updateGrid() {
     copyNextGrid();
     if (updates == prevUpdates) {
         updateStreak++;
-        if (updateStreak > 3) {
+        if (updateStreak > 5) {
             initGrid();
             updateStreak = 1;
         }

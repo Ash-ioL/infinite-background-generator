@@ -45,6 +45,7 @@ var BackgroundMode;
     BackgroundMode["Bridson"] = "bridson";
     BackgroundMode["Mandelbrot"] = "mandelbrot";
     BackgroundMode["Conways"] = "conways";
+    BackgroundMode["Maze"] = "maze";
 })(BackgroundMode || (BackgroundMode = {}));
 export let currentCursorMode = CursorMode.Flashlight;
 export let currentBackgroundMode = BackgroundMode.Particles;

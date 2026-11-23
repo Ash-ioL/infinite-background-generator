@@ -48,6 +48,7 @@ enum BackgroundMode {
     Bridson = "bridson",
     Mandelbrot = "mandelbrot",
     Conways = "conways",
+    Maze = "maze",
 }
 
 export let currentCursorMode: CursorMode = CursorMode.Flashlight as CursorMode;

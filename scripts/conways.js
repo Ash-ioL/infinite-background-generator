@@ -72,7 +72,7 @@ function updateGrid() {
     copyNextGrid();
     if (updates == prevUpdates) {
         updateStreak++;
-        if (updateStreak > 3) {
+        if (updateStreak > 5) {
             initGrid();
             updateStreak = 1;
         }

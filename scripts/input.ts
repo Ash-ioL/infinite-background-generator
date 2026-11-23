@@ -101,6 +101,8 @@ export function readBackground() {
         newBackgroundMode = BackgroundMode.Bridson;
     } else if (curVal == "conways") {
         newBackgroundMode = BackgroundMode.Conways;
+    } else if (curVal == "maze") {
+        newBackgroundMode = BackgroundMode.Maze;
     } else {
         newBackgroundMode = BackgroundMode.None;
     }

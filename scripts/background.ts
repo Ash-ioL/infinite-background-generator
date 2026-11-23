@@ -3,13 +3,15 @@ import { ColorUtil, DrawUtil, MouseUtil, RandomUtil } from "./util.js";
 import { getColor, getPrimaryColor, getSecondaryColor } from "./input.js";
 import Particle from "./components/Particle.js";
 import ParticleManager from "./components/ParticleManager.js";
-import { getPerlinGrid, drawMap, drawCaves, drawIslands, drawRawPerlinGrid } from "./procedural/perlin.js";
+import { getPerlinGrid, drawMap, drawCaves, drawIslands, drawRawPerlinGrid } from "./algorithms/perlin.js";
 import { RNG } from "./util.js";
 import type { KeyboardEvents } from "./events.js";
 import { setKeyboardEvents } from "./events.js";
-import { requestFrame, type BrotVars } from "./procedural/mandelbrot.js";
-import { drawPoints, getPoints } from "./procedural/poissonDiskSampling.js";
-import { drawGrid, updateGridIfTime } from "./conways.js";
+import { requestFrame, type BrotVars } from "./algorithms/mandelbrot.js";
+import { drawPoints, getPoints } from "./algorithms/poissonDiskSampling.js";
+import { drawGrid, updateGridIfTime } from "./algorithms/conways.js";
+import { drawMaze, getMaze } from "./algorithms/maze.js";
+import type { MazeBox } from "./components/MazeBox.js";
 
 let numCircles: number = 50;
 
@@ -24,6 +26,7 @@ let mandelbrotVars: BrotVars = {
     k: 50,
 }
 let bridsonPoints: Array<Array<number>> = [];
+let maze: Array<Array<MazeBox>> = [];
 
 export function initBackground(ctx: CanvasRenderingContext2D, currentBackgroundMode: BackgroundMode) {
     backgroundManager.clearAll();
@@ -103,20 +106,22 @@ export function initBackground(ctx: CanvasRenderingContext2D, currentBackgroundM
         seed = Math.floor(Math.random() * 1000);
     } else if (currentBackgroundMode === BackgroundMode.PerlinNoise) {
         seed = Math.floor(Math.random() * 1000);
+        RNG.setSeed(seed);
         perlinGrid = getPerlinGrid(4);
     } else if (currentBackgroundMode === BackgroundMode.CaveCarving) {
         seed = Math.floor(Math.random() * 1000);
     } else if (currentBackgroundMode === BackgroundMode.Map) {
         seed = Math.floor(Math.random() * 1000);
+        RNG.setSeed(seed);
         perlinGrid = getPerlinGrid(4);
     } else if (currentBackgroundMode === BackgroundMode.Mandelbrot) {
 
         const newKeyboardEvents: KeyboardEvents = {
             keyPressses(e: KeyboardEvent) {
-                if (e.key === "w") mandelbrotVars.center[1]! -= mandelbrotVars.stepSize / mandelbrotVars.zoom; 
-                if (e.key === "a") mandelbrotVars.center[0]! -= mandelbrotVars.stepSize / mandelbrotVars.zoom;
-                if (e.key === "s") mandelbrotVars.center[1]! += mandelbrotVars.stepSize / mandelbrotVars.zoom;
-                if (e.key === "d") mandelbrotVars.center[0]! += mandelbrotVars.stepSize / mandelbrotVars.zoom;
+                if (e.key === "w") mandelbrotVars.center[1]! -= mandelbrotVars.stepSize * mandelbrotVars.zoom; 
+                if (e.key === "a") mandelbrotVars.center[0]! -= mandelbrotVars.stepSize * mandelbrotVars.zoom;
+                if (e.key === "s") mandelbrotVars.center[1]! += mandelbrotVars.stepSize * mandelbrotVars.zoom;
+                if (e.key === "d") mandelbrotVars.center[0]! += mandelbrotVars.stepSize * mandelbrotVars.zoom;
                 if (e.key === "e") mandelbrotVars.zoom *= 0.99;
                 if (e.key === "q") mandelbrotVars.zoom *= 1.01;
             }
@@ -126,8 +131,12 @@ export function initBackground(ctx: CanvasRenderingContext2D, currentBackgroundM
         );
     } else if (currentBackgroundMode === BackgroundMode.Bridson) {
         seed = Math.floor(Math.random() * 1000);
-        RNG.setSeed(seed);
         bridsonPoints = getPoints();
+    } else if (currentBackgroundMode === BackgroundMode.Conways) {
+        seed = Math.floor(Math.random() * 1000);
+    } else if (currentBackgroundMode === BackgroundMode.Maze) {
+        seed = Math.floor(Math.random() * 1000);
+        maze = getMaze();
     }
 }
 
@@ -172,7 +181,6 @@ export function drawBackground(canvas: HTMLCanvasElement, ctx: CanvasRenderingCo
         RNG.setSeed(seed);
         drawCaves();
     } else if (currentBackgroundMode === BackgroundMode.Map) {
-        RNG.setSeed(seed);
         drawMap(perlinGrid);
     } else if (currentBackgroundMode === BackgroundMode.Mandelbrot) {
         ctx.putImageData(requestFrame(), 0, 0);
@@ -181,5 +189,8 @@ export function drawBackground(canvas: HTMLCanvasElement, ctx: CanvasRenderingCo
     } else if (currentBackgroundMode === BackgroundMode.Conways) {
         updateGridIfTime();
         drawGrid(canvas, ctx, getPrimaryColor(), getSecondaryColor());
+    } else if (currentBackgroundMode === BackgroundMode.Maze) {
+        RNG.setSeed(seed);
+        drawMaze(canvas, ctx, maze, getPrimaryColor());
     }
 }
