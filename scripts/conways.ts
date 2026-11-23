@@ -1,5 +1,4 @@
 let isLoading = false;
-let loadingScreen: HTMLDivElement = document.getElementById("loading-background") as HTMLDivElement;
 
 // Conways game of life
 
@@ -11,18 +10,9 @@ let loadingScreen: HTMLDivElement = document.getElementById("loading-background"
 
 let grid: Array<number> = [0, 0, 0, 0, 0, 0, 0, 0];
 let nextGrid: Array<number> = [0, 0, 0, 0, 0, 0, 0, 0];
-let c = document.getElementById("loading-canvas") as HTMLCanvasElement;
-let ctx = c.getContext("2d") as CanvasRenderingContext2D;
-c.width = loadingScreen.clientWidth;
-c.height = loadingScreen.clientWidth;
 let prevTime: number = Date.now();
 let prevUpdates = 0;
 let updateStreak = 1;
-
-loadingScreen.addEventListener("resize", () => {
-    c.width = loadingScreen.clientWidth;
-    c.height = loadingScreen.clientWidth;
-});
 
 function initGrid() {
     for (let i = 0; i < grid.length; i++) {
@@ -31,17 +21,17 @@ function initGrid() {
     clearNextGrid();
 }
 
-export function startLoading() {
-    isLoading = true;
-    loadingScreen.style.display = "";
-    initGrid();
-    loop();
-}
+// export function startLoading() {
+//     isLoading = true;
+//     loadingScreen.style.display = "";
+//     initGrid();
+//     loop();
+// }
 
-export function stopLoading() {
-    loadingScreen.style.display = "none";
-    isLoading = false;
-}
+// export function stopLoading() {
+//     loadingScreen.style.display = "none";
+//     isLoading = false;
+// }
 
 function clearNextGrid() {
     for (let i = 0; i < nextGrid.length; i++) {
@@ -55,7 +45,7 @@ function copyNextGrid() {
     }
 }
 
-async function updateGrid() {
+function updateGrid() {
     let i = 128;
     let updates = 0;
     while (i > 0) {
@@ -93,12 +83,23 @@ async function updateGrid() {
     prevUpdates = updates;
 }
 
-async function drawGrid() {
-    ctx.clearRect(0, 0, c.width, c.height);
-    ctx.strokeStyle = "white";
-    ctx.fillStyle = "white";
+export function updateGridIfTime() {
+    if (prevTime === -1) prevTime = Date.now();
+    let curTime = Date.now();
+    let deltaTime = curTime - prevTime;
+    if (deltaTime > 150) {
+        prevTime = curTime;
+        updateGrid();
+    } 
+}
+
+export function drawGrid(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D, primaryColor = "white",  secondaryColor = "white") {
+    let w = Math.min(canvas.width, canvas.height);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.strokeStyle = secondaryColor;
+    ctx.fillStyle = primaryColor;
     ctx.lineWidth = 3;
-    let cellWidth = c.width / grid.length;
+    let cellWidth = w / grid.length;
     for (let i = 0; i < grid.length; i++) {
         for (let j = 0; j < 8; j++) {
             let mask = 2 ** j;
@@ -110,18 +111,18 @@ async function drawGrid() {
     }
 }
 
-loop();
+// loop();
 
-async function loop() {
-    if (prevTime === -1) prevTime = Date.now();
-    let curTime = Date.now();
-    let deltaTime = curTime - prevTime;
-    if (deltaTime > 150) {
-        prevTime = curTime;
-        clearNextGrid();
-        updateGrid();
-        drawGrid();
-    }
-    if (isLoading)
-        requestAnimationFrame(loop);
-}
+// function loop() {
+//     if (prevTime === -1) prevTime = Date.now();
+//     let curTime = Date.now();
+//     let deltaTime = curTime - prevTime;
+//     if (deltaTime > 150) {
+//         prevTime = curTime;
+//         clearNextGrid();
+//         updateGrid();
+//         drawGrid();
+//     }
+//     if (isLoading)
+//         requestAnimationFrame(loop);
+// }

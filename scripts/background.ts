@@ -9,6 +9,7 @@ import type { KeyboardEvents } from "./events.js";
 import { setKeyboardEvents } from "./events.js";
 import { requestFrame, type BrotVars } from "./procedural/mandelbrot.js";
 import { drawPoints, getPoints } from "./procedural/poissonDiskSampling.js";
+import { drawGrid, updateGridIfTime } from "./conways.js";
 
 let numCircles: number = 50;
 
@@ -177,5 +178,8 @@ export function drawBackground(canvas: HTMLCanvasElement, ctx: CanvasRenderingCo
         ctx.putImageData(requestFrame(), 0, 0);
     } else if (currentBackgroundMode === BackgroundMode.Bridson) {
         drawPoints(bridsonPoints, 1, getPrimaryColor());
-    } 
+    } else if (currentBackgroundMode === BackgroundMode.Conways) {
+        updateGridIfTime();
+        drawGrid(canvas, ctx, getPrimaryColor(), getSecondaryColor());
+    }
 }

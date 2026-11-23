@@ -110,6 +110,9 @@ export function readBackground() {
     else if (curVal == "bridson") {
         newBackgroundMode = BackgroundMode.Bridson;
     }
+    else if (curVal == "conways") {
+        newBackgroundMode = BackgroundMode.Conways;
+    }
     else {
         newBackgroundMode = BackgroundMode.None;
     }

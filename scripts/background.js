@@ -8,6 +8,7 @@ import { RNG } from "./util.js";
 import { setKeyboardEvents } from "./events.js";
 import { requestFrame } from "./procedural/mandelbrot.js";
 import { drawPoints, getPoints } from "./procedural/poissonDiskSampling.js";
+import { drawGrid, updateGridIfTime } from "./conways.js";
 let numCircles = 50;
 let backgroundManager = new ParticleManager(getCtx());
 let perlinGrid;
@@ -159,6 +160,10 @@ export function drawBackground(canvas, ctx, currentBackgroundMode) {
     }
     else if (currentBackgroundMode === BackgroundMode.Bridson) {
         drawPoints(bridsonPoints, 1, getPrimaryColor());
+    }
+    else if (currentBackgroundMode === BackgroundMode.Conways) {
+        updateGridIfTime();
+        drawGrid(canvas, ctx, getPrimaryColor(), getSecondaryColor());
     }
 }
 //# sourceMappingURL=background.js.map

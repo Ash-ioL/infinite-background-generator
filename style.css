@@ -245,26 +245,3 @@ div.radio-group div.selections {
     background-color: rgba(0, 0, 0, 0.8);
     z-index: 9999;
 }
-
-#loading-screen {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: min(60vh, 60vw);
-    aspect-ratio: 1 / 1;
-    background-color: rgba(0, 0, 0, 1);
-    z-index: 10000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-#loading-canvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 10001;
-}

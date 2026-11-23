@@ -25,7 +25,8 @@ declare enum BackgroundMode {
     CaveCarving = "cave-carving",
     Map = "map",
     Bridson = "bridson",
-    Mandelbrot = "mandelbrot"
+    Mandelbrot = "mandelbrot",
+    Conways = "conways"
 }
 export declare let currentCursorMode: CursorMode;
 export declare let currentBackgroundMode: BackgroundMode;

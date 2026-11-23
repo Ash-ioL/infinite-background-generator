@@ -44,6 +44,7 @@ var BackgroundMode;
     BackgroundMode["Map"] = "map";
     BackgroundMode["Bridson"] = "bridson";
     BackgroundMode["Mandelbrot"] = "mandelbrot";
+    BackgroundMode["Conways"] = "conways";
 })(BackgroundMode || (BackgroundMode = {}));
 export let currentCursorMode = CursorMode.Flashlight;
 export let currentBackgroundMode = BackgroundMode.Particles;
