@@ -1,5 +1,6 @@
 // DFS Maze Generation
 
+import { Deque } from "../components/Deque.js";
 import { MazeBox } from "../components/MazeBox.js";
 
 // Perfect Maze - Every point has exactly one path tha tcan be reached form any other point, no loops
@@ -14,8 +15,18 @@ import { MazeBox } from "../components/MazeBox.js";
 
 const grid: Array<Array<MazeBox>> = [];
 const visited: Array<Array<boolean>> = [];
+const pointers: Deque<number> = new Deque<number>();
 
 let mazeSize = 50;
+
+function expandIdx(i: number) {
+    return [i / mazeSize, i % mazeSize];
+}
+
+
+function compressIdx(i: number, j: number) {
+    return i * mazeSize + j;
+}
 
 function getMaze(): Array<Array<MazeBox>> {
     grid.length = 0;
@@ -29,7 +40,16 @@ function getMaze(): Array<Array<MazeBox>> {
         }
     }
     dfs(...randPoint());
+    clearVisted();
     return grid;
+}
+
+function clearVisted() {
+    for (let i = 0; i < mazeSize; i++) {
+        for (let j = 0; j < mazeSize; j++) {
+            visited[i]![j]! = false;
+        }
+    }
 }
 
 function randPoint(): [number, number] {
@@ -38,6 +58,7 @@ function randPoint(): [number, number] {
     return [x, y];
 }
 function dfs(i: number, j: number) {
+    visited[i]![j]! = true;
     const directions = [
         [0, 1], 
         [1, 0], 
