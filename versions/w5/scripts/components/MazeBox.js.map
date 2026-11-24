@@ -1,0 +1,1 @@
+{"version":3,"file":"MazeBox.js","sourceRoot":"","sources":["MazeBox.ts"],"names":[],"mappings":"AAAA,MAAM,OAAO,OAAO;IAChB,IAAI,CAAU;IACd,GAAG,CAAU;IACb,YAAY,IAAa,EAAE,GAAY;QACnC,IAAI,CAAC,IAAI,GAAG,IAAI,CAAC;QACjB,IAAI,CAAC,GAAG,GAAG,GAAG,CAAC;IACnB,CAAC;CACJ"}
