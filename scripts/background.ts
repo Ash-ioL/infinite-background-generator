@@ -215,7 +215,7 @@ export function drawBackground(canvas: HTMLCanvasElement, ctx: CanvasRenderingCo
         drawPoints(bridsonPoints, 1, getPrimaryColor());
     } else if (currentBackgroundMode === BackgroundMode.Conways) {
         updateGridIfTime();
-        drawGrid(canvas, ctx, getPrimaryColor(), getSecondaryColor(), getBackgroundColor());
+        drawGrid(canvas, ctx, getPrimaryColor(), getSecondaryColor());
     } else if (currentBackgroundMode === BackgroundMode.Maze) {
         RNG.setSeed(seed);
         drawMaze(canvas, ctx, getPrimaryColor(), getSecondaryColor());

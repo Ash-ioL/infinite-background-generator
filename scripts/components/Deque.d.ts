@@ -11,5 +11,6 @@ export declare class Deque<T> {
     right(): T | undefined;
     isEmpty(): boolean;
     size(): number;
+    clear(): void;
 }
 //# sourceMappingURL=Deque.d.ts.map

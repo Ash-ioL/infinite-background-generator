@@ -51,5 +51,11 @@ export class Deque {
     size() {
         return this.length;
     }
+    clear() {
+        this.items = {};
+        this.head = 0;
+        this.tail = 0;
+        this.length = 0;
+    }
 }
 //# sourceMappingURL=Deque.js.map

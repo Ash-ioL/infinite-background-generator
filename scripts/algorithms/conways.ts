@@ -16,10 +16,11 @@ let nextGrid: Array<number> = [0, 0, 0, 0, 0, 0, 0, 0];
 let prevTime: number = Date.now();
 let prevUpdates = 0;
 let updateStreak = 1;
+let interval = 50;
 
 function initGrid() {
     for (let i = 0; i < grid.length; i++) {
-        grid[i] = Math.floor(RNG.getRandom() * 256) & Math.floor(RNG.getRandom() * 256) & Math.floor(RNG.getRandom() * 256);
+        grid[i] = Math.floor(RNG.getRandom() * 256);// & Math.floor(RNG.getRandom() * 256);
     }
     clearNextGrid();
 }
@@ -49,6 +50,7 @@ function copyNextGrid() {
 }
 
 function updateGrid() {
+    clearNextGrid();
     let i = 128;
     let updates = 0;
     while (i > 0) {
@@ -76,7 +78,7 @@ function updateGrid() {
     copyNextGrid();
     if (updates == prevUpdates) {
         updateStreak++;
-        if (updateStreak > 5) {
+        if (updateStreak > 10) {
             initGrid();
             updateStreak = 1;
         }
@@ -90,17 +92,17 @@ export function updateGridIfTime() {
     if (prevTime === -1) prevTime = Date.now();
     let curTime = Date.now();
     let deltaTime = curTime - prevTime;
-    if (deltaTime > 150) {
+    if (deltaTime > interval) {
         prevTime = curTime;
         updateGrid();
     } 
 }
 
-export function drawGrid(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D, primaryColor = "white",  secondaryColor = "white", backgroundColor = "black") {
+export function drawGrid(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D, primaryColor = "white",  secondaryColor = "white") {
     let w = Math.min(canvas.width, canvas.height);
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.strokeStyle = secondaryColor;
-    
+    ctx.fillStyle = primaryColor;
     ctx.lineWidth = 3;
     let cellWidth = w / grid.length;
     for (let i = 0; i < grid.length; i++) {
@@ -108,11 +110,8 @@ export function drawGrid(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2
             let mask = 2 ** j;
             ctx.strokeRect(i * cellWidth, j * cellWidth, cellWidth, cellWidth);
             if (grid[i]! & mask) {
-                ctx.fillStyle = primaryColor;
-            } else {
-                ctx.fillStyle = backgroundColor;
-            }
-            ctx.fillRect(i * cellWidth, j * cellWidth, cellWidth, cellWidth);
+                ctx.fillRect(i * cellWidth, j * cellWidth, cellWidth, cellWidth);
+            } 
         }
     }
 }

@@ -20,7 +20,7 @@ let mode = "DFS";
 
 let mazeSize = 50;
 let prevTime = -1;
-let interval = 100;
+let interval = 2;
 
 function expandIdx(i: number) {
     return [Math.floor(i / mazeSize), i % mazeSize];

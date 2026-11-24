@@ -14,7 +14,7 @@ const pointers = new Deque();
 let mode = "DFS";
 let mazeSize = 50;
 let prevTime = -1;
-let interval = 100;
+let interval = 2;
 function expandIdx(i) {
     return [Math.floor(i / mazeSize), i % mazeSize];
 }
@@ -44,6 +44,7 @@ function clearVisited() {
     }
 }
 function putInitPointer() {
+    pointers.clear();
     pointers.push(0);
     visited[0][0] = true;
 }

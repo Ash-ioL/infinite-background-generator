@@ -197,7 +197,7 @@ export function drawBackground(canvas, ctx, currentBackgroundMode) {
     }
     else if (currentBackgroundMode === BackgroundMode.Conways) {
         updateGridIfTime();
-        drawGrid(canvas, ctx, getPrimaryColor(), getSecondaryColor(), getBackgroundColor());
+        drawGrid(canvas, ctx, getPrimaryColor(), getSecondaryColor());
     }
     else if (currentBackgroundMode === BackgroundMode.Maze) {
         RNG.setSeed(seed);
