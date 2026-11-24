@@ -118,7 +118,42 @@ Simply open the website and mess around with the settings panel to the right. Tr
 
 **New changes from previous week:**
 
-- Mandelbrot Fractal, Bridson's Algorithm, Bridcident Algorithm
+- Mandelbrot Fractal
+- Bridson's Algorithm
+- Bridcident Algorithm
+
+**Examples:**
+
+<img width="1466" height="920" alt="image" src="https://github.com/user-attachments/assets/fb7370ef-1834-4c7e-8bdc-148b0fbef2db" />
+
+### W5: "Algorithmic Generation Playground 2"
+
+**Demo Link:** [ash-iol.github.io/infinite-background-generator/versions/w5](https://ash-iol.github.io/infinite-background-generator/versions/w5)
+
+**Update overview:**
+
+This update cleans up some design, adds random perfect mazes with bfs and dfs search animations, and adds a conway's game of life randomly generated infinite simulation.
+
+**How to test:**
+
+Simply open the website and mess around with the settings panel to the right. Try different configurations of cursor settings and background settings! To test what this specific update adds: try the new cleaned up control panel in the right, try the conways game of life background, and try the maze background and press b to run BFS and press d to run DFS.
+
+**What works:**
+
+- You can select backgrounds
+- You can select cursors
+- Special events for different cursors (like when click, when held down, when scroll)
+- (Scrolling with the flashlight lets you control its size)
+- Mandelbrot set allows pannigng and zooming with wasdqe
+- Responsive and clean control panel
+- Maze allows bfs and dfs animations with b and d.
+
+**New changes from previous week:**
+
+- Clean and responsive control panel with search feature
+- Conway's Game of Life simulation (runs automatically and resets when it hits a dead end)
+- DFS perfect maze generation
+- DFS and BFS search algorthm animations for the maze
 
 **Examples:**
 
