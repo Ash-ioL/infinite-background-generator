@@ -1,6 +1,6 @@
 # Infinite Background Generator
 
-An procedural infinite random background generator using HTML Canvas. 
+An procedural infinite random background generator using HTML Canvas. Note - I've been working on this for a while and I have to change the name now because it's now a lot more than an infinite background generator
 
 **Deployed at:** [ash-iol.github.io/infinite-background-generator/](https://ash-iol.github.io/infinite-background-generator/)
 
