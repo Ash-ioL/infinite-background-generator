@@ -1,6 +1,6 @@
 import { BackgroundMode, ctx, getCtx, getParticleManager } from "./main.js";
 import { ColorUtil, DrawUtil, MouseUtil, RandomUtil } from "./util.js";
-import { getColor, getPrimaryColor, getSecondaryColor } from "./input.js";
+import { getBackgroundColor, getColor, getPrimaryColor, getSecondaryColor } from "./input.js";
 import Particle from "./components/Particle.js";
 import ParticleManager from "./components/ParticleManager.js";
 import { getPerlinGrid, drawMap, drawCaves, drawIslands, drawRawPerlinGrid } from "./algorithms/perlin.js";
@@ -215,7 +215,7 @@ export function drawBackground(canvas: HTMLCanvasElement, ctx: CanvasRenderingCo
         drawPoints(bridsonPoints, 1, getPrimaryColor());
     } else if (currentBackgroundMode === BackgroundMode.Conways) {
         updateGridIfTime();
-        drawGrid(canvas, ctx, getPrimaryColor(), getSecondaryColor());
+        drawGrid(canvas, ctx, getPrimaryColor(), getSecondaryColor(), getBackgroundColor());
     } else if (currentBackgroundMode === BackgroundMode.Maze) {
         RNG.setSeed(seed);
         drawMaze(canvas, ctx, getPrimaryColor(), getSecondaryColor());

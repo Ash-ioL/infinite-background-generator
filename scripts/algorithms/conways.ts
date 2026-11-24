@@ -96,11 +96,11 @@ export function updateGridIfTime() {
     } 
 }
 
-export function drawGrid(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D, primaryColor = "white",  secondaryColor = "white") {
+export function drawGrid(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D, primaryColor = "white",  secondaryColor = "white", backgroundColor = "black") {
     let w = Math.min(canvas.width, canvas.height);
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.strokeStyle = secondaryColor;
-    ctx.fillStyle = primaryColor;
+    
     ctx.lineWidth = 3;
     let cellWidth = w / grid.length;
     for (let i = 0; i < grid.length; i++) {
@@ -108,8 +108,11 @@ export function drawGrid(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2
             let mask = 2 ** j;
             ctx.strokeRect(i * cellWidth, j * cellWidth, cellWidth, cellWidth);
             if (grid[i]! & mask) {
-                ctx.fillRect(i * cellWidth, j * cellWidth, cellWidth, cellWidth);
+                ctx.fillStyle = primaryColor;
+            } else {
+                ctx.fillStyle = backgroundColor;
             }
+            ctx.fillRect(i * cellWidth, j * cellWidth, cellWidth, cellWidth);
         }
     }
 }

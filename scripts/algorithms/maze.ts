@@ -23,7 +23,7 @@ let prevTime = -1;
 let interval = 100;
 
 function expandIdx(i: number) {
-    return [i / mazeSize, i % mazeSize];
+    return [Math.floor(i / mazeSize), i % mazeSize];
 }
 
 
@@ -56,6 +56,7 @@ function clearVisited() {
 }
 
 function putInitPointer() {
+    pointers.clear();
     pointers.push(0);
     visited[0]![0]! = true;
 }

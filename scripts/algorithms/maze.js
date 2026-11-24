@@ -16,7 +16,7 @@ let mazeSize = 50;
 let prevTime = -1;
 let interval = 100;
 function expandIdx(i) {
-    return [i / mazeSize, i % mazeSize];
+    return [Math.floor(i / mazeSize), i % mazeSize];
 }
 function compressIdx(i, j) {
     return i * mazeSize + j;

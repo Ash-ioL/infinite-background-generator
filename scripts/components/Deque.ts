@@ -59,4 +59,11 @@ export class Deque<T> {
     size(): number {
         return this.length;
     }
+
+    clear(): void {
+        this.items = {};
+        this.head = 0;
+        this.tail = 0;
+        this.length = 0;
+    }
 }
