@@ -91,7 +91,7 @@ export function requestFrame(brotVars: BrotVars | null = null): ImageData {
 
     }
 
-    return data;    
+    return data;
 }
 
 function draw() {
@@ -111,12 +111,12 @@ function loop() {
 
 loop();
 
-window.addEventListener("keydown", (e) => {
-    if (e.key === "w") center[1]! -= stepSize / zoom; 
-    if (e.key === "a") center[0]! -= stepSize / zoom;
-    if (e.key === "s") center[1]! += stepSize / zoom;
-    if (e.key === "d") center[0]! += stepSize / zoom;
-    if (e.key === "e") zoom *= 0.99;
-    if (e.key === "q") zoom *= 1.01;
-    redraw = true;
-});
+// window.addEventListener("keydown", (e) => {
+//     if (e.key === "w") center[1]! -= stepSize / zoom; 
+//     if (e.key === "a") center[0]! -= stepSize / zoom;
+//     if (e.key === "s") center[1]! += stepSize / zoom;
+//     if (e.key === "d") center[0]! += stepSize / zoom;
+//     if (e.key === "e") zoom *= 0.99;
+//     if (e.key === "q") zoom *= 1.01;
+//     redraw = true;
+// });

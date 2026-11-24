@@ -1,7 +1,7 @@
 import { drawBackground } from "./background.js";
 import ParticleManager from "./components/ParticleManager.js";
 import { drawCursor } from "./cursor.js";
-import { initMouseEvents, mouseTasks, resetForeverEvent, resetKeyboardEvents, resetMouseEvents } from "./events.js";
+import { initMouseEvents, mouseTasks, resetForeverEvent, resetKeyboardEvents, resetMouseEvents, initKeyboardEvents} from "./events.js";
 import { readBackground, readCursor, resetBackgroundAndCursor } from "./input.js";
 import { setMainLoop, type LoopSet } from "./taskScheduler.js";
 import { DrawUtil } from "./util.js";
@@ -96,6 +96,7 @@ readCursor();
 readBackground();
 
 initMouseEvents(canvas);
+initKeyboardEvents();
 
 
 export function getCtx() {

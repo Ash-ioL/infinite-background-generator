@@ -41,6 +41,11 @@ export function initMouseEvents(canvas) {
     });
     recordWheel();
 }
+export function initKeyboardEvents() {
+    window.addEventListener("keydown", (e) => {
+        currentKeyboardEvents.keyPressses(e);
+    });
+}
 export function mouseTasks() {
     if (mouseIsDown) {
         currentMouseEvents.hold();
