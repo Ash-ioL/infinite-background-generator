@@ -157,6 +157,6 @@ Simply open the website and mess around with the settings panel to the right. Tr
 
 **Examples:**
 
-<img width="1466" height="920" alt="image" src="https://github.com/user-attachments/assets/fb7370ef-1834-4c7e-8bdc-148b0fbef2db" />
+<img width="1470" height="918" alt="image" src="https://github.com/user-attachments/assets/4fd35f3a-39b0-4169-88ec-810ee79da583" />
 
 To Do: Add 1-0 BFS, make conways size expandable, maybe clickable and runnable, add instrucitons for each mode.
